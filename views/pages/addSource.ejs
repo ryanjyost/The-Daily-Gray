@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	 <% include ../partials/head.ejs %>
+  </head>
+  <body>
+	<div id="main-cont">
+		<h1>ADD SOURCE</h1>
+
+		<form
+			id="addSource"
+			action="/admin/addSource"
+			method="post"
+		>
+			<input name="name" id="name" placeholder="name">
+			<input name="url" id="url" placeholder="url">
+			<textarea name="desc" id="desc" placeholder="desc"></textarea>
+			<input name="descSource" id="descSource" placeholder="descSource">
+			<input name="wikiURL" id="wikiURL" placeholder="wikiURL">
+			<input name="imageURL" id="imageURL" placeholder="imageURL">
+			<input type="submit" value="Add Source">
+
+		</form>
+	</div><!-- main cont -->
+  </body>
+</html>

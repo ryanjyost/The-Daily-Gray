@@ -1,0 +1,17 @@
+<% for(var post of postArray) { %>
+  	<a href="<%= post.url %>" target="_blank" >
+	    <div class="post-cont">
+		    <span class="image-url"><%= post.image.url %></span>
+
+		    	<div class="post-img-cont">
+		    		<div class="post-info">
+		    			<h6 class="category">no category</h6>
+		    			<h4><%= post.title %></h4>
+		    			<h5><%= post.description %></h5>
+		    			<h5 id="source"><%= post.source %></h5>
+		    		</div>
+		    	</div>
+	    </div>
+	  </a>
+ <% } %>
+

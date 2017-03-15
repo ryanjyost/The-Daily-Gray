@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	 <% include ../partials/head.ejs %>
+  </head>
+  <body>
+
+	<header>
+		<% include ../partials/header.ejs %>
+	</header>
+
+	<div class="source-cont">
+		<div class="source-info">
+			<img class="source-img" src="<%= imageURL %>"/>
+			<h6><%= desc %> - <i><%= descSource %></i> </h6>
+			<a href="<%= url %>" class="source-btn" target="_blank">Visit Site</a>
+			<a href="<%= wikiURL %>" class="source-btn" target="_blank">Wikipedia Page</a>
+		</div>
+		<!-- map filter -->
+	  	<div class="map-cont">
+			<% include ../partials/map.ejs %>
+		</div>
+	</div>
+
+  </body>
+</html>
