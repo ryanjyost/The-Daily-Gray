@@ -261,26 +261,26 @@ class App extends Component {
 		}
 	}
 
-	// componentDidMount(){
-	// 	superagent
-	// 		.get('/api/post')
-	// 		.query(null)
-	// 		.set('Accept', 'application/json')
-	// 		.end((err, response) => {
-	// 			if(err){
-	// 				console.log(err)
-	// 				return
-	// 			}
+	componentDidMount(){
+		superagent
+			.get('/api/post')
+			.query(null)
+			.set('Accept', 'application/json')
+			.end((err, response) => {
+				if(err){
+					console.log(err)
+					return
+				}
 
-	// 			let results = response.body.results.reverse();
-	// 			console.log(results)
+				let results = response.body.results.reverse();
+				console.log(results)
 
-	// 			this.setState({
-	// 				postList: results
-	// 			})
+				this.setState({
+					postList: results
+				})
 
-	// 		})
-	// }
+			})
+	}
 
 	handleSearchChange(searchInput){
 		let newSearchInput = Object.assign('', this.state.searchInput)
@@ -320,9 +320,6 @@ class App extends Component {
 					<Header/>
 
 					<div id="main-cont">
-					<pre>{JSON.stringify(this.state.map, null, 2)}</pre>
-					<pre>{JSON.stringify(this.state.searchInput, null, 2)}</pre>
-
 						<div className="sidebar">
 							<Search
 								updateSearch={this.handleSearchChange}
@@ -331,6 +328,7 @@ class App extends Component {
 							<MapFilter
 								updateCurrentHoveredBox={this.handleBoxHover}
 								updateMapHover={this.handleMapHover}
+								currentHoveredBox = {this.state.map.currentHoveredBox}
 							/>
 						</div>
 

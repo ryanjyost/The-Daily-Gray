@@ -4603,13 +4603,15 @@ exports.default = {
 		borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
 		borderWidth: 1,
 		borderStyle: 'solid',
+		zIndex: 1,
+		position: 'relative',
 
 		//opacity based on vertical position in map
 		y1: { opacity: .81 },
 		y2: { opacity: .62 },
 		y3: { opacity: .43 },
 		y4: { opacity: .26 },
-		y5: { opacity: .05, borderColor: '#000' },
+		y5: { opacity: 1, backgroundColor: '#fafafa' },
 
 		//set colors based on horizontal position in map
 		x1: { backgroundColor: "#A9D0F5" },
@@ -4622,14 +4624,18 @@ exports.default = {
 		x0: { backgroundColor: "#585858" },
 		y0: { width: '100%', height: 40 },
 
-		span: {}
+		label: {
+			lineHeight: '48px',
+			textAlign: 'center',
+			width: '100%',
+			display: 'inline-block',
+			fontSize: 8,
+			zIndex: 1000,
 
-	},
-
-	postList: {
-		display: 'inline-block',
-		padding: 0,
-		margin: 0
+			fakeNews: {
+				fontSize: 14
+			}
+		}
 
 	},
 
@@ -4644,8 +4650,8 @@ exports.default = {
 		container: {
 			listStyleType: 'none',
 			background: '#ffffff',
-			margin: 10
-
+			margin: '10px 0px 10px 0px',
+			width: '100%'
 		},
 
 		//set colors based on horizontal position in map
@@ -4681,7 +4687,8 @@ exports.default = {
 
 		ratingLabel: {
 			float: 'right',
-			fontSize: 10
+			fontSize: 10,
+			display: 'inline-block'
 		}
 	}
 
@@ -9714,15 +9721,18 @@ var MapFilter = function (_Component) {
 
 			gridArray.reverse();
 
+			// render the grid
 			var grid = gridArray.map(function (coordinate, i) {
 
 				var x = coordinate[0],
-				    y = coordinate[1];
-
-				var opacity = 1 - .19 * y;
-				var boxStyle = _styles2.default.box,
+				    y = coordinate[1],
+				    boxStyle = _styles2.default.box,
 				    yStyle = _styles2.default.box['y' + y],
 				    xStyle = _styles2.default.box['x' + x];
+
+				if (y == 5) {
+					xStyle = { opacity: 1, backgroundColor: '#fafafa' };
+				}
 
 				return _react2.default.createElement(_Box2.default, {
 					key: i.toString(),
@@ -9730,10 +9740,10 @@ var MapFilter = function (_Component) {
 					x: x,
 					y: y,
 					boxStyle: Object.assign({}, boxStyle, yStyle, xStyle),
-					spanStyle: _styles2.default.box.span,
+					boxLabelStyle: _styles2.default.box.label,
 					handleMouseEnter: _this2.handleBoxMouseEnter
 				});
-			});
+			}); //end map
 
 			return _react2.default.createElement(
 				'div',
@@ -9814,7 +9824,7 @@ var PostList = function (_Component) {
 
 				if (searchInput.length > 1) {
 					return filteredPostArray = postArray.filter(function (post) {
-						return post['title'].toLowerCase().search(searchInput) > -1;
+						return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1;
 					});
 				}
 
@@ -9836,7 +9846,7 @@ var PostList = function (_Component) {
 			});
 			return _react2.default.createElement(
 				'ul',
-				{ style: _styles2.default.postList },
+				{ className: 'postList' },
 				postList
 			);
 		}
@@ -10902,6 +10912,19 @@ var Box = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+
+			//conditional labelling
+			var label = '';
+
+			if (this.props.y == 5) {
+				var topRowLabels = ['', 'News', 'Facts', 'Stats', 'Interview', 'Other'];
+				label = topRowLabels[this.props.x];
+			}
+
+			if (this.props.y == 0) {
+				label = 'FAKE NEWS';
+			}
+
 			return _react2.default.createElement(
 				'div',
 				{
@@ -10912,8 +10935,8 @@ var Box = function (_Component) {
 				},
 				_react2.default.createElement(
 					'span',
-					{ style: this.props.spanStyle },
-					this.props.num
+					{ style: this.props.boxLabelStyle },
+					label
 				)
 			);
 		}
@@ -24557,28 +24580,26 @@ var App = function (_Component) {
 		return _this;
 	}
 
-	// componentDidMount(){
-	// 	superagent
-	// 		.get('/api/post')
-	// 		.query(null)
-	// 		.set('Accept', 'application/json')
-	// 		.end((err, response) => {
-	// 			if(err){
-	// 				console.log(err)
-	// 				return
-	// 			}
-
-	// 			let results = response.body.results.reverse();
-	// 			console.log(results)
-
-	// 			this.setState({
-	// 				postList: results
-	// 			})
-
-	// 		})
-	// }
-
 	_createClass(App, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			_superagent2.default.get('/api/post').query(null).set('Accept', 'application/json').end(function (err, response) {
+				if (err) {
+					console.log(err);
+					return;
+				}
+
+				var results = response.body.results.reverse();
+				console.log(results);
+
+				_this2.setState({
+					postList: results
+				});
+			});
+		}
+	}, {
 		key: 'handleSearchChange',
 		value: function handleSearchChange(searchInput) {
 			var newSearchInput = Object.assign('', this.state.searchInput);
@@ -24623,16 +24644,6 @@ var App = function (_Component) {
 					'div',
 					{ id: 'main-cont' },
 					_react2.default.createElement(
-						'pre',
-						null,
-						JSON.stringify(this.state.map, null, 2)
-					),
-					_react2.default.createElement(
-						'pre',
-						null,
-						JSON.stringify(this.state.searchInput, null, 2)
-					),
-					_react2.default.createElement(
 						'div',
 						{ className: 'sidebar' },
 						_react2.default.createElement(_Search2.default, {
@@ -24641,7 +24652,8 @@ var App = function (_Component) {
 						}),
 						_react2.default.createElement(_MapFilter2.default, {
 							updateCurrentHoveredBox: this.handleBoxHover,
-							updateMapHover: this.handleMapHover
+							updateMapHover: this.handleMapHover,
+							currentHoveredBox: this.state.map.currentHoveredBox
 						})
 					),
 					_react2.default.createElement(_PostList2.default, {

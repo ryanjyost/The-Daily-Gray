@@ -11,6 +11,20 @@ class Box extends Component {
 	}
 
 	render(){
+
+		//conditional labelling
+		let label = '';
+
+		if(this.props.y == 5 ){
+			const topRowLabels = ['','News', 'Facts', 'Stats', 'Interview', 'Other' ]
+			label = topRowLabels[this.props.x];
+		}
+
+		if(this.props.y == 0){
+			label = 'FAKE NEWS'
+		}
+
+
 		return (
 			<div
 				className='box'
@@ -18,7 +32,7 @@ class Box extends Component {
 				onMouseEnter={this.handleMouseEnter}
 				onMouseLeave={this.handleMouseLeave}
 			>
-				<span style={this.props.spanStyle}>{this.props.num}</span>
+				<span style={this.props.boxLabelStyle}>{label}</span>
 			</div>
 		)
 	}

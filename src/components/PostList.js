@@ -26,7 +26,7 @@ class PostList extends Component {
 
 			if(searchInput.length > 1){
 				return filteredPostArray = postArray.filter((post) => {
-				 return post['title'].toLowerCase().search(searchInput) > -1;
+				 return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1 ;
 				})
 			}
 
@@ -48,7 +48,7 @@ class PostList extends Component {
 			)
 		})
 		return (
-			<ul style={styles.postList}>
+			<ul className="postList">
 					{postList}
 			</ul>
 		)

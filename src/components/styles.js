@@ -13,13 +13,15 @@ export default {
 		borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
 		borderWidth: 1,
 		borderStyle: 'solid',
+		zIndex: 1,
+		position: 'relative',
 
 		//opacity based on vertical position in map
 		y1: {opacity: .81},
 		y2: {opacity: .62},
 		y3: {opacity: .43},
 		y4: {opacity: .26},
-		y5: {opacity: .05, borderColor:'#000'},
+		y5: {opacity: 1, backgroundColor: '#fafafa'},
 
 		//set colors based on horizontal position in map
 		x1: {backgroundColor: "#A9D0F5"},
@@ -32,16 +34,18 @@ export default {
 		x0: {backgroundColor: "#585858"},
 		y0: {width:'100%', height: 40},
 
-		span: {
+		label: {
+			lineHeight: '48px',
+			textAlign:'center',
+			width:'100%',
+			display:'inline-block',
+			fontSize: 8,
+			zIndex: 1000,
 
-		}
-
-	},
-
-	postList:{
-		display: 'inline-block',
-		padding: 0,
-		margin:0,
+			fakeNews: {
+				fontSize: 14
+			}
+		},
 
 	},
 
@@ -56,8 +60,8 @@ export default {
 		container:{
 			listStyleType: 'none',
 			background: '#ffffff',
-			margin:10
-
+			margin:'10px 0px 10px 0px',
+			width:'100%',
 		},
 
 		//set colors based on horizontal position in map
@@ -75,8 +79,6 @@ export default {
 		factBorder: {
 			borderColor: '#fff'
 		},
-
-
 
 		description:{
 			margin:'2px 0px 2px 0px',
@@ -96,6 +98,7 @@ export default {
 		ratingLabel:{
 			float:'right',
 			fontSize: 10,
+			display: 'inline-block'
 		}
 	}
 

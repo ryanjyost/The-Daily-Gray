@@ -6,14 +6,6 @@ body {
 	margin: auto;
 }
 
-	@media(min-width:600px){
-		body{
-			/* height:100vh;
-			overflow-y:hidden; */
-		}
-	}
-
-
 	a{color: #585858;}
 	a:hover{text-decoration: none;}
 	a:focus{text-decoration: none;}
@@ -87,6 +79,7 @@ header{
 
 	header h6{
 		margin: 2px;
+		display: block;
 	}
 
 		@media(min-width:600px){
@@ -139,23 +132,6 @@ Main divs
 		flex-wrap:  wrap;
 	}
 
-	@media(min-width:600px){
-		#main-cont{
-			height:90vh;
-
-		}
-	}
-
-/*====================
-POSTS
-====================*/
-
-.postList{
-
-}
-
-	.post-
-
 /*=============================
 Add Source Form
 */
@@ -171,43 +147,6 @@ Add Source Form
 Single Source Page
 */
 
-	.source-cont{
-		display: block;
-		vertical-align: top;
-		margin: auto;
-		width: 350px;
-	}
-
-		.source-info{
-			padding: 14px 0px 5px 20px;
-		}
-
-		.source-info h1{
-			text-align: left;
-		}
-
-		.source-info h6{
-			line-height: 14px;
-			padding: 0px 5px 0px 0px;
-			max-width: 350px;
-		}
-
-	.source-btn{
-		color: #585858;
-		font-size: 14px;
-		border: 1px solid #f2f2f2;
-		padding: 10px 20px 10px 20px;
-		margin: 10px 25px 10px 0px;
-		display: inline-block;
-		border-radius: 3px;
-		background-color: #fafafa;
-	}
-
-	.source-img{
-		width: auto;
-		max-height: 30px;
-		max-width: 100%;
-	}
 
 	/*====================
 	Sidebar
@@ -217,18 +156,36 @@ Single Source Page
 		width: 100%;
 		padding: 10px 0px 10px 0px;
 		display: block;
-
 	}
 
-		@media(min-width: 600px){
+	.postList{
+		max-width: 500px;
+    	width: 100%;
+    	margin:auto;
+    	display: inline-block;
+		padding: 0px;
+	}
+
+		@media(min-width: 768px){
+			body{
+				height:90vh;
+				overflow:hidden;
+			}
+
 			.sidebar{
-				padding: 20px;
+				padding: 20px 10px 20px 20px;
 				display: inline-block;
 				float: left;
 				width:290px !important;
-
 			}
 
+			.postList{
+				max-width: 450px;
+				margin: 0px !important;
+				padding: 10px 0px 0px 0px !important;
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
 		}
 
 		/*=============================
@@ -236,7 +193,8 @@ Single Source Page
 		*/
 
 		#search-input{
-			width: 95%;
+			width:95% !important;
+			max-width: 300px;
 			margin: auto;
 			display: block;
 			height: 50px;
@@ -250,9 +208,11 @@ Single Source Page
 				outline: 1px solid #d8d8d8;
 			}
 
-			@media(min-width:600px){
+			@media(min-width:768px){
 				#search-input{
-					width:100% !important;
+					width: 95% !important;
+					margin: auto !important;
+					margin-bottom: 10px !important;
 				}
 			}
 
@@ -270,103 +230,6 @@ Single Source Page
 				cursor: pointer;
 			}
 
-		/* #grid{}
-
-			.row{
-				height: 50px;
-				width: 250px;
-				margin: 0px;
-			}
-
-				#filter-row{
-
-				}
-
-				#filter-row h5{
-					text-align: center;
-				}
-
-
-			.box{
-				width: 50px;
-				height: 50px;
-				display: inline-block;
-				border-color: #e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2;
-				border-width: 1px 1px 1px 1px;
-				border-style: solid;
-			}
-				.box:hover{
-					cursor: pointer;
-				}
-
-				.box-top{
-					width: 83px;
-					background-color: #fafafa;
-					text-align: center;
-					vertical-align: middle;
-					font-size: 12px;
-					color: #333333;
-					padding-top: 16px;
-				}
-
-				#x1y1, #x5y1{
-					text-align: center;
-					vertical-align: top;
-					padding-top: 16px;
-					font-size: 12px;
-					height: 50px;
-					color: #fff;
-					opacity: .2;
-					z-index: -1;
-				}
-
-					.box-top:hover{
-						background-color: #f2f2f2;
-					}
-
-				.box-empty{
-					border: none;
-				}
-
-			#row1{
-				background-image:  url("../images/speculation.png");
-				background-repeat: no-repeat;
-			}
-			#row2{
-				background-image:  url("../images/opinion.png");
-				background-repeat: no-repeat;
-			}
-			#row3{
-				background-image:  url("../images/commentary.png");
-				background-repeat: no-repeat;
-			}
-			#row4{
-				background-image:  url("../images/analysis.png");
-				background-repeat: no-repeat;
-			}
-			#row5{
-				background-image:  url("../images/speculation.png");
-				background-repeat: no-repeat;
-			}
-
-				#x0y0{
-					font-size: 12px;
-					text-align: center;
-					width: 250px;
-					padding:8px 2px 0px 0px;
-					background-color: #848484;
-				    color: #fff;
-				    height: 35px;
-					border-color: #e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2;
-					border-width: 1px 1px 1px 1px;
-					border-style: solid;
-					font-style: normal;
-				}
-					#x0y0:hover{
-						background-color:#6e6e6e;
-						cursor: pointer;
-					}
- */
 
 /*====================
 Helper Text and Popups */

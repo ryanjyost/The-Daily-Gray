@@ -30,31 +30,33 @@ class MapFilter extends Component {
 			}
 		}
 
-		gridArray.reverse();
+			gridArray.reverse();
 
-		const grid = gridArray.map((coordinate, i) => {
+			// render the grid
+			const grid = gridArray.map((coordinate, i) => {
 
-			let x = coordinate[0],
-					y = coordinate[1];
+				let x = coordinate[0],
+						y = coordinate[1],
+						boxStyle = styles.box,
+						yStyle = styles.box['y'+y],
+						xStyle = styles.box['x'+x];
 
-			let opacity = (1-.19*y);
-			let boxStyle = styles.box,
-					yStyle = styles.box['y'+y],
-					xStyle = styles.box['x'+x];
+						if(y == 5){
+							xStyle = {opacity: 1, backgroundColor: '#fafafa'}
+						}
 
-			return (
-					<Box
-						key={i.toString()}
-						num={'x:'+ x + ' y:' + y}
-						x={x}
-						y={y}
-						boxStyle={Object.assign({}, boxStyle, yStyle, xStyle)}
-						spanStyle = {styles.box.span}
-						handleMouseEnter={this.handleBoxMouseEnter}
-					/>
-			)
-
-		})
+					return (
+							<Box
+								key={i.toString()}
+								num={'x:'+ x + ' y:' + y}
+								x={x}
+								y={y}
+								boxStyle={Object.assign({}, boxStyle, yStyle, xStyle)}
+								boxLabelStyle = {styles.box.label}
+								handleMouseEnter={this.handleBoxMouseEnter}
+							/>
+					)
+			}) //end map
 
 		return (
 			<div
