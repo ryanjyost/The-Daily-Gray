@@ -26,17 +26,30 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-		var url = params.url;
 		var xy = params.xy;
+		var url = params.url;
 
 		og(url, function(err, meta){
-	         console.log("---------START META---------------");
+	        // if(err){
+	        // 	res.send('Sorry, there was an error adding this to Media Bias Map!')
+	        // }
+
+	        console.log("---------START META---------------");
 	        console.log(meta);
 	        console.log("-----------END META---------------");
 
-	        console.log(params)
+	        let postInfo = {
+	        	xy: [Number(xy[1]), Number(xy[3])],
+	        	url: url,
+	        	source: meta.site_name,
+	        	title: meta.title,
+	        	description: meta.description,
+	        	imageURL: meta.image.url
+	        }
 
-	        Post.create(params, function(err, post){
+	        console.log(postInfo)
+
+	        Post.create(postInfo, function(err, post){
 				if(err){
 					callback(err, null)
 					return

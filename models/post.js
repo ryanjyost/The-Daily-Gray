@@ -4,8 +4,7 @@ let id = `p_${Date.now()}`;
 
 var postSchema = new mongoose.Schema({
  // id: {type: String, default: id},
-  x: String,
-  y: String,
+  xy: Array,
   url: String,
   source: String,
   title: String,

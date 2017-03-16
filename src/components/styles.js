@@ -38,8 +38,65 @@ export default {
 
 	},
 
-	mapRow:{
+	postList:{
+		display: 'inline-block',
+		padding: 0,
+		margin:0,
 
+	},
+
+	post:{
+		borderStyle: 'solid',
+		borderWidth:3,
+		borderRadius: 3,
+		padding: '14px 20px 5px 20px',
+		width:'100%',
+		margin:0,
+
+		container:{
+			listStyleType: 'none',
+			background: '#ffffff',
+			margin:10
+
+		},
+
+		//set colors based on horizontal position in map
+		x1: {borderColor: "#A9D0F5"},
+		x2: {borderColor: "#E0ECF8"},
+		x3: {borderColor: "#f2f2f2"},
+		x4: {borderColor: "#F8E0E6"},
+		x5: {borderColor: "#F5A9BC"},
+
+		//special stylings
+		fakeNewsBorder: {
+			borderColor: '#585858'
+		},
+
+		factBorder: {
+			borderColor: '#fff'
+		},
+
+
+
+		description:{
+			margin:'2px 0px 2px 0px',
+			color:'#6E6E6E'
+		},
+
+		source:{
+			fontStyle: 'italic',
+			textOverflow: 'ellipsis',
+			overflow:'hidden',
+			maxWidth: 175,
+			height:'1.2em',
+			fontSize: 10,
+			padding:'0px 10px 0px 0px'
+		},
+
+		ratingLabel:{
+			float:'right',
+			fontSize: 10,
+		}
 	}
 
 
