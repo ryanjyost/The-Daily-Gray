@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import superagent from 'superagent'
+import update from 'immutability-helper'
 
 
 import Header from './components/Header'
 import PostList from './components/PostList'
 import MapFilter from './components/MapFilter'
 import Search from './components/Search'
+import HelperText from './components/HelperText'
 
 class App extends Component {
 	constructor(){
 		super()
 		this.handleSearchChange = this.handleSearchChange.bind(this);
 		this.handleBoxHover= this.handleBoxHover.bind(this);
-		this.handleMapHover= this.handleMapHover.bind(this);
+		this.handleMapLeave= this.handleMapLeave.bind(this);
+		this.handleBoxClick= this.handleBoxClick.bind(this);
 		this.state = {
 			postList: [
 
@@ -252,11 +255,11 @@ class App extends Component {
 					xy:["5","5"],
 				},
 			],
-
 			searchInput: '',
 			map: {
 				hover: false, // n for no, y for yes
-				currentHoveredBox: []
+				currentHoveredBox: [],
+				selectedBoxes: []
 			}
 		}
 	}
@@ -273,7 +276,6 @@ class App extends Component {
 				}
 
 				let results = response.body.results.reverse();
-				console.log(results)
 
 				this.setState({
 					postList: results
@@ -290,45 +292,81 @@ class App extends Component {
 	}
 
 	handleBoxHover(hoverBoolean, coordinateArray){
-		let newHoveredBox = Object.assign([], this.state.map.currentHoveredBox)
-		newHoveredBox = coordinateArray;
+		const oldMapState = this.state.map;
+		const newMapState = update(oldMapState, {
+			hover: {$set: hoverBoolean},
+			currentHoveredBox: {$set: coordinateArray}
+		});
 
 		this.setState({
-			map:{
-				hover: true,
-				currentHoveredBox: newHoveredBox
-			}
+			map: newMapState
 		})
 	}
 
-	handleMapHover(hoverBoolean, coordinateArray){
-		let newHoveredBox = Object.assign([], this.state.map.currentHoveredBox)
-		newHoveredBox = coordinateArray;
+	handleMapLeave(hoverBoolean){
+		const oldMapState = this.state.map;
+		const newMapState = update(oldMapState, {
+			hover: {$set: hoverBoolean},
+			currentHoveredBox: {$set: []}
+		});
 
 		this.setState({
-			map:{
-				hover: hoverBoolean,
-				currentHoveredBox: newHoveredBox
-			}
+			map: newMapState
 		})
+	}
+
+	handleBoxClick(coordinateArray){
+		const oldMapState = this.state.map,
+					oldSelectedBoxes = this.state.map.selectedBoxes;
+
+		let alreadySelected = false,
+				newSelectedBoxes = Object.assign([], oldSelectedBoxes),
+				index = null;
+
+		for(let coordinates of oldSelectedBoxes){
+			if(coordinates[0] == coordinateArray[0] && coordinates[1] == coordinateArray[1]){
+				alreadySelected = true;
+				index = newSelectedBoxes.indexOf(coordinates)
+			}
+		}
+
+		if(alreadySelected){
+			//alert('ryan')
+			const newMapState = update(oldMapState, {
+				selectedBoxes: {$splice: [[index, 1]]}
+			});
+
+			this.setState({
+				map: newMapState
+			})
+		} else{ // add coordinates to selected boxes
+			const newMapState = update(oldMapState, {
+				selectedBoxes: {$push: [coordinateArray]}
+			});
+
+			this.setState({
+				map: newMapState
+			})
+		}
 	}
 
 	render(){
 		return (
 				<div id="App">
-
-					<Header/>
-
 					<div id="main-cont">
 						<div className="sidebar">
+							{/* <Header/> */}
 							<Search
 								updateSearch={this.handleSearchChange}
 								searchInput = {this.state.searchInput}
 							/>
+							<HelperText/>
 							<MapFilter
 								updateCurrentHoveredBox={this.handleBoxHover}
-								updateMapHover={this.handleMapHover}
-								currentHoveredBox = {this.state.map.currentHoveredBox}
+								updateMapHover={this.handleMapLeave}
+								updateSelectedBoxes={this.handleBoxClick}
+								currentHoveredBox={this.state.map.currentHoveredBox}
+								selectedBoxes={this.state.map.selectedBoxes}
 							/>
 						</div>
 
@@ -336,6 +374,7 @@ class App extends Component {
 								postList={this.state.postList}
 								searchInput={this.state.searchInput}
 								currentHoveredBox={this.state.map.currentHoveredBox}
+								selectedBoxes={this.state.map.selectedBoxes}
 							/>
 
 					</div>

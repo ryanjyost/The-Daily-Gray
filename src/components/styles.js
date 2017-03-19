@@ -4,6 +4,7 @@ export default {
 			display: 'block',
 			width: 250,
 			margin: 'auto',
+			overflow: 'hidden'
 	},
 
 	box: {
@@ -16,12 +17,15 @@ export default {
 		zIndex: 1,
 		position: 'relative',
 
+		hover: {
+			borderColor:'#848484',
+		},
+
 		//opacity based on vertical position in map
-		y1: {opacity: .81},
-		y2: {opacity: .62},
-		y3: {opacity: .43},
-		y4: {opacity: .26},
-		y5: {opacity: 1, backgroundColor: '#fafafa'},
+		y1: {opacity: .8},
+		y2: {opacity: .5},
+		y3: {opacity: .2},
+		y4: {opacity: 1, backgroundColor: '#fafafa'},
 
 		//set colors based on horizontal position in map
 		x1: {backgroundColor: "#A9D0F5"},
@@ -31,28 +35,37 @@ export default {
 		x5: {backgroundColor: "#F5A9BC"},
 
 		//fake news
-		x0: {backgroundColor: "#585858"},
+		x0: {backgroundColor: "#848484"},
 		y0: {width:'100%', height: 40},
 
 		label: {
-			lineHeight: '48px',
 			textAlign:'center',
+			verticalAlign: 'middle',
 			width:'100%',
 			display:'inline-block',
-			fontSize: 8,
 			zIndex: 1000,
+			height: '100%',
+			lineHeight: '46px',
+
+			top: {
+				lineHeight:'46px',
+				fontSize: 9
+			},
 
 			fakeNews: {
-				fontSize: 14
-			}
+				fontSize: 12,
+				lineHeight: '40px',
+				textAlign:'center',
+				width:'100%',
+				display:'inline-block',
+				color:'#f2f2f2',
+
+			},
 		},
 
 	},
 
 	post:{
-		borderStyle: 'solid',
-		borderWidth:3,
-		borderRadius: 3,
 		padding: '14px 20px 5px 20px',
 		width:'100%',
 		margin:0,
@@ -60,45 +73,63 @@ export default {
 		container:{
 			listStyleType: 'none',
 			background: '#ffffff',
-			margin:'10px 0px 10px 0px',
+			margin:'0px 0px 0px 0px',
+			borderStyle: 'solid',
+			borderWidth:3,
+			borderRadius: 3,
+			borderColor:'#fff',
+		},
+
+		image: {
 			width:'100%',
+			height:'auto',
+
+		},
+
+		title: {
+			color:'#fff',
+			paddingTop: 60,
 		},
 
 		//set colors based on horizontal position in map
-		x1: {borderColor: "#A9D0F5"},
-		x2: {borderColor: "#E0ECF8"},
-		x3: {borderColor: "#f2f2f2"},
-		x4: {borderColor: "#F8E0E6"},
-		x5: {borderColor: "#F5A9BC"},
+		x1: {color: "#A9D0F5"},
+		x2: {color: "#E0ECF8"},
+		x3: {color: "#f2f2f2"},
+		x4: {color: "#F8E0E6"},
+		x5: {color: "#F5A9BC"},
 
 		//special stylings
-		fakeNewsBorder: {
-			borderColor: '#585858'
+		fakeNewsText: {
+			color: '#585858'
 		},
 
-		factBorder: {
-			borderColor: '#fff'
+		factText: {
+			color: '#fff'
 		},
 
 		description:{
 			margin:'2px 0px 2px 0px',
-			color:'#6E6E6E'
+			color:'#fff'
 		},
 
 		source:{
 			fontStyle: 'italic',
 			textOverflow: 'ellipsis',
 			overflow:'hidden',
-			maxWidth: 175,
+			width:'100%',
 			height:'1.2em',
-			fontSize: 10,
-			padding:'0px 10px 0px 0px'
+			fontSize: 12,
+			padding:'0px 10px 0px 0px',
+			color:'#fafafa',
+			marginTop: 5,
 		},
 
 		ratingLabel:{
-			float:'right',
-			fontSize: 10,
-			display: 'inline-block'
+			textAlign:'right',
+			fontSize: 12,
+			display: 'inline-block',
+			width:'100%',
+			fontWeight: '900'
 		}
 	}
 

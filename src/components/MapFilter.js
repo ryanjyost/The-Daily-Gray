@@ -8,11 +8,12 @@ class MapFilter extends Component {
 		super(props)
 		this.handleMapLeave = this.handleMapLeave.bind(this);
 		this.handleBoxMouseEnter = this.handleBoxMouseEnter.bind(this);
+		this.handleBoxClick = this.handleBoxClick.bind(this);
 	}
 
 	handleMapLeave(){
 		//pass state up to App
-		this.props.updateMapHover(false, [])
+		this.props.updateMapHover(false)
 	}
 
 	handleBoxMouseEnter(coordinateArray){
@@ -20,11 +21,16 @@ class MapFilter extends Component {
 		this.props.updateCurrentHoveredBox(true, coordinateArray)
 	}
 
+	handleBoxClick(coordinateArray){
+		//pass up to App state
+		this.props.updateSelectedBoxes(coordinateArray)
+	}
+
 	render(){
 		var gridArray = [[0,0]]
 
 		//get coordinates of a 5x6 grid, with one box on 0th row
-		for(let y = 1; y < 6; y++){
+		for(let y = 1; y < 5; y++){
 			for(let x = 5; x > 0; x--){
 				gridArray.push([x, y])
 			}
@@ -39,10 +45,24 @@ class MapFilter extends Component {
 						y = coordinate[1],
 						boxStyle = styles.box,
 						yStyle = styles.box['y'+y],
-						xStyle = styles.box['x'+x];
+						xStyle = styles.box['x'+x],
+						hoverStyle = {},
+						boxLabelStyle = styles.box.label;
 
-						if(y == 5){
-							xStyle = {opacity: 1, backgroundColor: '#fafafa'}
+						//styling for top row
+						if(y == 4){
+							xStyle = styles.box.label.top
+						}
+
+						//fake news label
+						if(y == 0){
+							boxLabelStyle = styles.box.label.fakeNews
+						}
+
+						//hover styling
+						if(this.props.currentHoveredBox[0] == coordinate[0] &&
+							 this.props.currentHoveredBox[1] == coordinate[1]){
+							hoverStyle = styles.box.hover
 						}
 
 					return (
@@ -51,9 +71,11 @@ class MapFilter extends Component {
 								num={'x:'+ x + ' y:' + y}
 								x={x}
 								y={y}
-								boxStyle={Object.assign({}, boxStyle, yStyle, xStyle)}
-								boxLabelStyle = {styles.box.label}
+								selectedBoxes={this.props.selectedBoxes}
+								boxStyle={Object.assign({}, boxStyle, yStyle, xStyle, hoverStyle)}
+								boxLabelStyle = {boxLabelStyle}
 								handleMouseEnter={this.handleBoxMouseEnter}
+								handleClick={this.handleBoxClick}
 							/>
 					)
 			}) //end map

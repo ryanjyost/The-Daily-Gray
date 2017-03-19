@@ -4593,7 +4593,8 @@ exports.default = {
 	MapFilter: {
 		display: 'block',
 		width: 250,
-		margin: 'auto'
+		margin: 'auto',
+		overflow: 'hidden'
 	},
 
 	box: {
@@ -4606,12 +4607,15 @@ exports.default = {
 		zIndex: 1,
 		position: 'relative',
 
+		hover: {
+			borderColor: '#848484'
+		},
+
 		//opacity based on vertical position in map
-		y1: { opacity: .81 },
-		y2: { opacity: .62 },
-		y3: { opacity: .43 },
-		y4: { opacity: .26 },
-		y5: { opacity: 1, backgroundColor: '#fafafa' },
+		y1: { opacity: .8 },
+		y2: { opacity: .5 },
+		y3: { opacity: .2 },
+		y4: { opacity: 1, backgroundColor: '#fafafa' },
 
 		//set colors based on horizontal position in map
 		x1: { backgroundColor: "#A9D0F5" },
@@ -4621,28 +4625,37 @@ exports.default = {
 		x5: { backgroundColor: "#F5A9BC" },
 
 		//fake news
-		x0: { backgroundColor: "#585858" },
+		x0: { backgroundColor: "#848484" },
 		y0: { width: '100%', height: 40 },
 
 		label: {
-			lineHeight: '48px',
 			textAlign: 'center',
+			verticalAlign: 'middle',
 			width: '100%',
 			display: 'inline-block',
-			fontSize: 8,
 			zIndex: 1000,
+			height: '100%',
+			lineHeight: '46px',
+
+			top: {
+				lineHeight: '46px',
+				fontSize: 9
+			},
 
 			fakeNews: {
-				fontSize: 14
+				fontSize: 12,
+				lineHeight: '40px',
+				textAlign: 'center',
+				width: '100%',
+				display: 'inline-block',
+				color: '#f2f2f2'
+
 			}
 		}
 
 	},
 
 	post: {
-		borderStyle: 'solid',
-		borderWidth: 3,
-		borderRadius: 3,
 		padding: '14px 20px 5px 20px',
 		width: '100%',
 		margin: 0,
@@ -4650,45 +4663,63 @@ exports.default = {
 		container: {
 			listStyleType: 'none',
 			background: '#ffffff',
-			margin: '10px 0px 10px 0px',
-			width: '100%'
+			margin: '0px 0px 0px 0px',
+			borderStyle: 'solid',
+			borderWidth: 3,
+			borderRadius: 3,
+			borderColor: '#fff'
+		},
+
+		image: {
+			width: '100%',
+			height: 'auto'
+
+		},
+
+		title: {
+			color: '#fff',
+			paddingTop: 60
 		},
 
 		//set colors based on horizontal position in map
-		x1: { borderColor: "#A9D0F5" },
-		x2: { borderColor: "#E0ECF8" },
-		x3: { borderColor: "#f2f2f2" },
-		x4: { borderColor: "#F8E0E6" },
-		x5: { borderColor: "#F5A9BC" },
+		x1: { color: "#A9D0F5" },
+		x2: { color: "#E0ECF8" },
+		x3: { color: "#f2f2f2" },
+		x4: { color: "#F8E0E6" },
+		x5: { color: "#F5A9BC" },
 
 		//special stylings
-		fakeNewsBorder: {
-			borderColor: '#585858'
+		fakeNewsText: {
+			color: '#585858'
 		},
 
-		factBorder: {
-			borderColor: '#fff'
+		factText: {
+			color: '#fff'
 		},
 
 		description: {
 			margin: '2px 0px 2px 0px',
-			color: '#6E6E6E'
+			color: '#fff'
 		},
 
 		source: {
 			fontStyle: 'italic',
 			textOverflow: 'ellipsis',
 			overflow: 'hidden',
-			maxWidth: 175,
+			width: '100%',
 			height: '1.2em',
-			fontSize: 10,
-			padding: '0px 10px 0px 0px'
+			fontSize: 12,
+			padding: '0px 10px 0px 0px',
+			color: '#fafafa',
+			marginTop: 5
 		},
 
 		ratingLabel: {
-			float: 'right',
-			fontSize: 10,
-			display: 'inline-block'
+			textAlign: 'right',
+			fontSize: 12,
+			display: 'inline-block',
+			width: '100%',
+			fontWeight: '900'
 		}
 	}
 
@@ -9690,6 +9721,7 @@ var MapFilter = function (_Component) {
 
 		_this.handleMapLeave = _this.handleMapLeave.bind(_this);
 		_this.handleBoxMouseEnter = _this.handleBoxMouseEnter.bind(_this);
+		_this.handleBoxClick = _this.handleBoxClick.bind(_this);
 		return _this;
 	}
 
@@ -9697,13 +9729,19 @@ var MapFilter = function (_Component) {
 		key: 'handleMapLeave',
 		value: function handleMapLeave() {
 			//pass state up to App
-			this.props.updateMapHover(false, []);
+			this.props.updateMapHover(false);
 		}
 	}, {
 		key: 'handleBoxMouseEnter',
 		value: function handleBoxMouseEnter(coordinateArray) {
 			//pass up to App state
 			this.props.updateCurrentHoveredBox(true, coordinateArray);
+		}
+	}, {
+		key: 'handleBoxClick',
+		value: function handleBoxClick(coordinateArray) {
+			//pass up to App state
+			this.props.updateSelectedBoxes(coordinateArray);
 		}
 	}, {
 		key: 'render',
@@ -9713,7 +9751,7 @@ var MapFilter = function (_Component) {
 			var gridArray = [[0, 0]];
 
 			//get coordinates of a 5x6 grid, with one box on 0th row
-			for (var y = 1; y < 6; y++) {
+			for (var y = 1; y < 5; y++) {
 				for (var x = 5; x > 0; x--) {
 					gridArray.push([x, y]);
 				}
@@ -9728,10 +9766,23 @@ var MapFilter = function (_Component) {
 				    y = coordinate[1],
 				    boxStyle = _styles2.default.box,
 				    yStyle = _styles2.default.box['y' + y],
-				    xStyle = _styles2.default.box['x' + x];
+				    xStyle = _styles2.default.box['x' + x],
+				    hoverStyle = {},
+				    boxLabelStyle = _styles2.default.box.label;
 
-				if (y == 5) {
-					xStyle = { opacity: 1, backgroundColor: '#fafafa' };
+				//styling for top row
+				if (y == 4) {
+					xStyle = _styles2.default.box.label.top;
+				}
+
+				//fake news label
+				if (y == 0) {
+					boxLabelStyle = _styles2.default.box.label.fakeNews;
+				}
+
+				//hover styling
+				if (_this2.props.currentHoveredBox[0] == coordinate[0] && _this2.props.currentHoveredBox[1] == coordinate[1]) {
+					hoverStyle = _styles2.default.box.hover;
 				}
 
 				return _react2.default.createElement(_Box2.default, {
@@ -9739,9 +9790,11 @@ var MapFilter = function (_Component) {
 					num: 'x:' + x + ' y:' + y,
 					x: x,
 					y: y,
-					boxStyle: Object.assign({}, boxStyle, yStyle, xStyle),
-					boxLabelStyle: _styles2.default.box.label,
-					handleMouseEnter: _this2.handleBoxMouseEnter
+					selectedBoxes: _this2.props.selectedBoxes,
+					boxStyle: Object.assign({}, boxStyle, yStyle, xStyle, hoverStyle),
+					boxLabelStyle: boxLabelStyle,
+					handleMouseEnter: _this2.handleBoxMouseEnter,
+					handleClick: _this2.handleBoxClick
 				});
 			}); //end map
 
@@ -9807,29 +9860,66 @@ var PostList = function (_Component) {
 	_createClass(PostList, [{
 		key: 'render',
 		value: function render() {
+			var currentHoveredBox = this.props.currentHoveredBox,
+			    selectedBoxes = this.props.selectedBoxes,
+			    postArray = this.props.postList,
+			    searchInput = this.props.searchInput.toLowerCase();
 
-			var currentHoveredBox = this.props.currentHoveredBox;
-			var postArray = this.props.postList;
-			var searchInput = this.props.searchInput.toLowerCase();
-
-			console.log(searchInput);
-
-			var filteredPostArray = function (postArray, searchInput) {
+			var filteredPostArray = function (postArray, searchInput, selectedBoxesArray) {
 				//filters related to hovering specific box
-				if (currentHoveredBox.length != 0) {
-					return filteredPostArray = postArray.filter(function (post) {
-						return currentHoveredBox[0] == Number(post.xy[0]) && currentHoveredBox[1] == Number(post.xy[1]);
-					});
-				}
 
-				if (searchInput.length > 1) {
+				//if there are any selectedBoxes
+				if (selectedBoxes.length > 0) {
+					//filter through the posts
 					return filteredPostArray = postArray.filter(function (post) {
-						return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1;
+
+						//return true if the post's [x, y] is in the selected boxes array, and macthes search input
+						var _iteratorNormalCompletion = true;
+						var _didIteratorError = false;
+						var _iteratorError = undefined;
+
+						try {
+							for (var _iterator = selectedBoxes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+								var coordinate = _step.value;
+
+								if (coordinate[0] == post.xy[0] && coordinate[1] == post.xy[1] == true) {
+									return true && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
+								}
+							}
+						} catch (err) {
+							_didIteratorError = true;
+							_iteratorError = err;
+						} finally {
+							try {
+								if (!_iteratorNormalCompletion && _iterator.return) {
+									_iterator.return();
+								}
+							} finally {
+								if (_didIteratorError) {
+									throw _iteratorError;
+								}
+							}
+						}
+
+						return false;
 					});
+				} else {
+
+					if (currentHoveredBox.length != 0) {
+						return filteredPostArray = postArray.filter(function (post) {
+							return currentHoveredBox[0] == Number(post.xy[0]) && currentHoveredBox[1] == Number(post.xy[1]) && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
+						});
+					} else {
+						if (searchInput.length > 1) {
+							return filteredPostArray = postArray.filter(function (post) {
+								return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1;
+							});
+						}
+					}
 				}
 
 				return postArray;
-			}(postArray, searchInput);
+			}(postArray, searchInput, selectedBoxes);
 
 			var postList = filteredPostArray.map(function (post, i) {
 				return _react2.default.createElement(
@@ -9840,14 +9930,19 @@ var PostList = function (_Component) {
 						description: post.description,
 						url: post.url,
 						xy: post.xy,
-						source: post.source
+						source: post.source,
+						imageURL: post.imageURL
 					})
 				);
 			});
 			return _react2.default.createElement(
-				'ul',
-				{ className: 'postList' },
-				postList
+				'div',
+				{ className: 'postListContainer' },
+				_react2.default.createElement(
+					'ul',
+					{ className: 'postList' },
+					postList
+				)
 			);
 		}
 	}]);
@@ -10901,6 +10996,7 @@ var Box = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (Box.__proto__ || Object.getPrototypeOf(Box)).call(this, props));
 
 		_this.handleMouseEnter = _this.handleMouseEnter.bind(_this);
+		_this.handleClick = _this.handleClick.bind(_this);
 		return _this;
 	}
 
@@ -10910,13 +11006,18 @@ var Box = function (_Component) {
 			this.props.handleMouseEnter([this.props.x, this.props.y]);
 		}
 	}, {
+		key: 'handleClick',
+		value: function handleClick(e) {
+			this.props.handleClick([this.props.x, this.props.y]);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 
 			//conditional labelling
 			var label = '';
 
-			if (this.props.y == 5) {
+			if (this.props.y == 4) {
 				var topRowLabels = ['', 'News', 'Facts', 'Stats', 'Interview', 'Other'];
 				label = topRowLabels[this.props.x];
 			}
@@ -10925,13 +11026,41 @@ var Box = function (_Component) {
 				label = 'FAKE NEWS';
 			}
 
+			//label for selected box
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = this.props.selectedBoxes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var coordinate = _step.value;
+
+					if (this.props.x == coordinate[0] && this.props.y == coordinate[1]) {
+						label = 'x';
+					}
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
 			return _react2.default.createElement(
 				'div',
 				{
 					className: 'box',
 					style: this.props.boxStyle,
 					onMouseEnter: this.handleMouseEnter,
-					onMouseLeave: this.handleMouseLeave
+					onClick: this.handleClick
 				},
 				_react2.default.createElement(
 					'span',
@@ -10979,65 +11108,74 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Post = function (_Component) {
 	_inherits(Post, _Component);
 
-	function Post() {
+	function Post(props) {
 		_classCallCheck(this, Post);
 
-		return _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+
+		_this.handleImageError = _this.handleImageError.bind(_this);
+		_this.state = {
+			imageError: false
+		};
+		return _this;
 	}
 
 	_createClass(Post, [{
+		key: 'handleImageError',
+		value: function handleImageError() {
+			this.setState({ imageError: true });
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-
 			var x = this.props.xy[0],
 			    y = this.props.xy[1];
 
 			var xLabels = ['', 'Left', 'Left-Center', 'Center', 'Right-Center', 'Right'];
-			var yLabels = ['FAKE NEWS', 'Speculation', 'Opinion', 'Commentary', 'Analysis',
+			var yLabels = ['FAKE NEWS', 'Speculation', 'Opinion', 'Analysis',
 			//top row of labels
 			['', 'News', 'Facts', 'Stats', 'Interview', 'Other']];
 
 			//set rating label
 			var label = 'No rating',
-			    postStyle = {};
+			    postTextColor = {};
 
 			if (x == 0) {
 				label = 'FAKE NEWS';
-				postStyle = Object.assign({}, _styles2.default.post.fakeNewsBorder, _styles2.default.post);
-			} else if (y == 5) {
-				label = yLabels[5][x];
-				postStyle = Object.assign({}, _styles2.default.post.factBorder, _styles2.default.post);
+				postTextColor = _styles2.default.post.fakeNewsText;
+			} else if (y == 4) {
+				label = yLabels[4][x];
+				postTextColor = _styles2.default.post.factText;
 			} else {
 				label = xLabels[x] + ' | ' + yLabels[y];
-				postStyle = Object.assign({}, _styles2.default.post['x' + x], _styles2.default.post);
+				postTextColor = _styles2.default.post['x' + x];
 			}
 
 			return _react2.default.createElement(
-				'div',
-				{ style: postStyle },
+				'a',
+				{ href: this.props.url, target: '_blank' },
 				_react2.default.createElement(
-					'h2',
-					null,
+					'div',
+					{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
 					_react2.default.createElement(
-						'a',
-						{ href: this.props.url, target: '_blank' },
-						this.props.title
+						'div',
+						{ className: 'postInfo' },
+						_react2.default.createElement(
+							'h6',
+							{ style: Object.assign({}, _styles2.default.post.ratingLabel, postTextColor) },
+							label
+						),
+						_react2.default.createElement(
+							'h2',
+							{ style: _styles2.default.post.title },
+							this.props.title
+						),
+						_react2.default.createElement(
+							'h6',
+							{ className: 'postSource', style: _styles2.default.post.source },
+							this.props.source
+						)
 					)
-				),
-				_react2.default.createElement(
-					'p',
-					{ style: _styles2.default.post.description },
-					this.props.description
-				),
-				_react2.default.createElement(
-					'h6',
-					{ className: 'postSource', style: _styles2.default.post.source },
-					this.props.source
-				),
-				_react2.default.createElement(
-					'h6',
-					{ style: _styles2.default.post.ratingLabel },
-					label
 				)
 			);
 		}
@@ -24325,6 +24463,10 @@ var _superagent = __webpack_require__(87);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
+var _immutabilityHelper = __webpack_require__(193);
+
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+
 var _Header = __webpack_require__(82);
 
 var _Header2 = _interopRequireDefault(_Header);
@@ -24340,6 +24482,10 @@ var _MapFilter2 = _interopRequireDefault(_MapFilter);
 var _Search = __webpack_require__(85);
 
 var _Search2 = _interopRequireDefault(_Search);
+
+var _HelperText = __webpack_require__(195);
+
+var _HelperText2 = _interopRequireDefault(_HelperText);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24359,7 +24505,8 @@ var App = function (_Component) {
 
 		_this.handleSearchChange = _this.handleSearchChange.bind(_this);
 		_this.handleBoxHover = _this.handleBoxHover.bind(_this);
-		_this.handleMapHover = _this.handleMapHover.bind(_this);
+		_this.handleMapLeave = _this.handleMapLeave.bind(_this);
+		_this.handleBoxClick = _this.handleBoxClick.bind(_this);
 		_this.state = {
 			postList: [{
 				_id: "58c89b97b0be59f42ebaae27",
@@ -24570,11 +24717,11 @@ var App = function (_Component) {
 				imageURL: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iOvwBQK8EJaE/v0/1200x-1.jpg", "__v": 0, "created_at": "2017-03-15T01:40:39.894Z",
 				xy: ["5", "5"]
 			}],
-
 			searchInput: '',
 			map: {
 				hover: false, // n for no, y for yes
-				currentHoveredBox: []
+				currentHoveredBox: [],
+				selectedBoxes: []
 			}
 		};
 		return _this;
@@ -24592,7 +24739,6 @@ var App = function (_Component) {
 				}
 
 				var results = response.body.results.reverse();
-				console.log(results);
 
 				_this2.setState({
 					postList: results
@@ -24610,28 +24756,86 @@ var App = function (_Component) {
 	}, {
 		key: 'handleBoxHover',
 		value: function handleBoxHover(hoverBoolean, coordinateArray) {
-			var newHoveredBox = Object.assign([], this.state.map.currentHoveredBox);
-			newHoveredBox = coordinateArray;
+			var oldMapState = this.state.map;
+			var newMapState = (0, _immutabilityHelper2.default)(oldMapState, {
+				hover: { $set: hoverBoolean },
+				currentHoveredBox: { $set: coordinateArray }
+			});
 
 			this.setState({
-				map: {
-					hover: true,
-					currentHoveredBox: newHoveredBox
-				}
+				map: newMapState
 			});
 		}
 	}, {
-		key: 'handleMapHover',
-		value: function handleMapHover(hoverBoolean, coordinateArray) {
-			var newHoveredBox = Object.assign([], this.state.map.currentHoveredBox);
-			newHoveredBox = coordinateArray;
+		key: 'handleMapLeave',
+		value: function handleMapLeave(hoverBoolean) {
+			var oldMapState = this.state.map;
+			var newMapState = (0, _immutabilityHelper2.default)(oldMapState, {
+				hover: { $set: hoverBoolean },
+				currentHoveredBox: { $set: [] }
+			});
 
 			this.setState({
-				map: {
-					hover: hoverBoolean,
-					currentHoveredBox: newHoveredBox
-				}
+				map: newMapState
 			});
+		}
+	}, {
+		key: 'handleBoxClick',
+		value: function handleBoxClick(coordinateArray) {
+			var oldMapState = this.state.map,
+			    oldSelectedBoxes = this.state.map.selectedBoxes;
+
+			var alreadySelected = false,
+			    newSelectedBoxes = Object.assign([], oldSelectedBoxes),
+			    index = null;
+
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = oldSelectedBoxes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var coordinates = _step.value;
+
+					if (coordinates[0] == coordinateArray[0] && coordinates[1] == coordinateArray[1]) {
+						alreadySelected = true;
+						index = newSelectedBoxes.indexOf(coordinates);
+					}
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+
+			if (alreadySelected) {
+				//alert('ryan')
+				var newMapState = (0, _immutabilityHelper2.default)(oldMapState, {
+					selectedBoxes: { $splice: [[index, 1]] }
+				});
+
+				this.setState({
+					map: newMapState
+				});
+			} else {
+				// add coordinates to selected boxes
+				var _newMapState = (0, _immutabilityHelper2.default)(oldMapState, {
+					selectedBoxes: { $push: [coordinateArray] }
+				});
+
+				this.setState({
+					map: _newMapState
+				});
+			}
 		}
 	}, {
 		key: 'render',
@@ -24639,7 +24843,6 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ id: 'App' },
-				_react2.default.createElement(_Header2.default, null),
 				_react2.default.createElement(
 					'div',
 					{ id: 'main-cont' },
@@ -24650,16 +24853,20 @@ var App = function (_Component) {
 							updateSearch: this.handleSearchChange,
 							searchInput: this.state.searchInput
 						}),
+						_react2.default.createElement(_HelperText2.default, null),
 						_react2.default.createElement(_MapFilter2.default, {
 							updateCurrentHoveredBox: this.handleBoxHover,
-							updateMapHover: this.handleMapHover,
-							currentHoveredBox: this.state.map.currentHoveredBox
+							updateMapHover: this.handleMapLeave,
+							updateSelectedBoxes: this.handleBoxClick,
+							currentHoveredBox: this.state.map.currentHoveredBox,
+							selectedBoxes: this.state.map.selectedBoxes
 						})
 					),
 					_react2.default.createElement(_PostList2.default, {
 						postList: this.state.postList,
 						searchInput: this.state.searchInput,
-						currentHoveredBox: this.state.map.currentHoveredBox
+						currentHoveredBox: this.state.map.currentHoveredBox,
+						selectedBoxes: this.state.map.selectedBoxes
 					})
 				)
 			);
@@ -24670,6 +24877,301 @@ var App = function (_Component) {
 }(_react.Component);
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
+
+/***/ }),
+/* 193 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var invariant = __webpack_require__(194);
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var splice = Array.prototype.splice;
+
+var assign = Object.assign || function assign(target, source) {
+  var keys = getAllKeys(source);
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if (hasOwnProperty.call(source, key)) {
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+
+var getAllKeys = typeof Object.getOwnPropertySymbols === 'function' ?
+  function(obj) { return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)) } :
+  function(obj) { return Object.keys(obj) }
+;
+
+function copy(object) {
+  if (object instanceof Array) {
+    return object.slice();
+  } else if (object && typeof object === 'object') {
+    return assign(new object.constructor(), object);
+  } else {
+    return object;
+  }
+}
+
+
+function newContext() {
+  var commands = assign({}, defaultCommands);
+  update.extend = function(directive, fn) {
+    commands[directive] = fn;
+  }
+
+  return update;
+
+  function update(object, spec) {
+    invariant(
+      !Array.isArray(spec),
+      'update(): You provided an invalid spec to update(). The spec may ' +
+      'not contain an array except as the value of $set, $push, $unshift, ' +
+      '$splice or any custom command allowing an array value.'
+    );
+
+    invariant(
+      typeof spec === 'object' && spec !== null,
+      'update(): You provided an invalid spec to update(). The spec and ' +
+      'every included key path must be plain objects containing one of the ' +
+      'following commands: %s.',
+      Object.keys(commands).join(', ')
+    );
+
+    var nextObject = object;
+    var specKeys = getAllKeys(spec)
+    var index, key;
+    for (index = 0; index < specKeys.length; index++) {
+      var key = specKeys[index];
+      if (hasOwnProperty.call(commands, key)) {
+        nextObject = commands[key](spec[key], nextObject, spec, object);
+      } else {
+        var nextValueForKey = update(object[key], spec[key]);
+        if (nextValueForKey !== nextObject[key]) {
+          if (nextObject === object) {
+            nextObject = copy(object);
+          }
+          nextObject[key] = nextValueForKey;
+        }
+      }
+    }
+    return nextObject;
+  }
+
+}
+
+var defaultCommands = {
+  $push: function(value, original, spec) {
+    invariantPushAndUnshift(original, spec, '$push');
+    return original.concat(value);
+  },
+  $unshift: function(value, original, spec) {
+    invariantPushAndUnshift(original, spec, '$unshift');
+    return value.concat(original);
+  },
+  $splice: function(value, nextObject, spec, object) {
+    var originalValue = nextObject === object ? copy(object) : nextObject;
+    invariantSplices(originalValue, spec);
+    value.forEach(function(args) {
+      invariantSplice(args);
+      splice.apply(originalValue, args);
+    });
+    return originalValue;
+  },
+  $set: function(value, original, spec) {
+    invariantSet(spec);
+    return value;
+  },
+  $merge: function(value, nextObject, spec, object) {
+    var originalValue = nextObject === object ? copy(object) : nextObject;
+    invariantMerge(originalValue, value);
+    getAllKeys(value).forEach(function(key) {
+      originalValue[key] = value[key];
+    });
+    return originalValue;
+  },
+  $apply: function(value, original) {
+    invariantApply(value);
+    return value(original);
+  }
+};
+
+
+
+module.exports = newContext();
+module.exports.newContext = newContext;
+
+
+// invariants
+
+function invariantPushAndUnshift(value, spec, command) {
+  invariant(
+    Array.isArray(value),
+    'update(): expected target of %s to be an array; got %s.',
+    command,
+    value
+  );
+  var specValue = spec[command];
+  invariant(
+    Array.isArray(specValue),
+    'update(): expected spec of %s to be an array; got %s. ' +
+    'Did you forget to wrap your parameter in an array?',
+    command,
+    specValue
+  );
+}
+
+function invariantSplices(value, spec) {
+  invariant(
+    Array.isArray(value),
+    'Expected $splice target to be an array; got %s',
+    value
+  );
+  invariantSplice(spec['$splice']);
+}
+
+function invariantSplice(value) {
+  invariant(
+    Array.isArray(value),
+    'update(): expected spec of $splice to be an array of arrays; got %s. ' +
+    'Did you forget to wrap your parameters in an array?',
+    value
+  );
+}
+
+function invariantApply(fn) {
+  invariant(
+    typeof fn === 'function',
+    'update(): expected spec of $apply to be a function; got %s.',
+    fn
+  );
+}
+
+function invariantSet(spec) {
+  invariant(
+    Object.keys(spec).length === 1,
+    'Cannot have more than one key in an object with $set'
+  );
+}
+
+function invariantMerge(target, specValue) {
+  invariant(
+    specValue && typeof specValue === 'object',
+    'update(): $merge expects a spec of type \'object\'; got %s',
+    specValue
+  );
+  invariant(
+    target && typeof target === 'object',
+    'update(): $merge expects a target of type \'object\'; got %s',
+    target
+  );
+}
+
+
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+module.exports = invariant;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HelperText = function (_Component) {
+	_inherits(HelperText, _Component);
+
+	function HelperText() {
+		_classCallCheck(this, HelperText);
+
+		return _possibleConstructorReturn(this, (HelperText.__proto__ || Object.getPrototypeOf(HelperText)).apply(this, arguments));
+	}
+
+	_createClass(HelperText, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement('div', null);
+		}
+	}]);
+
+	return HelperText;
+}(_react.Component);
+
+exports.default = HelperText;
 
 /***/ })
 /******/ ]);
