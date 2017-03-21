@@ -17,6 +17,7 @@ class App extends Component {
 		this.handleBoxHover= this.handleBoxHover.bind(this);
 		this.handleMapLeave= this.handleMapLeave.bind(this);
 		this.handleBoxClick= this.handleBoxClick.bind(this);
+		this.handleFilterReset= this.handleFilterReset.bind(this);
 		this.state = {
 			postList: [
 
@@ -264,25 +265,25 @@ class App extends Component {
 		}
 	}
 
-	componentDidMount(){
-		superagent
-			.get('/api/post')
-			.query(null)
-			.set('Accept', 'application/json')
-			.end((err, response) => {
-				if(err){
-					console.log(err)
-					return
-				}
+	// componentDidMount(){
+	// 	superagent
+	// 		.get('/api/post')
+	// 		.query(null)
+	// 		.set('Accept', 'application/json')
+	// 		.end((err, response) => {
+	// 			if(err){
+	// 				console.log(err)
+	// 				return
+	// 			}
 
-				let results = response.body.results.reverse();
+	// 			let results = response.body.results.reverse();
 
-				this.setState({
-					postList: results
-				})
+	// 			this.setState({
+	// 				postList: results
+	// 			})
 
-			})
-	}
+	// 		})
+	// }
 
 	handleSearchChange(searchInput){
 		let newSearchInput = Object.assign('', this.state.searchInput)
@@ -350,24 +351,43 @@ class App extends Component {
 		}
 	}
 
+	handleFilterReset(){
+		const oldState = this.state;
+
+		const newState = update(oldState, {
+			searchInput: {$set: ''},
+			map:{
+				selectedBoxes: {$set: []},
+			}
+		});
+
+		this.setState(newState)
+	}
+
 	render(){
 		return (
 				<div id="App">
 					<div id="main-cont">
 						<div className="sidebar">
-							{/* <Header/> */}
+							<Header/>
+
+							<HelperText
+								mapState={this.state.map}
+							/>
+
 							<Search
 								updateSearch={this.handleSearchChange}
 								searchInput = {this.state.searchInput}
 							/>
-							<HelperText/>
 							<MapFilter
 								updateCurrentHoveredBox={this.handleBoxHover}
 								updateMapHover={this.handleMapLeave}
 								updateSelectedBoxes={this.handleBoxClick}
+								resetFilter={this.handleFilterReset}
 								currentHoveredBox={this.state.map.currentHoveredBox}
 								selectedBoxes={this.state.map.selectedBoxes}
 							/>
+
 						</div>
 
 							<PostList

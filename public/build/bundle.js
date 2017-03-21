@@ -4594,7 +4594,13 @@ exports.default = {
 		display: 'block',
 		width: 250,
 		margin: 'auto',
-		overflow: 'hidden'
+		overflow: 'hidden',
+
+		resetButton: {
+			textAlign: 'right',
+			padding: 5,
+			fontSize: 10
+		}
 	},
 
 	box: {
@@ -4690,7 +4696,11 @@ exports.default = {
 
 		//special stylings
 		fakeNewsText: {
-			color: '#585858'
+			color: '#000',
+			backgroundColor: 'rgba(255,255,255,.7)',
+			padding: '5px 5px 4px 5px',
+			textAlign: 'center'
+
 		},
 
 		factText: {
@@ -4721,6 +4731,33 @@ exports.default = {
 			width: '100%',
 			fontWeight: '900'
 		}
+	},
+
+	HelperText: {
+		container: {
+			width: '100%',
+			maxWidth: 250,
+			margin: 'auto',
+			height: 140,
+			padding: '10px 10px 20px 10px',
+			marginTop: 10,
+			marginBottom: 10
+		},
+
+		fakeNewsText: {
+			color: '#585858'
+		},
+
+		factText: {
+			color: '#585858'
+		},
+
+		x1: { backgroundColor: "#A9D0F5" },
+		x2: { backgroundColor: "#E0ECF8" },
+		x3: { backgroundColor: "#f2f2f2" },
+		x4: { backgroundColor: "#F8E0E6" },
+		x5: { backgroundColor: "#F5A9BC" }
+
 	}
 
 };
@@ -9722,13 +9759,15 @@ var MapFilter = function (_Component) {
 		_this.handleMapLeave = _this.handleMapLeave.bind(_this);
 		_this.handleBoxMouseEnter = _this.handleBoxMouseEnter.bind(_this);
 		_this.handleBoxClick = _this.handleBoxClick.bind(_this);
+		_this.handleFilterReset = _this.handleFilterReset.bind(_this);
 		return _this;
 	}
 
 	_createClass(MapFilter, [{
 		key: 'handleMapLeave',
-		value: function handleMapLeave() {
+		value: function handleMapLeave(e) {
 			//pass state up to App
+			e.preventDefault();
 			this.props.updateMapHover(false);
 		}
 	}, {
@@ -9742,6 +9781,13 @@ var MapFilter = function (_Component) {
 		value: function handleBoxClick(coordinateArray) {
 			//pass up to App state
 			this.props.updateSelectedBoxes(coordinateArray);
+		}
+	}, {
+		key: 'handleFilterReset',
+		value: function handleFilterReset(e) {
+			//pass up to App state
+			e.preventDefault();
+			this.props.resetFilter();
 		}
 	}, {
 		key: 'render',
@@ -9805,7 +9851,16 @@ var MapFilter = function (_Component) {
 					onMouseEnter: this.handleMapEnter,
 					onMouseLeave: this.handleMapLeave
 				},
-				grid
+				grid,
+				_react2.default.createElement(
+					'div',
+					{
+						style: _styles2.default.MapFilter.resetButton,
+						className: 'hoverText',
+						onClick: this.handleFilterReset
+					},
+					'Reset Filter'
+				)
 			);
 		}
 	}]);
@@ -10003,8 +10058,9 @@ var Search = function (_Component) {
 				_react2.default.createElement("input", {
 					name: "searchInput",
 					id: "search-input",
-					placeholder: this.props.searchInput.length > 0 ? this.props.searchInput : 'Search...',
-					onChange: this.handleChange
+					placeholder: 'Search...',
+					onChange: this.handleChange,
+					value: this.searchInput
 				})
 			);
 		}
@@ -11003,11 +11059,13 @@ var Box = function (_Component) {
 	_createClass(Box, [{
 		key: 'handleMouseEnter',
 		value: function handleMouseEnter(e) {
+			e.preventDefault();
 			this.props.handleMouseEnter([this.props.x, this.props.y]);
 		}
 	}, {
 		key: 'handleClick',
 		value: function handleClick(e) {
+			e.preventDefault();
 			this.props.handleClick([this.props.x, this.props.y]);
 		}
 	}, {
@@ -24507,6 +24565,7 @@ var App = function (_Component) {
 		_this.handleBoxHover = _this.handleBoxHover.bind(_this);
 		_this.handleMapLeave = _this.handleMapLeave.bind(_this);
 		_this.handleBoxClick = _this.handleBoxClick.bind(_this);
+		_this.handleFilterReset = _this.handleFilterReset.bind(_this);
 		_this.state = {
 			postList: [{
 				_id: "58c89b97b0be59f42ebaae27",
@@ -24727,25 +24786,27 @@ var App = function (_Component) {
 		return _this;
 	}
 
+	// componentDidMount(){
+	// 	superagent
+	// 		.get('/api/post')
+	// 		.query(null)
+	// 		.set('Accept', 'application/json')
+	// 		.end((err, response) => {
+	// 			if(err){
+	// 				console.log(err)
+	// 				return
+	// 			}
+
+	// 			let results = response.body.results.reverse();
+
+	// 			this.setState({
+	// 				postList: results
+	// 			})
+
+	// 		})
+	// }
+
 	_createClass(App, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			var _this2 = this;
-
-			_superagent2.default.get('/api/post').query(null).set('Accept', 'application/json').end(function (err, response) {
-				if (err) {
-					console.log(err);
-					return;
-				}
-
-				var results = response.body.results.reverse();
-
-				_this2.setState({
-					postList: results
-				});
-			});
-		}
-	}, {
 		key: 'handleSearchChange',
 		value: function handleSearchChange(searchInput) {
 			var newSearchInput = Object.assign('', this.state.searchInput);
@@ -24838,6 +24899,20 @@ var App = function (_Component) {
 			}
 		}
 	}, {
+		key: 'handleFilterReset',
+		value: function handleFilterReset() {
+			var oldState = this.state;
+
+			var newState = (0, _immutabilityHelper2.default)(oldState, {
+				searchInput: { $set: '' },
+				map: {
+					selectedBoxes: { $set: [] }
+				}
+			});
+
+			this.setState(newState);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
@@ -24849,15 +24924,19 @@ var App = function (_Component) {
 					_react2.default.createElement(
 						'div',
 						{ className: 'sidebar' },
+						_react2.default.createElement(_Header2.default, null),
+						_react2.default.createElement(_HelperText2.default, {
+							mapState: this.state.map
+						}),
 						_react2.default.createElement(_Search2.default, {
 							updateSearch: this.handleSearchChange,
 							searchInput: this.state.searchInput
 						}),
-						_react2.default.createElement(_HelperText2.default, null),
 						_react2.default.createElement(_MapFilter2.default, {
 							updateCurrentHoveredBox: this.handleBoxHover,
 							updateMapHover: this.handleMapLeave,
 							updateSelectedBoxes: this.handleBoxClick,
+							resetFilter: this.handleFilterReset,
 							currentHoveredBox: this.state.map.currentHoveredBox,
 							selectedBoxes: this.state.map.selectedBoxes
 						})
@@ -25144,6 +25223,10 @@ var _react = __webpack_require__(14);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _styles = __webpack_require__(32);
+
+var _styles2 = _interopRequireDefault(_styles);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25164,7 +25247,64 @@ var HelperText = function (_Component) {
 	_createClass(HelperText, [{
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement('div', null);
+			var currentHoveredBox = this.props.mapState.currentHoveredBox;
+			var x = currentHoveredBox[0],
+			    y = currentHoveredBox[1];
+
+			var xHeaders = ['', 'Left', 'Left-Center', 'Center', 'Right-Center', 'Right'];
+			var yHeaders = ['FAKE NEWS', 'Speculation', 'Opinion', 'Analysis',
+			//top row of labels
+			['', 'News', 'Facts', 'Stats', 'Interview', 'Other']];
+
+			var yDescriptions = ['Clearly incorrect, misleading or incomplete information. This is why you have trust issues when consuming news on the internet.', 'Big "if" statements and minimally supported theories,', 'Personal or ideological take on a subject,', 'Thoughtful, informed commentary on a topic', ['', 'Traditonal reporting and journalism, providing nothing but the facts and context.', 'Cold, hard information. The best example of this would be Wikipedia, primary sources, timelines, etc.', 'Numbers, data, studies, graphics, etc. There should a direct connection between the source and the numbers they present.', 'Q&A meant to better understand the subject.', 'Absolutely everything else that doesn\'t apply to the other categories.']];
+
+			var xDescriptions = ['', 'a strong left/liberal/Democrat leaning or viewpoint. Little or no consideration for the other side.', 'a slight left/liberal/Democrat leaning or viewpoint, but mutiple viewpoints are considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left/right mold.', 'a slight right/conservative/Republican leaning or viewpoint, but mutiple viewpoints are considered.', 'a strong right/conservative/Republican leaning or viewpoint. Little or no consideration for the other side.'];
+
+			//set rating label
+			var header = 'Hey, you\'re using the alpha version of Media Bias Map',
+			    description = _react2.default.createElement(
+				'p',
+				null,
+				'Use the grid and search bar to navigate the political media links, curated by users of the ',
+				_react2.default.createElement(
+					'a',
+					{ href: '' },
+					'Media Bias Map Chrome Extension.'
+				)
+			),
+			    helperTextStyle = {};
+
+			if (currentHoveredBox.length > 0) {
+				if (x == 0) {
+					header = 'FAKE NEWS';
+					description = yDescriptions[0];
+					helperTextStyle = _styles2.default.HelperText.fakeNews;
+				} else if (y == 4) {
+					header = yHeaders[4][x];
+					description = yDescriptions[4][x];
+					helperTextStyle = _styles2.default.HelperText.factText;
+				} else {
+					header = xHeaders[x] + ' | ' + yHeaders[y];
+					description = yDescriptions[y] + ' with  ' + xDescriptions[x];
+					helperTextStyle = _styles2.default.HelperText['x' + x];
+				}
+			}
+
+			return _react2.default.createElement(
+				'div',
+				{ style: Object.assign({}, _styles2.default.HelperText.container, helperTextStyle) },
+				_react2.default.createElement(
+					'h2',
+					{ style: _styles2.default.HelperText.header },
+					header
+				),
+				_react2.default.createElement('hr', null),
+				_react2.default.createElement(
+					'p',
+					null,
+					description
+				)
+			);
 		}
 	}]);
 

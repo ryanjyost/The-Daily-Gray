@@ -9,10 +9,12 @@ class MapFilter extends Component {
 		this.handleMapLeave = this.handleMapLeave.bind(this);
 		this.handleBoxMouseEnter = this.handleBoxMouseEnter.bind(this);
 		this.handleBoxClick = this.handleBoxClick.bind(this);
+		this.handleFilterReset = this.handleFilterReset.bind(this);
 	}
 
-	handleMapLeave(){
+	handleMapLeave(e){
 		//pass state up to App
+		e.preventDefault()
 		this.props.updateMapHover(false)
 	}
 
@@ -24,6 +26,12 @@ class MapFilter extends Component {
 	handleBoxClick(coordinateArray){
 		//pass up to App state
 		this.props.updateSelectedBoxes(coordinateArray)
+	}
+
+	handleFilterReset(e){
+		//pass up to App state
+		e.preventDefault()
+		this.props.resetFilter();
 	}
 
 	render(){
@@ -87,6 +95,13 @@ class MapFilter extends Component {
 				onMouseLeave={this.handleMapLeave}
 			>
 				{grid}
+				<div
+					style={styles.MapFilter.resetButton}
+					className="hoverText"
+					onClick={this.handleFilterReset}
+				>
+				Reset Filter
+				</div>
 			</div>
 
 		)

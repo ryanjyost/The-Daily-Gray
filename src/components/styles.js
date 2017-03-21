@@ -1,10 +1,16 @@
 export default {
 
 	MapFilter: {
-			display: 'block',
-			width: 250,
-			margin: 'auto',
-			overflow: 'hidden'
+		display: 'block',
+		width: 250,
+		margin: 'auto',
+		overflow: 'hidden',
+
+		resetButton:{
+			textAlign:'right',
+			padding:5,
+			fontSize: 10,
+		}
 	},
 
 	box: {
@@ -100,7 +106,11 @@ export default {
 
 		//special stylings
 		fakeNewsText: {
-			color: '#585858'
+			color: '#000',
+			backgroundColor:'rgba(255,255,255,.7)',
+			padding:'5px 5px 4px 5px',
+			textAlign:'center',
+
 		},
 
 		factText: {
@@ -131,7 +141,36 @@ export default {
 			width:'100%',
 			fontWeight: '900'
 		}
-	}
+	},
+
+	HelperText: {
+		container: {
+			width:'100%',
+			maxWidth:250,
+			margin:'auto',
+			height:140,
+			padding:'10px 10px 20px 10px',
+			marginTop: 10,
+			marginBottom:10,
+		},
+
+		fakeNewsText:{
+			color: '#585858'
+		},
+
+		factText: {
+			color: '#585858'
+		},
+
+		x1: {backgroundColor: "#A9D0F5"},
+		x2: {backgroundColor: "#E0ECF8"},
+		x3: {backgroundColor: "#f2f2f2"},
+		x4: {backgroundColor: "#F8E0E6"},
+		x5: {backgroundColor: "#F5A9BC"},
+
+
+
+	},
 
 
 

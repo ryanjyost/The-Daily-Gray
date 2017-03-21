@@ -8,10 +8,12 @@ class Box extends Component {
 	}
 
 	handleMouseEnter(e){
+		e.preventDefault()
 		this.props.handleMouseEnter([this.props.x, this.props.y])
 	}
 
 	handleClick(e){
+		e.preventDefault()
 		this.props.handleClick([this.props.x, this.props.y])
 	}
 
