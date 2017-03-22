@@ -265,25 +265,25 @@ class App extends Component {
 		}
 	}
 
-	// componentDidMount(){
-	// 	superagent
-	// 		.get('/api/post')
-	// 		.query(null)
-	// 		.set('Accept', 'application/json')
-	// 		.end((err, response) => {
-	// 			if(err){
-	// 				console.log(err)
-	// 				return
-	// 			}
+	componentDidMount(){
+		superagent
+			.get('/api/post')
+			.query(null)
+			.set('Accept', 'application/json')
+			.end((err, response) => {
+				if(err){
+					console.log(err)
+					return
+				}
 
-	// 			let results = response.body.results.reverse();
+				let results = response.body.results.reverse();
 
-	// 			this.setState({
-	// 				postList: results
-	// 			})
+				this.setState({
+					postList: results
+				})
 
-	// 		})
-	// }
+			})
+	}
 
 	handleSearchChange(searchInput){
 		let newSearchInput = Object.assign('', this.state.searchInput)

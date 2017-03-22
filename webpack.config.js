@@ -3,13 +3,15 @@ var path = require('path')
 
 module.exports = {
 
-	entry: {
-		app: './src/app.js'
-	},
+	entry: [
+		'./src/app.js'
+	],
 
 	output:{
 		filename: 'public/build/bundle.js',
-		sourceMapFilename: 'public/build/bundle.map'
+		sourceMapFilename: 'public/build/bundle.map',
+		publicPath: '/',
+		path: path.join(__dirname, '/public' )
 	},
 	devtool: '#source-map',
 	module: {
@@ -24,5 +26,18 @@ module.exports = {
 			}
 
 		]
-	}
-}
+	},
+	resolve: {
+		extensions: ['', '.js']
+	},
+	devServer: {
+		contentBase: './public',
+		hot: true
+	},
+	plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
+
+};

@@ -11,25 +11,7 @@ const Post = require('../models/post');
 //homepage
 router.route('/')
   .get((req, res)=> {
-      const postList = Post.find({});
-      const resources = {
-        postResources: postList.exec.bind(postList)
-      };
-
-     async.parallel(resources, (error, results)=> {
-        if(error){
-          res.status(500).send(error);
-          return;
-        }
-        const info = results;
-        const postArray = [...info.postResources];
-
-        //put most recent posts first
-        postArray.reverse();
-
-        res.render('pages/index', {postArray});
-        // res.send('hey')
-      });
+      res.sendFile(_dirname + '/public/index.html')
   });
 
 //============================
