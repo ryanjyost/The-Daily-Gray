@@ -1,6 +1,5 @@
 const express = require('express'),
-      router = express.Router(),
-      og = require('open-graph');
+      router = express.Router();
 
 //models
 const Post = require('../models/post');

@@ -15,6 +15,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('port', (process.env.PORT || 3000));
 
 
 // using webpack-dev-server and middleware in development environment
@@ -66,9 +67,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get((req, res)=> {
+      res.sendFile(_dirname + '/public/index.html')
+});
+
 //=================================
 //Listen on port
-app.listen(process.env.PORT || 3000, (error) => {
+app.listen(app.get('port'), (error) => {
     if(error)
       console.error(error)
     console.log('app is listening on 3000')
