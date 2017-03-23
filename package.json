@@ -1,14 +1,15 @@
 {
   "name": "media-bias-map",
   "version": "0.1.0",
-  "main": "app.js",
+  "main": "server.js",
   "engines": {
     "node": "7.2.0"
   },
   "scripts": {
-    "start": "nodemon app.js",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
+    "postinstall": "webpack -p",
+    "start": "node server.js"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
