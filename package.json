@@ -2,13 +2,18 @@
   "name": "media-bias-map",
   "version": "0.1.0",
   "main": "app.js",
+  "engines": {
+    "node": "7.2.0"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "webpack -p --config webpack.prod.config.js"
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
+    "babel-polyfill": "6.8.0",
+    "babel-cli": "6.8.0",
     "babel-loader": "^6.4.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
@@ -16,13 +21,17 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
+    "bootstrap": "^3.3.7",
     "express": "~4.14.0",
     "morgan": "~1.7.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "serve-favicon": "~2.3.0",
     "superagent": "^3.5.0",
-     "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "colors": "1.1.2",
+    "compression": "^1.6.1",
+    "open": "0.0.5"
   },
   "devDependencies": {
     "eslint": "^3.18.0",
