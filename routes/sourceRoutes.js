@@ -1,8 +1,7 @@
 const express = require('express'),
       sourceRouter = express.Router(),
-      async = require('async'),
-	  Source = require('../models/source'),
-	  Post = require('../models/post');
+	  	Source = require('../models/source'),
+	  	Post = require('../models/post');
 
 
 sourceRouter.route('/:s_id')
