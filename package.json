@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack -p",
     "start": "node server.js",
-    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors",
+    "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
     "babel-cli": "6.8.0",
@@ -43,6 +43,8 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "devDependencies": {
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.22.0",
     "eslint": "^3.18.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
