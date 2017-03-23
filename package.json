@@ -13,6 +13,7 @@
     "build": "NODE_ENV=production webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "dependencies": {
+    "ajv": "^4.11.5",
     "babel-cli": "6.8.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
