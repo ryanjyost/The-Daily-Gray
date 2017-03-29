@@ -13,9 +13,9 @@ sourceRouter.route('/:s_id')
 	 		if(err)
               return console.log(err);
 
-          	//===================================
-          	// get posts from source and render data to source page
-          	const postList = Post.find({source: source.name});
+      	//===================================
+      	// get posts from source and render data to source page
+      	const postList = Post.find({source: source.name});
 		    const resources = {
 		      postResources: postList.exec.bind(postList)
 		    };

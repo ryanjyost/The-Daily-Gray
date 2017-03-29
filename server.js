@@ -12,6 +12,7 @@ var index = require('./routes/index');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -23,7 +24,7 @@ if(process.env.NODE_ENV !== 'production') {
   var webpackDevMiddleware = require('webpack-dev-middleware');
   var webpackHotMiddleware = require('webpack-hot-middleware');
   var webpack = require('webpack');
-  var config = require('./webpack.prod.config');
+  var config = require('./webpack.dev.config');
   var compiler = webpack(config);
 
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
@@ -40,12 +41,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
-
 //======================================
 //routing
 app.use('/', require('./routes'));
-// app.use('/admin', require('./routes/adminRoutes'));
-// app.use('/auth', require('./routes/authRoutes'));
 
 //=================================
 // catch 404 and forward to error handler

@@ -52,6 +52,7 @@ export default {
 			zIndex: 1000,
 			height: '100%',
 			lineHeight: '46px',
+			fontSize: 6,
 
 			top: {
 				lineHeight:'46px',
