@@ -260,7 +260,7 @@ class App extends Component {
 			map: {
 				hover: false, // n for no, y for yes
 				currentHoveredBox: [],
-				selectedBoxes: [[1,1]]
+				selectedBoxes: []
 			}
 		}
 	}

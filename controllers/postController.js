@@ -49,7 +49,7 @@ module.exports = {
 
 	        console.log(postInfo)
 
-	        Post.create(postInfo, function(err, post){
+	    Post.save(postInfo, function(err, post){
 				if(err){
 					callback(err, null)
 					return
