@@ -74,6 +74,17 @@ export default {
 
 			},
 
+
+//==============================
+	mainView:{
+		container: {
+			margin: 'auto',
+			width:'100%'
+		}
+	},
+
+
+
 	//==============================
 	post:{
 		padding: '14px 20px 5px 20px',
@@ -207,9 +218,11 @@ export default {
 				link:{
 					display:'inline-block',
 					float:'none',
-					padding:'0px 20px 0px 20px',
+					padding:'2px 20px 0px 20px',
 					color:'#585858',
-					fontWeight: '200',
+					fontWeight: '900',
+					cursor: 'pointer',
+					fontSize:16,
 				},
 	},
 
@@ -233,6 +246,7 @@ export default {
 
 		textContainer:{
 			margin:'0px 2px 0px 6px',
+			width:200,
 		},
 
 		title:{
@@ -249,7 +263,7 @@ export default {
 
 	//==============================
 
-	sources:{
+	sourceView:{
 		container: {
 			margin: 'auto',
 			width:'100%'

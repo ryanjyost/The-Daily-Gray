@@ -14,8 +14,9 @@ class PostList extends Component {
 			    postArray = this.props.postList,
 		      searchInput = this.props.searchInput.toLowerCase();
 
+
+		//filter posts with search, map (after the page has already loaded)
 		var filteredPostArray = (function(postArray, searchInput, selectedBoxesArray){
-			//filters related to hovering specific box
 
 			//if there are any selectedBoxes
 			if(selectedBoxes.length > 0){

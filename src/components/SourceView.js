@@ -5,6 +5,7 @@ import update from 'immutability-helper'
 import Source from './Source.js'
 import iFrame from 'react-iframe'
 import Slider from 'react-slick'
+import Menubar from './Menubar'
 
 
 const LeftArrow = () => {
@@ -13,9 +14,7 @@ const LeftArrow = () => {
 	)
 }
 
-
-
-class Sources extends Component {
+class SourceView extends Component {
 	constructor(){
 		super()
 		this.state = {
@@ -63,14 +62,12 @@ class Sources extends Component {
 			dots:true,
 			slidesToShow: 4,
 			slidesToScroll: 1,
-
-
-
 		};
 
 
 		return (
 			<div style= {styles.sources.container}>
+				<Menubar/>
 				<Slider {...sliderSettings} style={styles.sourceMenu.slider}>
 					<Source name="test"/>
 					<Source name="test"/>
@@ -89,4 +86,4 @@ class Sources extends Component {
 	}
 }
 
-export default Sources
+export default SourceView

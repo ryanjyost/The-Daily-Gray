@@ -4,6 +4,7 @@ var controllers = require('../controllers');
 var og = require('open-graph');
 var Post = require('../models/post');
 var Source = require('../models/source');
+var Topic = require('../models/topic');
 
 apiRouter.get('/:resource', function(req, res, next){
 

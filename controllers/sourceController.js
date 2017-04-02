@@ -25,7 +25,16 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-        Source.create(params, function(err, source){
+     let sourceInfo = {
+     	name: params.name,
+		  url: params.url,
+		  desc: params.desc,
+		  descSource: params.descSource,
+		  wikiURL: params.wikiURL,
+		  imageURL: params.imageURL,
+     }
+
+     Source.create(sourceInfo, function(err, source){
 			if(err){
 				callback(err, null)
 				return

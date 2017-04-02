@@ -52,9 +52,8 @@ class HelperText extends Component {
 
 		//set rating label
 		let header = 'Hey, you\'re using the alpha version of Media Bias Map',
-				description = 	<p>Use the grid and search bar to navigate the political media links, curated by users of the <a href="">Media Bias Map Chrome Extension.</a></p>,
-
-				helperTextStyle = {};
+				description = 	'We want to make it easier to read about politics from a variety sources and perspectives.',
+				helperTextStyle = {}
 
 		if(currentHoveredBox.length > 0){
 			if(x == 0){

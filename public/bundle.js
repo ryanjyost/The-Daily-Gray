@@ -58,17 +58,13 @@
 	
 	var _reactRouterDom = __webpack_require__(178);
 	
-	var _Menubar = __webpack_require__(215);
-	
-	var _Menubar2 = _interopRequireDefault(_Menubar);
-	
 	var _MainView = __webpack_require__(220);
 	
 	var _MainView2 = _interopRequireDefault(_MainView);
 	
-	var _Sources = __webpack_require__(219);
+	var _SourceView = __webpack_require__(260);
 	
-	var _Sources2 = _interopRequireDefault(_Sources);
+	var _SourceView2 = _interopRequireDefault(_SourceView);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -99,8 +95,7 @@
 						_react2.default.createElement(
 							'div',
 							{ id: 'main-cont' },
-							_react2.default.createElement(_Menubar2.default, null),
-							_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/sources', component: _Sources2.default }),
+							_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/sources', component: _SourceView2.default }),
 							_react2.default.createElement(
 								_reactRouterDom.Route,
 								{ exact: true, path: '/', component: _MainView2.default },
@@ -24820,7 +24815,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -24839,6 +24834,14 @@
 	
 	var _reactRouterDom = __webpack_require__(178);
 	
+	var _superagent = __webpack_require__(221);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _immutabilityHelper = __webpack_require__(229);
+	
+	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24848,40 +24851,92 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var Menubar = function (_Component) {
-		_inherits(Menubar, _Component);
+	  _inherits(Menubar, _Component);
 	
-		function Menubar() {
-			_classCallCheck(this, Menubar);
+	  function Menubar() {
+	    _classCallCheck(this, Menubar);
 	
-			return _possibleConstructorReturn(this, (Menubar.__proto__ || Object.getPrototypeOf(Menubar)).apply(this, arguments));
-		}
+	    var _this = _possibleConstructorReturn(this, (Menubar.__proto__ || Object.getPrototypeOf(Menubar)).call(this));
 	
-		_createClass(Menubar, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ style: _styles2.default.menubar.container },
-					_react2.default.createElement(_Logo2.default, null),
-					_react2.default.createElement(
-						'div',
-						{ style: _styles2.default.menubar.linksContainer },
-						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ style: _styles2.default.menubar.link, to: '/sources' },
-							'Sources'
-						),
-						_react2.default.createElement(
-							_reactRouterDom.Link,
-							{ style: _styles2.default.menubar.link, to: '/' },
-							'Recent'
-						)
-					)
-				);
-			}
-		}]);
+	    _this.handleTopicClick = _this.handleTopicClick.bind(_this);
+	    _this.resetTopic = _this.resetTopic.bind(_this);
+	    _this.state = {
+	      topicList: []
+	    };
+	    return _this;
+	  }
 	
-		return Menubar;
+	  _createClass(Menubar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      //get topics
+	      _superagent2.default.get('/api/topic').query(null).set('Accept', 'application/json').end(function (err, response) {
+	        if (err) {
+	          console.log(err);
+	          return;
+	        }
+	
+	        var results = response.body.results.reverse();
+	
+	        _this2.setState({
+	          topicList: results
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'handleTopicClick',
+	    value: function handleTopicClick(e) {
+	      e.preventDefault();
+	      var topic = e.currentTarget.textContent;
+	
+	      this.props.updateTopic(topic);
+	    }
+	  }, {
+	    key: 'resetTopic',
+	    value: function resetTopic() {
+	      this.props.updateTopic('');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var topicList = this.state.topicList.map(function (topic, i) {
+	        return _react2.default.createElement(
+	          _reactRouterDom.Link,
+	          {
+	            style: _styles2.default.menubar.link,
+	            to: '/',
+	            onClick: _this3.handleTopicClick
+	          },
+	          topic.name
+	        );
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { style: _styles2.default.menubar.container },
+	        _react2.default.createElement(_Logo2.default, null),
+	        _react2.default.createElement(
+	          'div',
+	          { style: _styles2.default.menubar.linksContainer },
+	          _react2.default.createElement(
+	            _reactRouterDom.Link,
+	            {
+	              style: _styles2.default.menubar.link,
+	              to: '/',
+	              onClick: this.resetTopic },
+	            'Recent'
+	          ),
+	          topicList
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Menubar;
 	}(_react.Component);
 	
 	exports.default = Menubar;
@@ -24968,6 +25023,14 @@
 				}
 			}
 	
+		},
+	
+		//==============================
+		mainView: {
+			container: {
+				margin: 'auto',
+				width: '100%'
+			}
 		},
 	
 		//==============================
@@ -25102,9 +25165,11 @@
 			link: {
 				display: 'inline-block',
 				float: 'none',
-				padding: '0px 20px 0px 20px',
+				padding: '2px 20px 0px 20px',
 				color: '#585858',
-				fontWeight: '200'
+				fontWeight: '900',
+				cursor: 'pointer',
+				fontSize: 16
 			}
 		},
 	
@@ -25125,7 +25190,8 @@
 			},
 	
 			textContainer: {
-				margin: '0px 2px 0px 6px'
+				margin: '0px 2px 0px 6px',
+				width: 200
 			},
 	
 			title: {
@@ -25142,7 +25208,7 @@
 	
 		//==============================
 	
-		sources: {
+		sourceView: {
 			container: {
 				margin: 'auto',
 				width: '100%'
@@ -25202,8 +25268,8 @@
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
-					'div',
-					{ style: _styles2.default.logo.cont },
+					'a',
+					{ href: '/', style: _styles2.default.logo.cont },
 					_react2.default.createElement('img', { style: _styles2.default.logo.image, src: '../images/favicon.ico' }),
 					_react2.default.createElement(
 						'div',
@@ -25230,147 +25296,7 @@
 
 /***/ },
 /* 218 */,
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _superagent = __webpack_require__(221);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _immutabilityHelper = __webpack_require__(229);
-	
-	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
-	
-	var _Source = __webpack_require__(237);
-	
-	var _Source2 = _interopRequireDefault(_Source);
-	
-	var _reactIframe = __webpack_require__(236);
-	
-	var _reactIframe2 = _interopRequireDefault(_reactIframe);
-	
-	var _reactSlick = __webpack_require__(238);
-	
-	var _reactSlick2 = _interopRequireDefault(_reactSlick);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LeftArrow = function LeftArrow() {
-		return _react2.default.createElement(
-			'h1',
-			null,
-			'left'
-		);
-	};
-	
-	var Sources = function (_Component) {
-		_inherits(Sources, _Component);
-	
-		function Sources() {
-			_classCallCheck(this, Sources);
-	
-			var _this = _possibleConstructorReturn(this, (Sources.__proto__ || Object.getPrototypeOf(Sources)).call(this));
-	
-			_this.state = {
-				sourceList: []
-			};
-			return _this;
-		}
-	
-		_createClass(Sources, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-	
-				//get recent sources
-				_superagent2.default.get('/api/source').query(null).set('Accept', 'application/json').end(function (err, response) {
-					if (err) {
-						console.log(err);
-						return;
-					}
-	
-					var results = response.body.results.reverse();
-					console.log(results);
-	
-					_this2.setState({
-						sourceList: results
-					});
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-	
-				var sourceArray = this.state.sourceList;
-	
-				var sourceList = sourceArray.map(function (source, i) {
-					return _react2.default.createElement(_Source2.default, {
-						name: source.name
-					});
-				});
-	
-				var sliderSettings = {
-					accessibillity: true,
-					arrows: true,
-					dots: true,
-					slidesToShow: 4,
-					slidesToScroll: 1
-	
-				};
-	
-				return _react2.default.createElement(
-					'div',
-					{ style: _styles2.default.sources.container },
-					_react2.default.createElement(
-						_reactSlick2.default,
-						_extends({}, sliderSettings, { style: _styles2.default.sourceMenu.slider }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'iframeContainer' },
-						_react2.default.createElement('div', { className: 'iframe-overlay' }),
-						_react2.default.createElement('iFrame', { className: 'iframe', scrolling: 'no', src: 'http://www.cnn.com/' })
-					)
-				);
-			}
-		}]);
-	
-		return Sources;
-	}(_react.Component);
-	
-	exports.default = Sources;
-
-/***/ },
+/* 219 */,
 /* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -25390,6 +25316,10 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
 	var _superagent = __webpack_require__(221);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
@@ -25405,6 +25335,10 @@
 	var _PostList = __webpack_require__(230);
 	
 	var _PostList2 = _interopRequireDefault(_PostList);
+	
+	var _Menubar = __webpack_require__(215);
+	
+	var _Menubar2 = _interopRequireDefault(_Menubar);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25422,6 +25356,7 @@
 	
 			var _this = _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).call(this));
 	
+			_this.handleTopicChange = _this.handleTopicChange.bind(_this);
 			_this.handleSearchChange = _this.handleSearchChange.bind(_this);
 			_this.handleBoxHover = _this.handleBoxHover.bind(_this);
 			_this.handleMapLeave = _this.handleMapLeave.bind(_this);
@@ -25432,6 +25367,7 @@
 				postList: [],
 				searchInput: '',
 				showHelperText: true,
+				currentTopic: '',
 				map: {
 					hover: false, // n for no, y for yes
 					currentHoveredBox: [],
@@ -25454,12 +25390,50 @@
 					}
 	
 					var results = response.body.results.reverse();
+					console.log(results);
 	
 					_this2.setState({
 						postList: results
 					});
 				});
 			}
+	
+			//==================================
+			// Topic handlers
+	
+		}, {
+			key: 'handleTopicChange',
+			value: function handleTopicChange(topic) {
+				var _this3 = this;
+	
+				var oldState = this.state;
+	
+				var newState = (0, _immutabilityHelper2.default)(oldState, {
+					currentTopic: { $set: topic }
+				});
+	
+				var query = topic.length > 0 ? { 'topic': topic } : null;
+	
+				_superagent2.default.get('/api/post').query(query).set('Accept', 'application/json').end(function (err, response) {
+					if (err) {
+						console.log(err);
+						return;
+					}
+	
+					var results = response.body.results.reverse();
+					console.log(results);
+	
+					_this3.setState({
+						postList: results
+					});
+				});
+	
+				this.setState(newState);
+			}
+	
+			//==================================
+			// Map Filter handlers
+	
 		}, {
 			key: 'handleBoxHover',
 			value: function handleBoxHover(hoverBoolean, coordinateArray) {
@@ -25576,7 +25550,8 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: _styles2.default.mainView.container },
+					_react2.default.createElement(_Menubar2.default, { updateTopic: this.handleTopicChange }),
 					_react2.default.createElement(_Sidebar2.default, {
 						showHelperText: this.state.showHelperText,
 						mapState: this.state.map,
@@ -27834,8 +27809,8 @@
 				    postArray = this.props.postList,
 				    searchInput = this.props.searchInput.toLowerCase();
 	
+				//filter posts with search, map (after the page has already loaded)
 				var filteredPostArray = function (postArray, searchInput, selectedBoxesArray) {
-					//filters related to hovering specific box
 	
 					//if there are any selectedBoxes
 					if (selectedBoxes.length > 0) {
@@ -28443,16 +28418,7 @@
 	
 				//set rating label
 				var header = 'Hey, you\'re using the alpha version of Media Bias Map',
-				    description = _react2.default.createElement(
-					'p',
-					null,
-					'Use the grid and search bar to navigate the political media links, curated by users of the ',
-					_react2.default.createElement(
-						'a',
-						{ href: '' },
-						'Media Bias Map Chrome Extension.'
-					)
-				),
+				    description = 'We want to make it easier to read about politics from a variety sources and perspectives.',
 				    helperTextStyle = {};
 	
 				if (currentHoveredBox.length > 0) {
@@ -30997,6 +30963,151 @@
 	}(_react.Component);
 	
 	exports.default = Sidebar;
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _superagent = __webpack_require__(221);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _immutabilityHelper = __webpack_require__(229);
+	
+	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+	
+	var _Source = __webpack_require__(237);
+	
+	var _Source2 = _interopRequireDefault(_Source);
+	
+	var _reactIframe = __webpack_require__(236);
+	
+	var _reactIframe2 = _interopRequireDefault(_reactIframe);
+	
+	var _reactSlick = __webpack_require__(238);
+	
+	var _reactSlick2 = _interopRequireDefault(_reactSlick);
+	
+	var _Menubar = __webpack_require__(215);
+	
+	var _Menubar2 = _interopRequireDefault(_Menubar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LeftArrow = function LeftArrow() {
+		return _react2.default.createElement(
+			'h1',
+			null,
+			'left'
+		);
+	};
+	
+	var SourceView = function (_Component) {
+		_inherits(SourceView, _Component);
+	
+		function SourceView() {
+			_classCallCheck(this, SourceView);
+	
+			var _this = _possibleConstructorReturn(this, (SourceView.__proto__ || Object.getPrototypeOf(SourceView)).call(this));
+	
+			_this.state = {
+				sourceList: []
+			};
+			return _this;
+		}
+	
+		_createClass(SourceView, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+	
+				//get recent sources
+				_superagent2.default.get('/api/source').query(null).set('Accept', 'application/json').end(function (err, response) {
+					if (err) {
+						console.log(err);
+						return;
+					}
+	
+					var results = response.body.results.reverse();
+					console.log(results);
+	
+					_this2.setState({
+						sourceList: results
+					});
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+	
+				var sourceArray = this.state.sourceList;
+	
+				var sourceList = sourceArray.map(function (source, i) {
+					return _react2.default.createElement(_Source2.default, {
+						name: source.name
+					});
+				});
+	
+				var sliderSettings = {
+					accessibillity: true,
+					arrows: true,
+					dots: true,
+					slidesToShow: 4,
+					slidesToScroll: 1
+				};
+	
+				return _react2.default.createElement(
+					'div',
+					{ style: _styles2.default.sources.container },
+					_react2.default.createElement(_Menubar2.default, null),
+					_react2.default.createElement(
+						_reactSlick2.default,
+						_extends({}, sliderSettings, { style: _styles2.default.sourceMenu.slider }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'iframeContainer' },
+						_react2.default.createElement('div', { className: 'iframe-overlay' }),
+						_react2.default.createElement('iFrame', { className: 'iframe', scrolling: 'no', src: 'http://www.cnn.com/' })
+					)
+				);
+			}
+		}]);
+	
+		return SourceView;
+	}(_react.Component);
+	
+	exports.default = SourceView;
 
 /***/ }
 /******/ ]);

@@ -10,8 +10,8 @@ body {
 		font-family: 'Raleway', sans-serif;
 	}
 
-	a:hover{text-decoration: none;}
-	a:focus{text-decoration: none;}
+	a:hover{text-decoration: underline;}
+	a:focus{text-decoration: underline;}
 
 
 	h2{

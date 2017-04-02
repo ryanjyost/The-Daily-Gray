@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import styles from './styles.js'
 import superagent from 'superagent'
 import update from 'immutability-helper'
 
 import Sidebar from './Sidebar'
 import PostList from './PostList'
+import Menubar from './Menubar'
 
 class MainView extends Component {
 	constructor(){
 		super()
+		this.handleTopicChange = this.handleTopicChange.bind(this);
 		this.handleSearchChange = this.handleSearchChange.bind(this);
 		this.handleBoxHover= this.handleBoxHover.bind(this);
 		this.handleMapLeave= this.handleMapLeave.bind(this);
@@ -19,6 +22,7 @@ class MainView extends Component {
 			postList: [],
 			searchInput: '',
 			showHelperText: true,
+			currentTopic: '',
 			map: {
 				hover: false, // n for no, y for yes
 				currentHoveredBox: [],
@@ -40,6 +44,7 @@ class MainView extends Component {
 				}
 
 				let results = response.body.results.reverse();
+				console.log(results)
 
 				this.setState({
 					postList: results
@@ -48,7 +53,41 @@ class MainView extends Component {
 			})
 	}
 
+	//==================================
+	// Topic handlers
+	handleTopicChange(topic){
+		const oldState = this.state;
 
+		const newState = update(oldState, {
+			currentTopic: {$set: topic},
+		});
+
+		let query = topic.length > 0 ? {'topic': topic} : null;
+
+		superagent
+			.get('/api/post')
+			.query(query)
+			.set('Accept', 'application/json')
+			.end((err, response) => {
+				if(err){
+					console.log(err)
+					return
+				}
+
+				let results = response.body.results.reverse();
+				console.log(results)
+
+				this.setState({
+					postList: results
+				})
+
+			})
+
+		this.setState(newState)
+	}
+
+	//==================================
+	// Map Filter handlers
 	handleBoxHover(hoverBoolean, coordinateArray){
 		const oldMapState = this.state.map;
 		const newMapState = update(oldMapState, {
@@ -134,7 +173,8 @@ class MainView extends Component {
 
 	render(){
 		return (
-				<div>
+				<div style= {styles.mainView.container}>
+					<Menubar updateTopic={this.handleTopicChange}/>
 						<Sidebar
 							showHelperText={this.state.showHelperText}
 							mapState={this.state.map}

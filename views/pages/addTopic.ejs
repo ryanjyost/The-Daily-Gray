@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	 <% include ../partials/head.ejs %>
+  </head>
+  <body>
+	<div id="main-cont">
+		<h1>ADD Topic</h1>
+
+		<form
+			id="addTopic"
+			action="/api/topic"
+			method="post"
+		>
+			<input name="name" id="name" placeholder="name">
+
+			<input type="submit" value="Add Topic">
+
+		</form>
+	</div><!-- main cont -->
+  </body>
+</html>

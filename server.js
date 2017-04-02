@@ -12,25 +12,10 @@ var index = require('./routes/index');
 
 var app = express();
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('port', (process.env.PORT || 3000));
-
-
-// using webpack-dev-server and middleware in development environment
-// if(process.env.NODE_ENV !== 'production') {
-//   var webpackDevMiddleware = require('webpack-dev-middleware');
-//   var webpackHotMiddleware = require('webpack-hot-middleware');
-//   var webpack = require('webpack');
-//   var config = require('./webpack.dev.config');
-//   var compiler = webpack(config);
-
-//   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-//   app.use(webpackHotMiddleware(compiler));
-// }
-
 
 //======================================
 //middleware
@@ -46,14 +31,6 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', require('./routes'));
 
 //=================================
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-//=================================
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -66,8 +43,15 @@ app.use(function(err, req, res, next) {
 });
 
 app.get((req, res)=> {
-      res.sendFile(_dirname + '/public/index.html')
+    res.sendFile(__dirname + '/public/index.html')
 });
+
+//=================================
+// catch 404 and forward to error handler
+app.get('*', function(req, res, next) {
+  res.render('pages/index')
+});
+
 
 //=================================
 //Listen on port

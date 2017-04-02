@@ -26,8 +26,9 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-		var xy = params.xy;
-		var url = params.url;
+		var xy = params.xy,
+				url = params.url,
+				topic = params.topic
 
 		og(url, function(err, meta){
 	        // if(err){
@@ -44,6 +45,7 @@ module.exports = {
 	        	source: meta.site_name,
 	        	title: meta.title,
 	        	description: meta.description,
+	        	topic: topic,
 	        	imageURL: meta.image.url
 	        }
 
