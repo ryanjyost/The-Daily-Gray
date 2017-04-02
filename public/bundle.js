@@ -58,11 +58,11 @@
 	
 	var _reactRouterDom = __webpack_require__(178);
 	
-	var _MainView = __webpack_require__(220);
+	var _MainView = __webpack_require__(215);
 	
 	var _MainView2 = _interopRequireDefault(_MainView);
 	
-	var _SourceView = __webpack_require__(260);
+	var _SourceView = __webpack_require__(235);
 	
 	var _SourceView2 = _interopRequireDefault(_SourceView);
 	
@@ -24815,494 +24815,6 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _Logo = __webpack_require__(217);
-	
-	var _Logo2 = _interopRequireDefault(_Logo);
-	
-	var _reactRouterDom = __webpack_require__(178);
-	
-	var _superagent = __webpack_require__(221);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _immutabilityHelper = __webpack_require__(229);
-	
-	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Menubar = function (_Component) {
-	  _inherits(Menubar, _Component);
-	
-	  function Menubar() {
-	    _classCallCheck(this, Menubar);
-	
-	    var _this = _possibleConstructorReturn(this, (Menubar.__proto__ || Object.getPrototypeOf(Menubar)).call(this));
-	
-	    _this.handleTopicClick = _this.handleTopicClick.bind(_this);
-	    _this.resetTopic = _this.resetTopic.bind(_this);
-	    _this.state = {
-	      topicList: []
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Menubar, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      //get topics
-	      _superagent2.default.get('/api/topic').query(null).set('Accept', 'application/json').end(function (err, response) {
-	        if (err) {
-	          console.log(err);
-	          return;
-	        }
-	
-	        var results = response.body.results.reverse();
-	
-	        _this2.setState({
-	          topicList: results
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'handleTopicClick',
-	    value: function handleTopicClick(e) {
-	      e.preventDefault();
-	      var topic = e.currentTarget.textContent;
-	
-	      this.props.updateTopic(topic);
-	    }
-	  }, {
-	    key: 'resetTopic',
-	    value: function resetTopic() {
-	      this.props.updateTopic('');
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this3 = this;
-	
-	      var topicList = this.state.topicList.map(function (topic, i) {
-	        return _react2.default.createElement(
-	          _reactRouterDom.Link,
-	          {
-	            style: _styles2.default.menubar.link,
-	            to: '/',
-	            onClick: _this3.handleTopicClick
-	          },
-	          topic.name
-	        );
-	      });
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { style: _styles2.default.menubar.container },
-	        _react2.default.createElement(_Logo2.default, null),
-	        _react2.default.createElement(
-	          'div',
-	          { style: _styles2.default.menubar.linksContainer },
-	          _react2.default.createElement(
-	            _reactRouterDom.Link,
-	            {
-	              style: _styles2.default.menubar.link,
-	              to: '/',
-	              onClick: this.resetTopic },
-	            'Recent'
-	          ),
-	          topicList
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Menubar;
-	}(_react.Component);
-	
-	exports.default = Menubar;
-
-/***/ },
-/* 216 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = {
-	
-		//==============================
-		MapFilter: {
-			display: 'block',
-			width: 250,
-			margin: 'auto',
-			overflow: 'hidden',
-	
-			resetButton: {
-				textAlign: 'center',
-				padding: 5,
-				fontSize: 10
-			}
-		},
-	
-		box: {
-			width: 50,
-			height: 50,
-			display: 'inline-block',
-			borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
-			borderWidth: 1,
-			borderStyle: 'solid',
-			zIndex: 1,
-			position: 'relative',
-	
-			hover: {
-				borderColor: '#848484'
-			},
-	
-			//opacity based on vertical position in map
-			y1: { opacity: .8 },
-			y2: { opacity: .5 },
-			y3: { opacity: .2 },
-			y4: { opacity: 1, backgroundColor: '#fafafa' },
-	
-			//set colors based on horizontal position in map
-			x1: { backgroundColor: "#A9D0F5" },
-			x2: { backgroundColor: "#E0ECF8" },
-			x3: { backgroundColor: "#f2f2f2" },
-			x4: { backgroundColor: "#F8E0E6" },
-			x5: { backgroundColor: "#F5A9BC" },
-	
-			//fake news
-			x0: { backgroundColor: "#848484" },
-			y0: { width: '100%', height: 40 },
-	
-			label: {
-				textAlign: 'center',
-				verticalAlign: 'middle',
-				width: '100%',
-				display: 'inline-block',
-				zIndex: 1000,
-				height: '100%',
-				lineHeight: '46px',
-				fontSize: 10,
-	
-				top: {
-					lineHeight: '46px',
-					fontSize: 10
-				},
-	
-				fakeNews: {
-					fontSize: 12,
-					lineHeight: '40px',
-					textAlign: 'center',
-					width: '100%',
-					display: 'inline-block',
-					color: '#f2f2f2'
-	
-				}
-			}
-	
-		},
-	
-		//==============================
-		mainView: {
-			container: {
-				margin: 'auto',
-				width: '100%'
-			}
-		},
-	
-		//==============================
-		post: {
-			padding: '14px 20px 5px 20px',
-			width: '100%',
-			margin: 0,
-	
-			container: {
-				listStyleType: 'none',
-				background: '#ffffff',
-				margin: '0px 0px 0px 0px',
-				borderStyle: 'solid',
-				borderWidth: 3,
-				borderRadius: 3,
-				borderColor: '#fff'
-			},
-	
-			image: {
-				width: '100%',
-				height: 'auto'
-	
-			},
-	
-			title: {
-				color: '#fff',
-				paddingTop: 60
-			},
-	
-			//set colors based on horizontal position in map
-			x1: { color: "#A9D0F5" },
-			x2: { color: "#E0ECF8" },
-			x3: { color: "#f2f2f2" },
-			x4: { color: "#F8E0E6" },
-			x5: { color: "#F5A9BC" },
-	
-			//special stylings
-			fakeNewsText: {
-				color: '#000',
-				backgroundColor: 'rgba(255,255,255,.7)',
-				padding: '5px 5px 4px 5px',
-				textAlign: 'center'
-	
-			},
-	
-			factText: {
-				color: '#fff'
-			},
-	
-			description: {
-				margin: '2px 0px 2px 0px',
-				color: '#fff'
-			},
-	
-			source: {
-				fontStyle: 'italic',
-				textOverflow: 'ellipsis',
-				overflow: 'hidden',
-				width: '100%',
-				height: '1.2em',
-				fontSize: 12,
-				padding: '0px 10px 0px 0px',
-				color: '#fafafa',
-				marginTop: 5
-			},
-	
-			ratingLabel: {
-				textAlign: 'right',
-				fontSize: 12,
-				display: 'inline-block',
-				width: '100%',
-				fontWeight: '900'
-			}
-		},
-	
-		//==============================
-		HelperText: {
-			container: {
-				width: '100%',
-				maxWidth: 250,
-				margin: 'auto',
-				height: 180,
-				padding: '10px 10px 20px 10px',
-				marginBottom: 10,
-				borderRadius: 3
-			},
-	
-			close: {
-				fontSize: 8,
-				textAlign: 'right',
-				display: 'block',
-				cursor: 'pointer',
-				paddingBottom: 3
-			},
-	
-			description: {},
-	
-			fakeNewsText: {
-				color: '#585858'
-			},
-	
-			factText: {
-				color: '#585858'
-			},
-	
-			x1: { backgroundColor: "#A9D0F5" },
-			x2: { backgroundColor: "#E0ECF8" },
-			x3: { backgroundColor: "#f2f2f2" },
-			x4: { backgroundColor: "#F8E0E6" },
-			x5: { backgroundColor: "#F5A9BC" }
-		},
-	
-		//==============================
-		menubar: {
-			container: {
-				height: 55,
-				backgroundColor: '#ffffff',
-				width: '100%',
-				padding: '11px 0px 0px 20px',
-				borderBottomStyle: 'solid',
-				borderBottomColor: '#f2f2f2',
-				borderBottomWidth: '1px'
-			},
-	
-			linksContainer: {
-				display: 'inline-block',
-				padding: '5px 10px 10px 20px',
-				verticalAlign: 'top',
-				height: 35
-			},
-	
-			link: {
-				display: 'inline-block',
-				float: 'none',
-				padding: '2px 20px 0px 20px',
-				color: '#585858',
-				fontWeight: '900',
-				cursor: 'pointer',
-				fontSize: 16
-			}
-		},
-	
-		logo: {
-			cont: {
-				height: 30,
-				display: 'inline-block',
-				marginBottom: 40
-	
-			},
-	
-			link: {},
-	
-			image: {
-				display: 'inline-block',
-				float: 'left',
-				width: 34
-			},
-	
-			textContainer: {
-				margin: '0px 2px 0px 6px',
-				width: 200
-			},
-	
-			title: {
-				margin: '0px 2px 0px 2px',
-				color: '#585858',
-				fontSize: 14
-			},
-			tagline: {
-				margin: '0px 2px 2px 2px',
-				color: '#a4a4a4',
-				fontSize: 10
-			}
-		},
-	
-		//==============================
-	
-		sourceView: {
-			container: {
-				margin: 'auto',
-				width: '100%'
-			}
-		},
-	
-		sourceMenu: {
-	
-			item: {
-				listStyleType: 'none',
-				display: 'inline-block ',
-				margin: '0px 5px 0px 5px'
-			}
-	
-		}
-	
-	};
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Logo = function (_Component) {
-		_inherits(Logo, _Component);
-	
-		function Logo() {
-			_classCallCheck(this, Logo);
-	
-			return _possibleConstructorReturn(this, (Logo.__proto__ || Object.getPrototypeOf(Logo)).apply(this, arguments));
-		}
-	
-		_createClass(Logo, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'a',
-					{ href: '/', style: _styles2.default.logo.cont },
-					_react2.default.createElement('img', { style: _styles2.default.logo.image, src: '../images/favicon.ico' }),
-					_react2.default.createElement(
-						'div',
-						{ id: 'logo-text-container', style: _styles2.default.logo.textContainer },
-						_react2.default.createElement(
-							'div',
-							{ style: _styles2.default.logo.title },
-							'Media Bias Map'
-						),
-						_react2.default.createElement(
-							'div',
-							{ style: _styles2.default.logo.tagline },
-							' A travel guide to online politics.'
-						)
-					)
-				);
-			}
-		}]);
-	
-		return Logo;
-	}(_react.Component);
-	
-	exports.default = Logo;
-
-/***/ },
-/* 218 */,
-/* 219 */,
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 	
@@ -25320,23 +24832,23 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _superagent = __webpack_require__(221);
+	var _superagent = __webpack_require__(217);
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _immutabilityHelper = __webpack_require__(229);
+	var _immutabilityHelper = __webpack_require__(225);
 	
 	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
 	
-	var _Sidebar = __webpack_require__(259);
+	var _Sidebar = __webpack_require__(226);
 	
 	var _Sidebar2 = _interopRequireDefault(_Sidebar);
 	
-	var _PostList = __webpack_require__(230);
+	var _PostList = __webpack_require__(231);
 	
 	var _PostList2 = _interopRequireDefault(_PostList);
 	
-	var _Menubar = __webpack_require__(215);
+	var _Menubar = __webpack_require__(233);
 	
 	var _Menubar2 = _interopRequireDefault(_Menubar);
 	
@@ -25581,7 +25093,298 @@
 	exports.default = MainView;
 
 /***/ },
-/* 221 */
+/* 216 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = {
+	
+		//==============================
+		MapFilter: {
+			display: 'block',
+			width: 250,
+			margin: 'auto',
+			overflow: 'hidden',
+	
+			resetButton: {
+				textAlign: 'center',
+				padding: 5,
+				fontSize: 10
+			}
+		},
+	
+		box: {
+			width: 50,
+			height: 50,
+			display: 'inline-block',
+			borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
+			borderWidth: 1,
+			borderStyle: 'solid',
+			zIndex: 1,
+			position: 'relative',
+	
+			hover: {
+				borderColor: '#848484'
+			},
+	
+			//opacity based on vertical position in map
+			y1: { opacity: .8 },
+			y2: { opacity: .5 },
+			y3: { opacity: .2 },
+			y4: { opacity: 1, backgroundColor: '#fafafa' },
+	
+			//set colors based on horizontal position in map
+			x1: { backgroundColor: "#A9D0F5" },
+			x2: { backgroundColor: "#E0ECF8" },
+			x3: { backgroundColor: "#f2f2f2" },
+			x4: { backgroundColor: "#F8E0E6" },
+			x5: { backgroundColor: "#F5A9BC" },
+	
+			//fake news
+			x0: { backgroundColor: "#848484" },
+			y0: { width: '100%', height: 40 },
+	
+			label: {
+				textAlign: 'center',
+				verticalAlign: 'middle',
+				width: '100%',
+				display: 'inline-block',
+				zIndex: 1000,
+				height: '100%',
+				lineHeight: '46px',
+				fontSize: 10,
+	
+				top: {
+					lineHeight: '46px',
+					fontSize: 10
+				},
+	
+				fakeNews: {
+					fontSize: 12,
+					lineHeight: '40px',
+					textAlign: 'center',
+					width: '100%',
+					display: 'inline-block',
+					color: '#f2f2f2'
+	
+				}
+			}
+	
+		},
+	
+		//==============================
+		mainView: {
+			container: {
+				margin: 'auto',
+				width: '100%'
+			}
+		},
+	
+		//==============================
+		post: {
+			padding: '14px 20px 5px 20px',
+			width: '100%',
+			margin: 0,
+	
+			container: {
+				listStyleType: 'none',
+				background: '#ffffff',
+				margin: '0px 0px 0px 0px',
+				borderStyle: 'solid',
+				borderWidth: 3,
+				borderRadius: 3,
+				borderColor: '#fff'
+			},
+	
+			image: {
+				width: '100%',
+				height: 'auto'
+	
+			},
+	
+			title: {
+				color: '#fff',
+				paddingTop: 60
+			},
+	
+			//set colors based on horizontal position in map
+			x1: { color: "#A9D0F5" },
+			x2: { color: "#E0ECF8" },
+			x3: { color: "#f2f2f2" },
+			x4: { color: "#F8E0E6" },
+			x5: { color: "#F5A9BC" },
+	
+			//special stylings
+			fakeNewsText: {
+				color: '#000',
+				backgroundColor: 'rgba(255,255,255,.7)',
+				padding: '5px 5px 4px 5px',
+				textAlign: 'center'
+	
+			},
+	
+			factText: {
+				color: '#fff'
+			},
+	
+			description: {
+				margin: '2px 0px 2px 0px',
+				color: '#fff'
+			},
+	
+			source: {
+				fontStyle: 'italic',
+				textOverflow: 'ellipsis',
+				overflow: 'hidden',
+				width: '100%',
+				height: '1.2em',
+				fontSize: 12,
+				padding: '0px 10px 0px 0px',
+				color: '#fafafa',
+				marginTop: 5
+			},
+	
+			ratingLabel: {
+				textAlign: 'right',
+				fontSize: 12,
+				display: 'inline-block',
+				width: '100%',
+				fontWeight: '900'
+			}
+		},
+	
+		//==============================
+		HelperText: {
+			container: {
+				width: '100%',
+				maxWidth: 250,
+				margin: 'auto',
+				height: 180,
+				padding: '10px 10px 20px 10px',
+				marginBottom: 10,
+				borderRadius: 3
+			},
+	
+			close: {
+				fontSize: 8,
+				textAlign: 'right',
+				display: 'block',
+				cursor: 'pointer',
+				paddingBottom: 3
+			},
+	
+			header: {
+				fontSize: 17,
+				fontWeight: '900'
+			},
+	
+			description: {},
+	
+			fakeNewsText: {
+				color: '#585858'
+			},
+	
+			factText: {
+				color: '#585858'
+			},
+	
+			x1: { backgroundColor: "#A9D0F5" },
+			x2: { backgroundColor: "#E0ECF8" },
+			x3: { backgroundColor: "#f2f2f2" },
+			x4: { backgroundColor: "#F8E0E6" },
+			x5: { backgroundColor: "#F5A9BC" }
+		},
+	
+		//==============================
+		menubar: {
+			container: {
+				height: 55,
+				backgroundColor: '#ffffff',
+				width: '100%',
+				padding: '11px 0px 0px 20px',
+				borderBottomStyle: 'solid',
+				borderBottomColor: '#f2f2f2',
+				borderBottomWidth: '1px'
+			},
+	
+			linksContainer: {
+				display: 'inline-block',
+				padding: '5px 10px 10px 20px',
+				verticalAlign: 'top',
+				height: 35
+			},
+	
+			link: {
+				display: 'inline-block',
+				float: 'none',
+				padding: '2px 20px 0px 20px',
+				color: '#585858',
+				fontWeight: '900',
+				cursor: 'pointer',
+				fontSize: 16
+			}
+		},
+	
+		logo: {
+			cont: {
+				height: 30,
+				display: 'inline-block',
+				marginBottom: 40
+	
+			},
+	
+			link: {},
+	
+			image: {
+				display: 'inline-block',
+				float: 'left',
+				width: 34
+			},
+	
+			textContainer: {
+				margin: '0px 2px 0px 6px',
+				width: 200
+			},
+	
+			title: {
+				margin: '0px 2px 0px 2px',
+				color: '#585858',
+				fontSize: 14
+			},
+			tagline: {
+				margin: '0px 2px 2px 2px',
+				color: '#a4a4a4',
+				fontSize: 10
+			}
+		},
+	
+		//==============================
+	
+		sourceView: {
+			container: {
+				margin: 'auto',
+				width: '100%'
+			}
+		},
+	
+		sourceMenu: {
+	
+			item: {
+				listStyleType: 'none',
+				display: 'inline-block ',
+				margin: '0px 5px 0px 5px'
+			}
+	
+		}
+	
+	};
+
+/***/ },
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25598,12 +25401,12 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(222);
-	var RequestBase = __webpack_require__(223);
-	var isObject = __webpack_require__(224);
-	var isFunction = __webpack_require__(225);
-	var ResponseBase = __webpack_require__(226);
-	var shouldRetry = __webpack_require__(228);
+	var Emitter = __webpack_require__(218);
+	var RequestBase = __webpack_require__(219);
+	var isObject = __webpack_require__(220);
+	var isFunction = __webpack_require__(221);
+	var ResponseBase = __webpack_require__(222);
+	var shouldRetry = __webpack_require__(224);
 	
 	/**
 	 * Noop.
@@ -26520,7 +26323,7 @@
 
 
 /***/ },
-/* 222 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -26689,13 +26492,13 @@
 
 
 /***/ },
-/* 223 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(224);
+	var isObject = __webpack_require__(220);
 	
 	/**
 	 * Expose `RequestBase`.
@@ -27286,7 +27089,7 @@
 
 
 /***/ },
-/* 224 */
+/* 220 */
 /***/ function(module, exports) {
 
 	/**
@@ -27305,7 +27108,7 @@
 
 
 /***/ },
-/* 225 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -27315,7 +27118,7 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	var isObject = __webpack_require__(224);
+	var isObject = __webpack_require__(220);
 	
 	function isFunction(fn) {
 	  var tag = isObject(fn) ? Object.prototype.toString.call(fn) : '';
@@ -27326,7 +27129,7 @@
 
 
 /***/ },
-/* 226 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -27334,7 +27137,7 @@
 	 * Module dependencies.
 	 */
 	
-	var utils = __webpack_require__(227);
+	var utils = __webpack_require__(223);
 	
 	/**
 	 * Expose `ResponseBase`.
@@ -27465,7 +27268,7 @@
 
 
 /***/ },
-/* 227 */
+/* 223 */
 /***/ function(module, exports) {
 
 	
@@ -27538,7 +27341,7 @@
 	};
 
 /***/ },
-/* 228 */
+/* 224 */
 /***/ function(module, exports) {
 
 	var ERROR_CODES = [
@@ -27567,7 +27370,7 @@
 
 
 /***/ },
-/* 229 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var invariant = __webpack_require__(182);
@@ -27757,147 +27560,7 @@
 
 
 /***/ },
-/* 230 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Post = __webpack_require__(231);
-	
-	var _Post2 = _interopRequireDefault(_Post);
-	
-	var _Menubar = __webpack_require__(215);
-	
-	var _Menubar2 = _interopRequireDefault(_Menubar);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PostList = function (_Component) {
-		_inherits(PostList, _Component);
-	
-		function PostList(props) {
-			_classCallCheck(this, PostList);
-	
-			return _possibleConstructorReturn(this, (PostList.__proto__ || Object.getPrototypeOf(PostList)).call(this, props));
-		}
-	
-		_createClass(PostList, [{
-			key: 'render',
-			value: function render() {
-				var currentHoveredBox = this.props.currentHoveredBox,
-				    selectedBoxes = this.props.selectedBoxes,
-				    postArray = this.props.postList,
-				    searchInput = this.props.searchInput.toLowerCase();
-	
-				//filter posts with search, map (after the page has already loaded)
-				var filteredPostArray = function (postArray, searchInput, selectedBoxesArray) {
-	
-					//if there are any selectedBoxes
-					if (selectedBoxes.length > 0) {
-						//filter through the posts
-						return filteredPostArray = postArray.filter(function (post) {
-	
-							//return true if the post's [x, y] is in the selected boxes array, and macthes search input
-							var _iteratorNormalCompletion = true;
-							var _didIteratorError = false;
-							var _iteratorError = undefined;
-	
-							try {
-								for (var _iterator = selectedBoxes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-									var coordinate = _step.value;
-	
-									if (coordinate[0] == post.xy[0] && coordinate[1] == post.xy[1] == true) {
-										return true && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
-									}
-								}
-							} catch (err) {
-								_didIteratorError = true;
-								_iteratorError = err;
-							} finally {
-								try {
-									if (!_iteratorNormalCompletion && _iterator.return) {
-										_iterator.return();
-									}
-								} finally {
-									if (_didIteratorError) {
-										throw _iteratorError;
-									}
-								}
-							}
-	
-							return false;
-						});
-					} else {
-	
-						if (currentHoveredBox.length != 0) {
-							return filteredPostArray = postArray.filter(function (post) {
-								return currentHoveredBox[0] == Number(post.xy[0]) && currentHoveredBox[1] == Number(post.xy[1]) && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
-							});
-						} else {
-							if (searchInput.length > 1) {
-								return filteredPostArray = postArray.filter(function (post) {
-									return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1;
-								});
-							}
-						}
-					}
-	
-					return postArray;
-				}(postArray, searchInput, selectedBoxes);
-	
-				var postList = filteredPostArray.map(function (post, i) {
-					return _react2.default.createElement(
-						'li',
-						{ style: _styles2.default.post.container },
-						_react2.default.createElement(_Post2.default, {
-							title: post.title,
-							description: post.description,
-							url: post.url,
-							xy: post.xy,
-							source: post.source,
-							imageURL: post.imageURL
-						})
-					);
-				});
-				return _react2.default.createElement(
-					'div',
-					{ className: 'postListContainer' },
-					_react2.default.createElement(
-						'ul',
-						{ className: 'postList' },
-						postList
-					)
-				);
-			}
-		}]);
-	
-		return PostList;
-	}(_react.Component);
-	
-	exports.default = PostList;
-
-/***/ },
-/* 231 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27916,6 +27579,18 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _MapFilter = __webpack_require__(227);
+	
+	var _MapFilter2 = _interopRequireDefault(_MapFilter);
+	
+	var _Search = __webpack_require__(229);
+	
+	var _Search2 = _interopRequireDefault(_Search);
+	
+	var _HelperText = __webpack_require__(230);
+	
+	var _HelperText2 = _interopRequireDefault(_HelperText);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27924,89 +27599,86 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Post = function (_Component) {
-		_inherits(Post, _Component);
+	var Sidebar = function (_Component) {
+		_inherits(Sidebar, _Component);
 	
-		function Post(props) {
-			_classCallCheck(this, Post);
+		function Sidebar(props) {
+			_classCallCheck(this, Sidebar);
 	
-			var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
 	
-			_this.handleImageError = _this.handleImageError.bind(_this);
-			_this.state = {
-				imageError: false
-			};
+			_this.handleMapLeave = _this.handleMapLeave.bind(_this);
+			_this.handleBoxHover = _this.handleBoxHover.bind(_this);
+			_this.handleBoxClick = _this.handleBoxClick.bind(_this);
+			_this.handleFilterReset = _this.handleFilterReset.bind(_this);
+			_this.handleSearchChange = _this.handleSearchChange.bind(_this);
+			_this.handleHideHelperText = _this.handleHideHelperText.bind(_this);
 			return _this;
 		}
 	
-		_createClass(Post, [{
-			key: 'handleImageError',
-			value: function handleImageError() {
-				this.setState({ imageError: true });
+		_createClass(Sidebar, [{
+			key: 'handleBoxHover',
+			value: function handleBoxHover(coordinateArray) {
+				this.props.updateCurrentHoveredBox(true, coordinateArray);
+			}
+		}, {
+			key: 'handleMapLeave',
+			value: function handleMapLeave(boolean) {
+				this.props.updateMapHover(false);
+			}
+		}, {
+			key: 'handleBoxClick',
+			value: function handleBoxClick(coordinateArray) {
+				this.props.updateSelectedBoxes(coordinateArray);
+			}
+		}, {
+			key: 'handleSearchChange',
+			value: function handleSearchChange(event) {
+				this.props.updateSearch(event);
+			}
+		}, {
+			key: 'handleFilterReset',
+			value: function handleFilterReset() {
+				this.props.resetFilter();
+			}
+		}, {
+			key: 'handleHideHelperText',
+			value: function handleHideHelperText() {
+				this.props.hideHelperText();
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var x = this.props.xy[0],
-				    y = this.props.xy[1];
-	
-				var xLabels = ['', 'Left', 'Left-Center', 'Center', 'Right-Center', 'Right'];
-				var yLabels = ['FAKE NEWS', 'Speculation', 'Opinion', 'Analysis',
-				//top row of labels
-				['', 'News', 'Facts', 'Stats', 'Interview', 'Other']];
-	
-				//set rating label
-				var label = 'No rating',
-				    postTextColor = {};
-	
-				if (x == 0) {
-					label = 'FAKE NEWS';
-					postTextColor = _styles2.default.post.fakeNewsText;
-				} else if (y == 4) {
-					label = yLabels[4][x];
-					postTextColor = _styles2.default.post.factText;
-				} else {
-					label = xLabels[x] + ' | ' + yLabels[y];
-					postTextColor = _styles2.default.post['x' + x];
-				}
-	
 				return _react2.default.createElement(
-					'a',
-					{ href: this.props.url, target: '_blank' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
-						_react2.default.createElement(
-							'div',
-							{ className: 'postInfo' },
-							_react2.default.createElement(
-								'h6',
-								{ style: Object.assign({}, _styles2.default.post.ratingLabel, postTextColor) },
-								label
-							),
-							_react2.default.createElement(
-								'h2',
-								{ style: _styles2.default.post.title },
-								this.props.title
-							),
-							_react2.default.createElement(
-								'h6',
-								{ className: 'postSource', style: _styles2.default.post.source },
-								this.props.source
-							)
-						)
-					)
+					'div',
+					{ className: 'sidebar' },
+					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
+						mapState: this.props.mapState,
+						hideHelperText: this.handleHideHelperText
+					}),
+					_react2.default.createElement(_Search2.default, {
+						updateSearch: this.handleSearchChange,
+						searchInput: this.props.searchInput
+					}),
+					_react2.default.createElement(_MapFilter2.default, {
+						updateCurrentHoveredBox: this.handleBoxHover,
+						updateMapHover: this.handleMapLeave,
+						updateSelectedBoxes: this.handleBoxClick,
+						resetFilter: this.handleFilterReset,
+						currentHoveredBox: this.props.currentHoveredBox,
+						selectedBoxes: this.props.selectedBoxes
+					})
 				);
 			}
 		}]);
 	
-		return Post;
+		return Sidebar;
 	}(_react.Component);
 	
-	exports.default = Post;
+	exports.default = Sidebar;
 
 /***/ },
-/* 232 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28021,7 +27693,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Box = __webpack_require__(233);
+	var _Box = __webpack_require__(228);
 	
 	var _Box2 = _interopRequireDefault(_Box);
 	
@@ -28172,7 +27844,7 @@
 	exports.default = MapFilter;
 
 /***/ },
-/* 233 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28292,7 +27964,7 @@
 	exports.default = Box;
 
 /***/ },
-/* 234 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28355,7 +28027,7 @@
 	exports.default = Search;
 
 /***/ },
-/* 235 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28417,7 +28089,7 @@
 				var xDescriptions = ['', 'a strong left/liberal/Democrat leaning. Little or no consideration for the other side.', 'a slight left/liberal/Democrat leaning, but mutiple viewpoints are considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left/right mold.', 'a slight right/conservative/Republican leaning, but mutiple viewpoints are considered.', 'a strong right/conservative/Republican leaning. Little or no consideration for the other side.'];
 	
 				//set rating label
-				var header = 'Hey, you\'re using the alpha version of Media Bias Map',
+				var header = 'Thanks for using the alpha version of Media Bias Map',
 				    description = 'We want to make it easier to read about politics from a variety sources and perspectives.',
 				    helperTextStyle = {};
 	
@@ -28446,9 +28118,13 @@
 						'hide'
 					),
 					_react2.default.createElement(
-						'h2',
+						'span',
 						{ style: _styles2.default.HelperText.header },
-						header
+						_react2.default.createElement(
+							'strong',
+							null,
+							header
+						)
 					),
 					_react2.default.createElement('hr', null),
 					_react2.default.createElement(
@@ -28466,45 +28142,601 @@
 	exports.default = HelperText;
 
 /***/ },
-/* 236 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	var React = __webpack_require__(1);
-	var Iframe = React.createClass({
-	    displayName: "React-Iframe",
+	'use strict';
 	
-	    propTypes: {
-	        url: React.PropTypes.string.isRequired,
-	        width: React.PropTypes.string,
-	        height: React.PropTypes.string
-	    },
-	
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            height: "100%",
-	            width: "100%",
-	            position: "fixed"
-	        };
-	    },
-	
-	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	        return this.props.url !== nextProps.url;
-	    },
-	
-	    render: function render() {
-	        return React.createElement("iframe", { ref: "iframe",
-	            frameBorder: "0",
-	            src: this.props.url,
-	            style: { position: this.props.position, height: this.props.height, width: this.props.width },
-	            height: this.props.height, width: this.props.width });
-	    }
+	Object.defineProperty(exports, "__esModule", {
+		value: true
 	});
 	
-	module.exports = Iframe;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Post = __webpack_require__(232);
+	
+	var _Post2 = _interopRequireDefault(_Post);
+	
+	var _Menubar = __webpack_require__(233);
+	
+	var _Menubar2 = _interopRequireDefault(_Menubar);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PostList = function (_Component) {
+		_inherits(PostList, _Component);
+	
+		function PostList(props) {
+			_classCallCheck(this, PostList);
+	
+			return _possibleConstructorReturn(this, (PostList.__proto__ || Object.getPrototypeOf(PostList)).call(this, props));
+		}
+	
+		_createClass(PostList, [{
+			key: 'render',
+			value: function render() {
+				var currentHoveredBox = this.props.currentHoveredBox,
+				    selectedBoxes = this.props.selectedBoxes,
+				    postArray = this.props.postList,
+				    searchInput = this.props.searchInput.toLowerCase();
+	
+				//filter posts with search, map (after the page has already loaded)
+				var filteredPostArray = function (postArray, searchInput, selectedBoxesArray) {
+	
+					//if there are any selectedBoxes
+					if (selectedBoxes.length > 0) {
+						//filter through the posts
+						return filteredPostArray = postArray.filter(function (post) {
+	
+							//return true if the post's [x, y] is in the selected boxes array, and macthes search input
+							var _iteratorNormalCompletion = true;
+							var _didIteratorError = false;
+							var _iteratorError = undefined;
+	
+							try {
+								for (var _iterator = selectedBoxes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+									var coordinate = _step.value;
+	
+									if (coordinate[0] == post.xy[0] && coordinate[1] == post.xy[1] == true) {
+										return true && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
+									}
+								}
+							} catch (err) {
+								_didIteratorError = true;
+								_iteratorError = err;
+							} finally {
+								try {
+									if (!_iteratorNormalCompletion && _iterator.return) {
+										_iterator.return();
+									}
+								} finally {
+									if (_didIteratorError) {
+										throw _iteratorError;
+									}
+								}
+							}
+	
+							return false;
+						});
+					} else {
+	
+						if (currentHoveredBox.length != 0) {
+							return filteredPostArray = postArray.filter(function (post) {
+								return currentHoveredBox[0] == Number(post.xy[0]) && currentHoveredBox[1] == Number(post.xy[1]) && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
+							});
+						} else {
+							if (searchInput.length > 1) {
+								return filteredPostArray = postArray.filter(function (post) {
+									return post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1;
+								});
+							}
+						}
+					}
+	
+					return postArray;
+				}(postArray, searchInput, selectedBoxes);
+	
+				var postList = filteredPostArray.map(function (post, i) {
+					return _react2.default.createElement(
+						'li',
+						{ style: _styles2.default.post.container },
+						_react2.default.createElement(_Post2.default, {
+							title: post.title,
+							description: post.description,
+							url: post.url,
+							xy: post.xy,
+							source: post.source,
+							imageURL: post.imageURL
+						})
+					);
+				});
+				return _react2.default.createElement(
+					'div',
+					{ className: 'postListContainer' },
+					_react2.default.createElement(
+						'ul',
+						{ className: 'postList' },
+						postList
+					)
+				);
+			}
+		}]);
+	
+		return PostList;
+	}(_react.Component);
+	
+	exports.default = PostList;
 
 /***/ },
-/* 237 */
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Post = function (_Component) {
+		_inherits(Post, _Component);
+	
+		function Post(props) {
+			_classCallCheck(this, Post);
+	
+			var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
+	
+			_this.handleImageError = _this.handleImageError.bind(_this);
+			_this.state = {
+				imageError: false
+			};
+			return _this;
+		}
+	
+		_createClass(Post, [{
+			key: 'handleImageError',
+			value: function handleImageError() {
+				this.setState({ imageError: true });
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var x = this.props.xy[0],
+				    y = this.props.xy[1];
+	
+				var xLabels = ['', 'Left', 'Left-Center', 'Center', 'Right-Center', 'Right'];
+				var yLabels = ['FAKE NEWS', 'Speculation', 'Opinion', 'Analysis',
+				//top row of labels
+				['', 'News', 'Facts', 'Stats', 'Interview', 'Other']];
+	
+				//set rating label
+				var label = 'No rating',
+				    postTextColor = {};
+	
+				if (x == 0) {
+					label = 'FAKE NEWS';
+					postTextColor = _styles2.default.post.fakeNewsText;
+				} else if (y == 4) {
+					label = yLabels[4][x];
+					postTextColor = _styles2.default.post.factText;
+				} else {
+					label = xLabels[x] + ' | ' + yLabels[y];
+					postTextColor = _styles2.default.post['x' + x];
+				}
+	
+				return _react2.default.createElement(
+					'a',
+					{ href: this.props.url, target: '_blank' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'postInfo' },
+							_react2.default.createElement(
+								'h6',
+								{ style: Object.assign({}, _styles2.default.post.ratingLabel, postTextColor) },
+								label
+							),
+							_react2.default.createElement(
+								'h2',
+								{ style: _styles2.default.post.title },
+								this.props.title
+							),
+							_react2.default.createElement(
+								'h6',
+								{ className: 'postSource', style: _styles2.default.post.source },
+								this.props.source
+							)
+						)
+					)
+				);
+			}
+		}]);
+	
+		return Post;
+	}(_react.Component);
+	
+	exports.default = Post;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Logo = __webpack_require__(234);
+	
+	var _Logo2 = _interopRequireDefault(_Logo);
+	
+	var _reactRouterDom = __webpack_require__(178);
+	
+	var _superagent = __webpack_require__(217);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _immutabilityHelper = __webpack_require__(225);
+	
+	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Menubar = function (_Component) {
+	  _inherits(Menubar, _Component);
+	
+	  function Menubar() {
+	    _classCallCheck(this, Menubar);
+	
+	    var _this = _possibleConstructorReturn(this, (Menubar.__proto__ || Object.getPrototypeOf(Menubar)).call(this));
+	
+	    _this.handleTopicClick = _this.handleTopicClick.bind(_this);
+	    _this.resetTopic = _this.resetTopic.bind(_this);
+	    _this.state = {
+	      topicList: []
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Menubar, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+	
+	      //get topics
+	      _superagent2.default.get('/api/topic').query(null).set('Accept', 'application/json').end(function (err, response) {
+	        if (err) {
+	          console.log(err);
+	          return;
+	        }
+	
+	        var results = response.body.results.reverse();
+	
+	        _this2.setState({
+	          topicList: results
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'handleTopicClick',
+	    value: function handleTopicClick(e) {
+	      e.preventDefault();
+	      var topic = e.currentTarget.textContent;
+	
+	      this.props.updateTopic(topic);
+	    }
+	  }, {
+	    key: 'resetTopic',
+	    value: function resetTopic() {
+	      this.props.updateTopic('');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this3 = this;
+	
+	      var topicList = this.state.topicList.map(function (topic, i) {
+	        return _react2.default.createElement(
+	          _reactRouterDom.Link,
+	          {
+	            style: _styles2.default.menubar.link,
+	            to: '/',
+	            onClick: _this3.handleTopicClick
+	          },
+	          topic.name
+	        );
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { style: _styles2.default.menubar.container },
+	        _react2.default.createElement(_Logo2.default, null),
+	        _react2.default.createElement(
+	          'div',
+	          { style: _styles2.default.menubar.linksContainer },
+	          _react2.default.createElement(
+	            _reactRouterDom.Link,
+	            {
+	              style: _styles2.default.menubar.link,
+	              to: '/',
+	              onClick: this.resetTopic },
+	            'Recent'
+	          ),
+	          topicList
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Menubar;
+	}(_react.Component);
+	
+	exports.default = Menubar;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Logo = function (_Component) {
+		_inherits(Logo, _Component);
+	
+		function Logo() {
+			_classCallCheck(this, Logo);
+	
+			return _possibleConstructorReturn(this, (Logo.__proto__ || Object.getPrototypeOf(Logo)).apply(this, arguments));
+		}
+	
+		_createClass(Logo, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'a',
+					{ href: '/', style: _styles2.default.logo.cont },
+					_react2.default.createElement('img', { style: _styles2.default.logo.image, src: '../images/favicon.ico' }),
+					_react2.default.createElement(
+						'div',
+						{ id: 'logo-text-container', style: _styles2.default.logo.textContainer },
+						_react2.default.createElement(
+							'div',
+							{ style: _styles2.default.logo.title },
+							'Media Bias Map'
+						),
+						_react2.default.createElement(
+							'div',
+							{ style: _styles2.default.logo.tagline },
+							' A travel guide to online politics.'
+						)
+					)
+				);
+			}
+		}]);
+	
+		return Logo;
+	}(_react.Component);
+	
+	exports.default = Logo;
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _superagent = __webpack_require__(217);
+	
+	var _superagent2 = _interopRequireDefault(_superagent);
+	
+	var _immutabilityHelper = __webpack_require__(225);
+	
+	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+	
+	var _Source = __webpack_require__(236);
+	
+	var _Source2 = _interopRequireDefault(_Source);
+	
+	var _reactIframe = __webpack_require__(237);
+	
+	var _reactIframe2 = _interopRequireDefault(_reactIframe);
+	
+	var _reactSlick = __webpack_require__(238);
+	
+	var _reactSlick2 = _interopRequireDefault(_reactSlick);
+	
+	var _Menubar = __webpack_require__(233);
+	
+	var _Menubar2 = _interopRequireDefault(_Menubar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var LeftArrow = function LeftArrow() {
+		return _react2.default.createElement(
+			'h1',
+			null,
+			'left'
+		);
+	};
+	
+	var SourceView = function (_Component) {
+		_inherits(SourceView, _Component);
+	
+		function SourceView() {
+			_classCallCheck(this, SourceView);
+	
+			var _this = _possibleConstructorReturn(this, (SourceView.__proto__ || Object.getPrototypeOf(SourceView)).call(this));
+	
+			_this.state = {
+				sourceList: []
+			};
+			return _this;
+		}
+	
+		_createClass(SourceView, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var _this2 = this;
+	
+				//get recent sources
+				_superagent2.default.get('/api/source').query(null).set('Accept', 'application/json').end(function (err, response) {
+					if (err) {
+						console.log(err);
+						return;
+					}
+	
+					var results = response.body.results.reverse();
+					console.log(results);
+	
+					_this2.setState({
+						sourceList: results
+					});
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+	
+				var sourceArray = this.state.sourceList;
+	
+				var sourceList = sourceArray.map(function (source, i) {
+					return _react2.default.createElement(_Source2.default, {
+						name: source.name
+					});
+				});
+	
+				var sliderSettings = {
+					accessibillity: true,
+					arrows: true,
+					dots: true,
+					slidesToShow: 4,
+					slidesToScroll: 1
+				};
+	
+				return _react2.default.createElement(
+					'div',
+					{ style: _styles2.default.sources.container },
+					_react2.default.createElement(_Menubar2.default, null),
+					_react2.default.createElement(
+						_reactSlick2.default,
+						_extends({}, sliderSettings, { style: _styles2.default.sourceMenu.slider }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' }),
+						_react2.default.createElement(_Source2.default, { name: 'test' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'iframeContainer' },
+						_react2.default.createElement('div', { className: 'iframe-overlay' }),
+						_react2.default.createElement('iFrame', { className: 'iframe', scrolling: 'no', src: 'http://www.cnn.com/' })
+					)
+				);
+			}
+		}]);
+	
+		return SourceView;
+	}(_react.Component);
+	
+	exports.default = SourceView;
+
+/***/ },
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28560,6 +28792,44 @@
 	}(_react.Component);
 	
 	exports.default = Source;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(1);
+	var Iframe = React.createClass({
+	    displayName: "React-Iframe",
+	
+	    propTypes: {
+	        url: React.PropTypes.string.isRequired,
+	        width: React.PropTypes.string,
+	        height: React.PropTypes.string
+	    },
+	
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            height: "100%",
+	            width: "100%",
+	            position: "fixed"
+	        };
+	    },
+	
+	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	        return this.props.url !== nextProps.url;
+	    },
+	
+	    render: function render() {
+	        return React.createElement("iframe", { ref: "iframe",
+	            frameBorder: "0",
+	            src: this.props.url,
+	            style: { position: this.props.position, height: this.props.height, width: this.props.width },
+	            height: this.props.height, width: this.props.width });
+	    }
+	});
+	
+	module.exports = Iframe;
 
 /***/ },
 /* 238 */
@@ -30845,269 +31115,6 @@
 	    each : each
 	};
 
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _MapFilter = __webpack_require__(232);
-	
-	var _MapFilter2 = _interopRequireDefault(_MapFilter);
-	
-	var _Search = __webpack_require__(234);
-	
-	var _Search2 = _interopRequireDefault(_Search);
-	
-	var _HelperText = __webpack_require__(235);
-	
-	var _HelperText2 = _interopRequireDefault(_HelperText);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Sidebar = function (_Component) {
-		_inherits(Sidebar, _Component);
-	
-		function Sidebar(props) {
-			_classCallCheck(this, Sidebar);
-	
-			var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
-	
-			_this.handleMapLeave = _this.handleMapLeave.bind(_this);
-			_this.handleBoxHover = _this.handleBoxHover.bind(_this);
-			_this.handleBoxClick = _this.handleBoxClick.bind(_this);
-			_this.handleFilterReset = _this.handleFilterReset.bind(_this);
-			_this.handleSearchChange = _this.handleSearchChange.bind(_this);
-			_this.handleHideHelperText = _this.handleHideHelperText.bind(_this);
-			return _this;
-		}
-	
-		_createClass(Sidebar, [{
-			key: 'handleBoxHover',
-			value: function handleBoxHover(coordinateArray) {
-				this.props.updateCurrentHoveredBox(true, coordinateArray);
-			}
-		}, {
-			key: 'handleMapLeave',
-			value: function handleMapLeave(boolean) {
-				this.props.updateMapHover(false);
-			}
-		}, {
-			key: 'handleBoxClick',
-			value: function handleBoxClick(coordinateArray) {
-				this.props.updateSelectedBoxes(coordinateArray);
-			}
-		}, {
-			key: 'handleSearchChange',
-			value: function handleSearchChange(event) {
-				this.props.updateSearch(event);
-			}
-		}, {
-			key: 'handleFilterReset',
-			value: function handleFilterReset() {
-				this.props.resetFilter();
-			}
-		}, {
-			key: 'handleHideHelperText',
-			value: function handleHideHelperText() {
-				this.props.hideHelperText();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					{ className: 'sidebar' },
-					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
-						mapState: this.props.mapState,
-						hideHelperText: this.handleHideHelperText
-					}),
-					_react2.default.createElement(_Search2.default, {
-						updateSearch: this.handleSearchChange,
-						searchInput: this.props.searchInput
-					}),
-					_react2.default.createElement(_MapFilter2.default, {
-						updateCurrentHoveredBox: this.handleBoxHover,
-						updateMapHover: this.handleMapLeave,
-						updateSelectedBoxes: this.handleBoxClick,
-						resetFilter: this.handleFilterReset,
-						currentHoveredBox: this.props.currentHoveredBox,
-						selectedBoxes: this.props.selectedBoxes
-					})
-				);
-			}
-		}]);
-	
-		return Sidebar;
-	}(_react.Component);
-	
-	exports.default = Sidebar;
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _styles = __webpack_require__(216);
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _superagent = __webpack_require__(221);
-	
-	var _superagent2 = _interopRequireDefault(_superagent);
-	
-	var _immutabilityHelper = __webpack_require__(229);
-	
-	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
-	
-	var _Source = __webpack_require__(237);
-	
-	var _Source2 = _interopRequireDefault(_Source);
-	
-	var _reactIframe = __webpack_require__(236);
-	
-	var _reactIframe2 = _interopRequireDefault(_reactIframe);
-	
-	var _reactSlick = __webpack_require__(238);
-	
-	var _reactSlick2 = _interopRequireDefault(_reactSlick);
-	
-	var _Menubar = __webpack_require__(215);
-	
-	var _Menubar2 = _interopRequireDefault(_Menubar);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var LeftArrow = function LeftArrow() {
-		return _react2.default.createElement(
-			'h1',
-			null,
-			'left'
-		);
-	};
-	
-	var SourceView = function (_Component) {
-		_inherits(SourceView, _Component);
-	
-		function SourceView() {
-			_classCallCheck(this, SourceView);
-	
-			var _this = _possibleConstructorReturn(this, (SourceView.__proto__ || Object.getPrototypeOf(SourceView)).call(this));
-	
-			_this.state = {
-				sourceList: []
-			};
-			return _this;
-		}
-	
-		_createClass(SourceView, [{
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var _this2 = this;
-	
-				//get recent sources
-				_superagent2.default.get('/api/source').query(null).set('Accept', 'application/json').end(function (err, response) {
-					if (err) {
-						console.log(err);
-						return;
-					}
-	
-					var results = response.body.results.reverse();
-					console.log(results);
-	
-					_this2.setState({
-						sourceList: results
-					});
-				});
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-	
-				var sourceArray = this.state.sourceList;
-	
-				var sourceList = sourceArray.map(function (source, i) {
-					return _react2.default.createElement(_Source2.default, {
-						name: source.name
-					});
-				});
-	
-				var sliderSettings = {
-					accessibillity: true,
-					arrows: true,
-					dots: true,
-					slidesToShow: 4,
-					slidesToScroll: 1
-				};
-	
-				return _react2.default.createElement(
-					'div',
-					{ style: _styles2.default.sources.container },
-					_react2.default.createElement(_Menubar2.default, null),
-					_react2.default.createElement(
-						_reactSlick2.default,
-						_extends({}, sliderSettings, { style: _styles2.default.sourceMenu.slider }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' }),
-						_react2.default.createElement(_Source2.default, { name: 'test' })
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'iframeContainer' },
-						_react2.default.createElement('div', { className: 'iframe-overlay' }),
-						_react2.default.createElement('iFrame', { className: 'iframe', scrolling: 'no', src: 'http://www.cnn.com/' })
-					)
-				);
-			}
-		}]);
-	
-		return SourceView;
-	}(_react.Component);
-	
-	exports.default = SourceView;
 
 /***/ }
 /******/ ]);

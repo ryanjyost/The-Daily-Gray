@@ -51,7 +51,7 @@ class HelperText extends Component {
 		]
 
 		//set rating label
-		let header = 'Hey, you\'re using the alpha version of Media Bias Map',
+		let header = 'Thanks for using the alpha version of Media Bias Map',
 				description = 	'We want to make it easier to read about politics from a variety sources and perspectives.',
 				helperTextStyle = {}
 
@@ -75,7 +75,7 @@ class HelperText extends Component {
 			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)}>
 				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
 
-				<h2 style={styles.HelperText.header}>{header}</h2>
+				<span style={styles.HelperText.header}><strong>{header}</strong></span>
 				<hr/>
 				<p style={styles.HelperText.description}>{description}</p>
 

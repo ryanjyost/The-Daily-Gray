@@ -178,6 +178,11 @@ export default {
 			paddingBottom:3
 		},
 
+		header: {
+			fontSize:17,
+			fontWeight:'900',
+		},
+
 		description:{
 		},
 

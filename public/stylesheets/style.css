@@ -159,13 +159,19 @@ Single Source Page
 				position: fixed;
 				top: 0;
 				left:  290px;
-				overflow: auto;
 				margin-top: 65px;
 				width: auto;
+				overflow: auto;
+				height:100vh;
 			}
 
 			#logo-text-container{
 				display: inline-block;
+			}
+
+			body{
+				height:100vh;
+				overflow:hidden !important;
 			}
 		}
 
