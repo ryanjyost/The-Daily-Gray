@@ -9,6 +9,7 @@ var postSchema = new mongoose.Schema({
   source: String,
   title: String,
   description: String,
+  tags: Array,
   imageURL: String,
   created_at:{ type: Date, default: Date.now }
 });

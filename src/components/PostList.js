@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Post from './Post'
+import Menubar from './Menubar'
 import styles from './styles.js'
 
 class PostList extends Component {

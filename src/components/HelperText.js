@@ -3,6 +3,16 @@ import styles from './styles.js'
 
 
 class HelperText extends Component {
+	constructor(){
+		super()
+		this.handleHideClick = this.handleHideClick.bind(this);
+	}
+
+	handleHideClick(e){
+		e.preventDefault()
+		this.props.hideHelperText()
+	}
+
 	render(){
 		const currentHoveredBox = this.props.mapState.currentHoveredBox;
 		const x = currentHoveredBox[0],
@@ -32,18 +42,19 @@ class HelperText extends Component {
 
 		const xDescriptions = ['',
 
-			'a strong left/liberal/Democrat leaning or viewpoint. Little or no consideration for the other side.',
-			'a slight left/liberal/Democrat leaning or viewpoint, but mutiple viewpoints are considered.',
+			'a strong left/liberal/Democrat leaning. Little or no consideration for the other side.',
+			'a slight left/liberal/Democrat leaning, but mutiple viewpoints are considered.',
 			'no particular political bias, or a viewpoint that doesn\'t fit the left/right mold.',
-			'a slight right/conservative/Republican leaning or viewpoint, but mutiple viewpoints are considered.',
-			'a strong right/conservative/Republican leaning or viewpoint. Little or no consideration for the other side.',
+			'a slight right/conservative/Republican leaning, but mutiple viewpoints are considered.',
+			'a strong right/conservative/Republican leaning. Little or no consideration for the other side.',
 
 		]
 
 		//set rating label
 		let header = 'Hey, you\'re using the alpha version of Media Bias Map',
 				description = 	<p>Use the grid and search bar to navigate the political media links, curated by users of the <a href="">Media Bias Map Chrome Extension.</a></p>,
-			helperTextStyle = {};
+
+				helperTextStyle = {};
 
 		if(currentHoveredBox.length > 0){
 			if(x == 0){
@@ -63,10 +74,12 @@ class HelperText extends Component {
 
 		return (
 			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)}>
+				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
 
 				<h2 style={styles.HelperText.header}>{header}</h2>
 				<hr/>
-				<p>{description}</p>
+				<p style={styles.HelperText.description}>{description}</p>
+
 
 			</div>
 		)

@@ -7,18 +7,19 @@ class Box extends Component {
 		this.handleClick = this.handleClick.bind(this);
 	}
 
+	//tell MapFilter the current hovered box
 	handleMouseEnter(e){
 		e.preventDefault()
 		this.props.handleMouseEnter([this.props.x, this.props.y])
 	}
 
+	//add the clicked box's coordinates to selectedBoxes in state
 	handleClick(e){
 		e.preventDefault()
 		this.props.handleClick([this.props.x, this.props.y])
 	}
 
 	render(){
-
 		//conditional labelling
 		let label = '';
 

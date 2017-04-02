@@ -64,8 +64,7 @@ apiRouter.get('/:resource/:id', function(req, res, next){
 	})
 })
 
-//=================================
-// Adding Post via Chrome Extension
+
 apiRouter.post('/:resource', (req, res, next) => {
 
  	var resource = req.params.resource;

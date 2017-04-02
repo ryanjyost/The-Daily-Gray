@@ -14,7 +14,6 @@ router.route('/')
 //============================
 //Other Routes
 router.use('/api', require('./api'))
-router.use('/source', require('./sourceRoutes'))
 router.use('/admin', require('./admin'))
 router.use('/auth', require('./auth'))
 

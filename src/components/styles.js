@@ -1,5 +1,7 @@
 export default {
 
+
+	//==============================
 	MapFilter: {
 		display: 'block',
 		width: 250,
@@ -7,71 +9,72 @@ export default {
 		overflow: 'hidden',
 
 		resetButton:{
-			textAlign:'right',
+			textAlign:'center',
 			padding:5,
 			fontSize: 10,
 		}
 	},
 
-	box: {
-		width: 50,
-		height: 50,
-		display: 'inline-block',
-		borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
-		borderWidth: 1,
-		borderStyle: 'solid',
-		zIndex: 1,
-		position: 'relative',
+			box: {
+				width: 50,
+				height: 50,
+				display: 'inline-block',
+				borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
+				borderWidth: 1,
+				borderStyle: 'solid',
+				zIndex: 1,
+				position: 'relative',
 
-		hover: {
-			borderColor:'#848484',
-		},
+				hover: {
+					borderColor:'#848484',
+				},
 
-		//opacity based on vertical position in map
-		y1: {opacity: .8},
-		y2: {opacity: .5},
-		y3: {opacity: .2},
-		y4: {opacity: 1, backgroundColor: '#fafafa'},
+				//opacity based on vertical position in map
+				y1: {opacity: .8},
+				y2: {opacity: .5},
+				y3: {opacity: .2},
+				y4: {opacity: 1, backgroundColor: '#fafafa'},
 
-		//set colors based on horizontal position in map
-		x1: {backgroundColor: "#A9D0F5"},
-		x2: {backgroundColor: "#E0ECF8"},
-		x3: {backgroundColor: "#f2f2f2"},
-		x4: {backgroundColor: "#F8E0E6"},
-		x5: {backgroundColor: "#F5A9BC"},
+				//set colors based on horizontal position in map
+				x1: {backgroundColor: "#A9D0F5"},
+				x2: {backgroundColor: "#E0ECF8"},
+				x3: {backgroundColor: "#f2f2f2"},
+				x4: {backgroundColor: "#F8E0E6"},
+				x5: {backgroundColor: "#F5A9BC"},
 
-		//fake news
-		x0: {backgroundColor: "#848484"},
-		y0: {width:'100%', height: 40},
+				//fake news
+				x0: {backgroundColor: "#848484"},
+				y0: {width:'100%', height: 40},
 
-		label: {
-			textAlign:'center',
-			verticalAlign: 'middle',
-			width:'100%',
-			display:'inline-block',
-			zIndex: 1000,
-			height: '100%',
-			lineHeight: '46px',
-			fontSize: 6,
+				label: {
+					textAlign:'center',
+					verticalAlign: 'middle',
+					width:'100%',
+					display:'inline-block',
+					zIndex: 1000,
+					height: '100%',
+					lineHeight: '46px',
+					fontSize: 10,
 
-			top: {
-				lineHeight:'46px',
-				fontSize: 9
+					top: {
+						lineHeight:'46px',
+						fontSize: 10
+					},
+
+					fakeNews: {
+						fontSize: 12,
+						lineHeight: '40px',
+						textAlign:'center',
+						width:'100%',
+						display:'inline-block',
+						color:'#f2f2f2',
+
+					},
+				},
+
 			},
 
-			fakeNews: {
-				fontSize: 12,
-				lineHeight: '40px',
-				textAlign:'center',
-				width:'100%',
-				display:'inline-block',
-				color:'#f2f2f2',
-
-			},
-		},
-
-	},
-
+	//==============================
 	post:{
 		padding: '14px 20px 5px 20px',
 		width:'100%',
@@ -144,15 +147,27 @@ export default {
 		}
 	},
 
+	//==============================
 	HelperText: {
 		container: {
 			width:'100%',
 			maxWidth:250,
 			margin:'auto',
-			height:140,
+			height:180,
 			padding:'10px 10px 20px 10px',
-			marginTop: 10,
 			marginBottom:10,
+			borderRadius:3,
+		},
+
+		close: {
+			fontSize: 8,
+			textAlign:'right',
+			display:'block',
+			cursor:'pointer',
+			paddingBottom:3
+		},
+
+		description:{
 		},
 
 		fakeNewsText:{
@@ -168,10 +183,88 @@ export default {
 		x3: {backgroundColor: "#f2f2f2"},
 		x4: {backgroundColor: "#F8E0E6"},
 		x5: {backgroundColor: "#F5A9BC"},
-
-
-
 	},
+
+	//==============================
+	menubar: {
+		container:{
+			height:55,
+			backgroundColor: '#ffffff',
+			width:'100%',
+			padding:'11px 0px 0px 20px',
+			borderBottomStyle:'solid',
+			borderBottomColor: '#f2f2f2',
+			borderBottomWidth:'1px',
+		},
+
+			linksContainer:{
+				display:'inline-block',
+				padding: '5px 10px 10px 20px',
+				verticalAlign: 'top',
+				height:35,
+			},
+
+				link:{
+					display:'inline-block',
+					float:'none',
+					padding:'0px 20px 0px 20px',
+					color:'#585858',
+					fontWeight: '200',
+				},
+	},
+
+	logo: {
+		cont: {
+			height:30,
+			display:'inline-block',
+			marginBottom:40,
+
+		},
+
+			link: {
+
+			},
+
+		image: {
+			display: 'inline-block',
+			float:'left',
+			width:34,
+		},
+
+		textContainer:{
+			margin:'0px 2px 0px 6px',
+		},
+
+		title:{
+			margin:'0px 2px 0px 2px',
+			color: '#585858',
+			fontSize: 14,
+		},
+		tagline: {
+			margin:'0px 2px 2px 2px',
+			color: '#a4a4a4',
+			fontSize:10
+		},
+	},
+
+	//==============================
+
+	sources:{
+		container: {
+			margin: 'auto',
+			width:'100%'
+		}
+	},
+
+	sourceMenu:{
+
+		item:{
+				listStyleType: 'none',
+				display:'inline-block ',
+				margin:'0px 5px 0px 5px'
+		},
+
+	}
 
 
 

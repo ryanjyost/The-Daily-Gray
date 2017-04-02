@@ -6,6 +6,10 @@ body {
 	margin: auto;
 }
 
+	a{
+		font-family: 'Raleway', sans-serif;
+	}
+
 	a:hover{text-decoration: none;}
 	a:focus{text-decoration: none;}
 
@@ -32,7 +36,7 @@ body {
 	}
 	p{
 		margin:0px;
-		font-size: 12px;
+		font-size: 14px;
 	}
 
 	.hoverText:hover{
@@ -46,89 +50,6 @@ body {
 
 
 /*====================
-Header */
-
-header{
-	padding: 10px 0px 10px 0px;
-	background-color: transparent;
-	height: 10vh;
-	max-height: 60px;
-	display: block;
-	border-bottom: 1px solid #f2f2f2;
-	margin: auto;
-	margin-bottom: 5px;
-	margin-top: 2px;
-	width: 100%;
-	border-radius: 5px;
-}
-
-#logo-cont{
-	display: inline-block;
-	height: 30px;
-}
-
-	#logo-cont img{
-		display: inline-block;
-		float: left;
-	}
-
-	header a{
-		color: #848484;
-		max-width: 1300px;
-	}
-
-	header h1 {
-		display: block;
-		margin-top:2px;
-		margin-bottom: 2px;
-		padding: 1px;
-		vertical-align: middle;
-		color: #585858;
-		font-weight: 900;
-	}
-
-	header h6{
-		margin: 2px;
-		display: block;
-	}
-
-		@media(min-width:600px){
-			#logo-text{
-				display:inline-block !important;
-			}
-		}
-
-	#header-inner-container{
-		max-width: 1280px;
-		display: block;
-		width: 100%;
-		margin: auto;
-	}
-
-
-	#logo-link{
-		height: 50px;
-	    margin: auto;
-	    display: inline-block;
-	    width: 100%;
-	}
-
-
-	#logo-text{
-		height: 40px;
-		width: 200px;
-		background-color: transparent;
-		display: none;
-	}
-
-		#logo{
-			margin: 0px 10px 0px 10px;
-			height: 40px;
-			vertical-align: middle;
-			display: inline-block;
-		}
-
-/*====================
 Main divs
 ====================*/
 
@@ -136,10 +57,13 @@ Main divs
 
 }
 	#main-cont{
-		max-width: 1300px;
 		margin: auto;
 		display: flex;
 		flex-wrap:  wrap;
+	}
+
+	#logo-text-container{
+		display: none;
 	}
 
 /*=============================
@@ -166,24 +90,20 @@ Single Source Page
 		width: 100%;
 		padding: 0px 0px 10px 0px;
 		display: block;
+		display: none;
 	}
-
-
-	.postListContainer{
-
-	}
-
-		.postList{
-		  	margin:auto;
-		  	display: flex;
+		.postList {
+		  margin:auto;
+		  display: flex;
 			padding: 0px;
 			flex-wrap:  wrap;
+			padding-bottom: 80px;
 		}
 			.postInfo:hover{
 				background-color: rgba(0,0,0,.6)
 			}
 
-			.postList li{
+			.postList  li{
 				width: 100%;
 				min-width: 200px;
 			}
@@ -232,6 +152,7 @@ Single Source Page
 				left: 0;
 				overflow: hidden;
 				height: 100%;
+				margin-top: 70px;
 			}
 
 			.postListContainer{
@@ -239,15 +160,19 @@ Single Source Page
 				top: 0;
 				left:  290px;
 				overflow: auto;
-				height: 100vh;
-				margin-top: 10px;
+				margin-top: 65px;
+				width: auto;
+			}
+
+			#logo-text-container{
+				display: inline-block;
 			}
 		}
 
 
 		@media(min-width: 720px){
 			body{
-				height:90vh;
+				height:80vh;
 				overflow:hidden !important;
 			}
 
@@ -256,18 +181,11 @@ Single Source Page
 				top: 0;
 				left:  290px;
 				overflow: auto;
+				width: auto;
 				height: 100vh;
-				margin-top: 10px;
 			}
 
-				.postList{
-				/* 	margin: 0px !important;
-					padding: 10px 0px 0px 0px !important;
-					height: 100%;
-					display: flex; */
 
-
-				}
 				.postList li{
 					/* width: 50% !important; */
 					display: inline;
@@ -278,12 +196,20 @@ Single Source Page
 						color: #fff;
 						font-weight: 900;
 					}
+
+					.iframeContainer{
+						width: 710px !important;
+					}
 		}
 
 		@media(min-width: 950px){
 			.postList li{
 				width: 33%;
 			}
+
+			.iframeContainer{
+					width: 950px !important;
+				}
 		}
 
 		@media(min-width: 1100px){
@@ -338,23 +264,48 @@ Single Source Page
 				cursor: pointer;
 			}
 
+/*==============================
+Sources*/
 
-/*====================
-Helper Text and Popups */
-
-.help-text{
-	display: none;
+#Sources{
+	width: 100%;
+	margin: auto;
 }
-@media(min-width: 600px ) {
-	.help-text{
-		background-color: #fff;
-		border: 1px solid #f2f2f2;
-		text-align: center;
-		width: 250px;
-		margin-bottom: 20px;
-		border-radius: 3px;
-		padding: 10px 20px 10px 20px;
+
+
+.iframeContainer{
+	  margin: auto;
+	  padding: 50px 0px 0px 0px;
+    display: flex;
+    padding: 0px;
+    flex-wrap: wrap;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    position: relative;
+
+}
+
+	.iframe-overlay{
+		background-color: rgba(0,0,0,.2);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 	}
 
-}
+	.iframe {
+		padding:0px;
+		border:none;
+		width: auto;
+		width: 100%;
+		height: 80vh;
+	}
+
+
+
+
+
+
 

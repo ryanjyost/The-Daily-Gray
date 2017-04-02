@@ -12,24 +12,24 @@ class MapFilter extends Component {
 		this.handleFilterReset = this.handleFilterReset.bind(this);
 	}
 
+	//pass currentHoveredBox coordinates up to Sidebar
+	handleBoxMouseEnter(coordinateArray){
+		this.props.updateCurrentHoveredBox(coordinateArray)
+	}
+
+	//tell Sidebar that user left the map
 	handleMapLeave(e){
-		//pass state up to App
 		e.preventDefault()
 		this.props.updateMapHover(false)
 	}
 
-	handleBoxMouseEnter(coordinateArray){
-		//pass up to App state
-		this.props.updateCurrentHoveredBox(true, coordinateArray)
-	}
-
+	//pass newly selectedBox coordinates up to Sidebar
 	handleBoxClick(coordinateArray){
-		//pass up to App state
 		this.props.updateSelectedBoxes(coordinateArray)
 	}
 
+	//tell Sidebar to tell MainView to reset the map filter
 	handleFilterReset(e){
-		//pass up to App state
 		e.preventDefault()
 		this.props.resetFilter();
 	}
@@ -89,18 +89,20 @@ class MapFilter extends Component {
 			}) //end map
 
 		return (
-			<div
-				style={styles.MapFilter}
-				onMouseEnter={this.handleMapEnter}
-				onMouseLeave={this.handleMapLeave}
-			>
-				{grid}
+			<div>
 				<div
-					style={styles.MapFilter.resetButton}
-					className="hoverText"
-					onClick={this.handleFilterReset}
+					style={styles.MapFilter}
+					onMouseEnter={this.handleBoxMouseEnter}
+					onMouseLeave={this.handleMapLeave}
 				>
-				Reset Filter
+					{grid}
+				</div>
+				<div
+						style={styles.MapFilter.resetButton}
+						className="hoverText"
+						onClick={this.handleFilterReset}
+					>
+					Reset Filter
 				</div>
 			</div>
 
