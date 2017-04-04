@@ -179,7 +179,7 @@ export default {
 		},
 
 		header: {
-			fontSize:17,
+			fontSize:15,
 			fontWeight:'900',
 		},
 

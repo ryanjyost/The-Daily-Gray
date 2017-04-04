@@ -25278,7 +25278,7 @@
 			},
 	
 			header: {
-				fontSize: 17,
+				fontSize: 15,
 				fontWeight: '900'
 			},
 	
@@ -28118,13 +28118,9 @@
 						'hide'
 					),
 					_react2.default.createElement(
-						'span',
+						'h2',
 						{ style: _styles2.default.HelperText.header },
-						_react2.default.createElement(
-							'strong',
-							null,
-							header
-						)
+						header
 					),
 					_react2.default.createElement('hr', null),
 					_react2.default.createElement(
@@ -28504,6 +28500,14 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: _styles2.default.menubar.linksContainer },
+	          _react2.default.createElement(
+	            'a',
+	            {
+	              style: _styles2.default.menubar.link,
+	              href: '/auth/signUp',
+	              onClick: this.resetTopic },
+	            'Sign In / Up'
+	          ),
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
 	            {

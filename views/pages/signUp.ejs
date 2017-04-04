@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include ../partials/head.ejs %>
+  </head>
+  <body>
+  <div id="main-cont">
+    <h1>Sign Up</h1>
+
+      <form name="signUpForm" action="/auth/signUp" method="post">
+        <input name="userName" id="userName">
+        <input name="password" id="password">
+        <input type="submit" value="Sign Up">
+      </form>
+
+      <a href="/auth/google" >SIGN IN TO GOOGLE</a>
+
+
+
+  </div><!-- main cont -->
+  </body>
+</html>

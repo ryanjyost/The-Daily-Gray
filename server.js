@@ -1,14 +1,14 @@
 "use strict"
 
-var express = require('express');
-var path = require('path');
-var db = require('./db');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
+const express = require('express');
+const path = require('path');
+const db = require('./db');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 var app = express();
 
@@ -25,6 +25,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+
+//session
+app.use(session({secret: 'skoosh'}));
+require('./config/passport')(app);
 
 //======================================
 //routing

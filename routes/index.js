@@ -1,9 +1,6 @@
 const express = require('express'),
       router = express.Router();
 
-//models
-const Post = require('../models/post');
-
 //=================================
 //homepage
 router.route('/')
@@ -16,5 +13,6 @@ router.route('/')
 router.use('/api', require('./api'))
 router.use('/admin', require('./admin'))
 router.use('/auth', require('./auth'))
+router.use('/users', require('./users'))
 
 module.exports = router;

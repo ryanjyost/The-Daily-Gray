@@ -40,13 +40,13 @@ module.exports = {
 	        console.log("-----------END META---------------");
 
 	        let postInfo = {
-	        	xy: [Number(xy[1]), Number(xy[3])],
-	        	url: url,
-	        	source: meta.site_name,
-	        	title: meta.title,
-	        	description: meta.description,
-	        	topic: topic,
-	        	imageURL: meta.image.url
+	        	xy: [Number(xy[1]), Number(xy[3])] || [5,5],
+	        	url: url || '',
+	        	source: meta.site_name || '',
+	        	title: meta.title || '',
+	        	description: meta.description || '',
+	        	topic: topic || '',
+	        	imageURL: meta.image.url || ''
 	        }
 
 	        console.log(postInfo)

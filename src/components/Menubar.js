@@ -67,16 +67,25 @@ class Menubar extends Component {
 			<div style={styles.menubar.container}>
         <Logo/>
         <div style={styles.menubar.linksContainer}>
+
+          <a
+            style={styles.menubar.link}
+            href={'/auth/signUp'}
+            onClick={this.resetTopic}>
+              Sign In / Up
+          </a>
+
           <Link
             style={styles.menubar.link}
             to={'/'}
             onClick={this.resetTopic}>
               Recent
           </Link>
-
           {topicList}
 
+
         </div>
+
 			</div>
 		)
 	}

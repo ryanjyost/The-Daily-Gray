@@ -75,7 +75,7 @@ class HelperText extends Component {
 			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)}>
 				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
 
-				<span style={styles.HelperText.header}><strong>{header}</strong></span>
+				<h2 style={styles.HelperText.header}>{header}</h2>
 				<hr/>
 				<p style={styles.HelperText.description}>{description}</p>
 
