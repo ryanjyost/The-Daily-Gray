@@ -18,6 +18,8 @@ class MainView extends Component {
 		this.handleBoxClick= this.handleBoxClick.bind(this);
 		this.handleFilterReset= this.handleFilterReset.bind(this);
 		this.handleHideHelperText= this.handleHideHelperText.bind(this);
+		this.handleFilterToggle= this.handleFilterToggle.bind(this);
+		this.updateWindowWidth= this.updateWindowWidth.bind(this);
 		this.state = {
 			postList: [],
 			searchInput: '',
@@ -27,11 +29,34 @@ class MainView extends Component {
 				hover: false, // n for no, y for yes
 				currentHoveredBox: [],
 				selectedBoxes: []
-			}
+			},
+			sidebarIsOpen: true,
+			windowWidth: window.innerWidth,
 		}
 	}
 
+	//==================================
+	// Handle window resizing
+	updateWindowWidth(){
+		this.setState({
+			windowWidth: window.innerWidth
+		})
+	}
+
+	componentWillMount(){
+		this.updateWindowWidth()
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("resize", this.updateWindowWidth);
+	}
+
+
 	componentDidMount(){
+
+		//check for window width change
+		window.addEventListener("resize", this.updateWindowWidth)
+
 		//get recent posts
 		superagent
 			.get('/api/post')
@@ -44,7 +69,6 @@ class MainView extends Component {
 				}
 
 				let results = response.body.results.reverse();
-				console.log(results)
 
 				this.setState({
 					postList: results
@@ -84,6 +108,13 @@ class MainView extends Component {
 			})
 
 		this.setState(newState)
+	}
+
+	//==================================
+	// Menubar handlers
+	handleFilterToggle(){
+		const oldSidebarIsOpen = this.state.sidebarIsOpen;
+		this.setState({sidebarIsOpen: !oldSidebarIsOpen })
 	}
 
 	//==================================
@@ -174,26 +205,34 @@ class MainView extends Component {
 	render(){
 		return (
 				<div style= {styles.mainView.container}>
-					<Menubar updateTopic={this.handleTopicChange}/>
-						<Sidebar
-							showHelperText={this.state.showHelperText}
-							mapState={this.state.map}
-							hideHelperText={this.handleHideHelperText}
-							updateSearch={this.handleSearchChange}
-							searchInput = {this.state.searchInput}
-							updateCurrentHoveredBox={this.handleBoxHover}
-							updateMapHover={this.handleMapLeave}
-							updateSelectedBoxes={this.handleBoxClick}
-							resetFilter={this.handleFilterReset}
-							currentHoveredBox={this.state.map.currentHoveredBox}
-							selectedBoxes={this.state.map.selectedBoxes}
-						/>
+					<Menubar
+						updateTopic={this.handleTopicChange}
+						sidebarIsOpen={this.state.sidebarIsOpen}
+						toggleFilter={this.handleFilterToggle}
+					/>
+
+						{this.state.sidebarIsOpen &&
+							<Sidebar
+								showHelperText={this.state.showHelperText}
+								mapState={this.state.map}
+								hideHelperText={this.handleHideHelperText}
+								updateSearch={this.handleSearchChange}
+								searchInput = {this.state.searchInput}
+								updateCurrentHoveredBox={this.handleBoxHover}
+								updateMapHover={this.handleMapLeave}
+								updateSelectedBoxes={this.handleBoxClick}
+								resetFilter={this.handleFilterReset}
+								currentHoveredBox={this.state.map.currentHoveredBox}
+								selectedBoxes={this.state.map.selectedBoxes}
+							/>
+						}
 
 						<PostList
 							postList={this.state.postList}
 							searchInput={this.state.searchInput}
 							currentHoveredBox={this.state.map.currentHoveredBox}
 							selectedBoxes={this.state.map.selectedBoxes}
+							sidebarIsOpen={this.state.sidebarIsOpen}
 						/>
 
 				</div>

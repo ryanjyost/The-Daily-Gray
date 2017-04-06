@@ -42,28 +42,41 @@ class HelperText extends Component {
 
 		const xDescriptions = ['',
 
-			'a strong left/liberal/Democrat leaning. Little or no consideration for the other side.',
-			'a slight left/liberal/Democrat leaning, but mutiple viewpoints are considered.',
-			'no particular political bias, or a viewpoint that doesn\'t fit the left/right mold.',
-			'a slight right/conservative/Republican leaning, but mutiple viewpoints are considered.',
-			'a strong right/conservative/Republican leaning. Little or no consideration for the other side.',
+			'a strong left, liberal or Democrat leaning. Little or no consideration for the other side.',
+			'a slight left, liberal or Democrat leaning. Mutiple viewpoints are considered.',
+			'no particular political bias, or a viewpoint that doesn\'t fit the left / right mold.',
+			'a slight right, conservative, or Republican leaning. Mutiple viewpoints are considered.',
+			'a strong right, conservative, or Republican leaning. Little or no consideration for the other side.',
 
 		]
 
 		//set rating label
-		let header = 'Thanks for using the alpha version of Media Bias Map',
-				description = 	'We want to make it easier to read about politics from a variety sources and perspectives.',
-				helperTextStyle = {}
+		let header = "";
+		if (window.innerWidth > 768) {
+			header = <span>
+									</span>
+		} else {
+			header = <span>
+									</span>
+
+		}
+
+				let description = 	'',
+				helperTextStyle = {};
 
 		if(currentHoveredBox.length > 0){
-			if(x == 0){
+			if(x == 0 ){
 				header = 'FAKE NEWS';
 				description = yDescriptions[0]
-				helperTextStyle = styles.HelperText.fakeNews
+				helperTextStyle = styles.HelperText.blackText
 			} else if(y == 4){
 				header = yHeaders[4][x];
 				description = yDescriptions[4][x];
-				helperTextStyle = styles.HelperText.factText
+				helperTextStyle = styles.HelperText.blackText
+			} else if(x == 3 && y < 4){
+				header = xHeaders[x] + ' | ' + yHeaders[y];
+				description = yDescriptions[y] + ' with  ' + xDescriptions[x]
+				helperTextStyle = styles.HelperText.blackText
 			} else{
 				header = xHeaders[x] + ' | ' + yHeaders[y];
 				description = yDescriptions[y] + ' with  ' + xDescriptions[x]
@@ -72,12 +85,13 @@ class HelperText extends Component {
 		}
 
 		return (
-			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)}>
-				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
+			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)} id="helper-text-container">
+
 
 				<h2 style={styles.HelperText.header}>{header}</h2>
-				<hr/>
 				<p style={styles.HelperText.description}>{description}</p>
+
+				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
 
 
 			</div>

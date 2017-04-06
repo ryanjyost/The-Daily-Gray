@@ -1,5 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var User = require('../../models/user')
 
 module.exports = function(app) {
   passport.use(new GoogleStrategy({
@@ -8,16 +9,26 @@ module.exports = function(app) {
   callbackURL: 'http://localhost:3000/auth/google/callback'},
   function(req, accessToken, refreshToken, profile, done){
     var user = {};
+    var query = {'google.id': profile.id}
 
-    user.email = profile.emails[0].value;
-    user.image = profile._json.image.url;
-    user.displayName = profile.displayName;
+    User.findOne(query, (error, user) => {
+      if(user){
+        console.log('found')
+        done(null, user)
+      } else {
+        console.log('not found');
+        var user = new User;
+        user.email = profile.emails[0].value;
+        user.image = profile._json.image.url;
+        user.displayName = profile.displayName;
 
-    user.google = {};
-    user.google.id = profile.id;
-    user.google.token = accessToken;
+        user.google = {};
+        user.google.id = profile.id;
+        user.google.token = accessToken;
 
-    done(null, user)
+        user.save();
+        done(null, user)
+      }
+    })
   }
-));
-}
+))}

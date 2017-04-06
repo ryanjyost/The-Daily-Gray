@@ -10,8 +10,8 @@ body {
 		font-family: 'Raleway', sans-serif;
 	}
 
-	a:hover{text-decoration: underline;}
-	a:focus{text-decoration: underline;}
+	a:hover{text-decoration: none; font-weight:800;}
+	a:focus{text-decoration: none;}
 
 
 	h2{
@@ -22,7 +22,7 @@ body {
 		letter-spacing: .05em;
 		line-height: 1.25em;
 	}
-	h2 a:hover{text-decoration:none; color: #fff;}
+	h2 a:hover{text-decoration:none !important; color: #fff;}
 
 	h1{font-size: 18px;}
 
@@ -36,7 +36,7 @@ body {
 	}
 	p{
 		margin:0px;
-		font-size: 14px;
+		font-size: 16px;
 	}
 
 	.hoverText:hover{
@@ -49,153 +49,245 @@ body {
 	}
 
 
+
+
+
+
 /*====================
 Main divs
 ====================*/
-
-#App{
-
-}
 	#main-cont{
 		margin: auto;
 		display: flex;
 		flex-wrap:  wrap;
 	}
 
-	#logo-text-container{
-		display: none;
-	}
-
 /*=============================
-Add Source Form
+Menubar
 */
 
-#addSource input, textarea{
-	display: block;
-	margin: 20px 20px 20px 20px;
-	width: 300px;
+#menubar-container{
+	height:105px;
+	background-color: #ffffff;
+	width: 100% ;
+	padding:0px 0px 0px 0px;
+	border-bottom:  1px solid #f2f2f2;
+	overflow: hidden;
+
+}
+
+	#menubar-links-container{
+		width: 100%;
+		height: 50px;
+		padding: 20px 5px 15px 2px;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		white-space: nowrap;
+	}
+
+		#menubar-links-container a{
+			padding:2px 20px 15px 20px;
+		}
+
+#logo-container{
+	display: inline-block;
+	height:30px;
+	margin: 8px 0px 0px 10px;
+}
+
+	#logo-image{
+		display: inline-block;
+		width:34px;
+		vertical-align: bottom;
+	}
+
+	#logo-text-container{
+		margin:  0px 2px 0px 6px;
+		display: inline-block;
+	}
+
+
+/* For small screens, dropdown map filter */
+#toggle-filter-btn{
+	float: right;
+	margin: 10px 10px 0px 0px;
+	font-weight: 900;
+	border-radius:  25px;
+	cursor: pointer;
+	letter-spacing: 1px
 }
 
 
+
+#sign-up-btn{
+	display: inline-block;
+	background-color: #fff;
+	border: 1px solid #B8DDFF ;
+	font-family: 'Lato', sans-serif;
+	color: #B8DDFF;
+	padding: 2px 10px 2px 10px !important;
+	margin:  1px 10px 0px 0px;
+	font-size: 15px;
+	border-radius:  25px;
+}
+
+
+
+
 /*=============================
-Single Source Page
+Sidebar
 */
 
+.sidebar{
+	width: 100%;
+	padding: 0px 0px 10px 0px;
+	position: relative;
+	margin-top: 10px;
+}
 
-	/*====================
-	Sidebar
-	====================*/
-
-	.sidebar{
-		width: 100%;
-		padding: 0px 0px 10px 0px;
-		display: block;
-		display: none;
+	/* Helper Text */
+	#helper-text-container{
+		width:100%;
+		padding: 15px 20px 5px 20px;
+		max-width:  375px;
+		color: #fff;
 	}
-		.postList {
-		  margin:auto;
-		  display: flex;
-			padding: 0px;
-			flex-wrap:  wrap;
-			padding-bottom: 80px;
-		}
-			.postInfo:hover{
-				background-color: rgba(0,0,0,.6)
-			}
 
-			.postList  li{
-				width: 100%;
-				min-width: 200px;
-			}
+	/* Search */
 
-		.postImage{
-			background-size: cover;
-			background-repeat: no-repeat;
-			background-position: center;
-			height: 200px;
-			width: auto;
-		}
-
-		.postInfo {
-			height: 100%;
+		#search-input{
 			width: 100%;
-			background-color: rgba(0,0,0,.5);
-			z-index:  -1;
+			margin: auto;
+			display: block;
+			height: 50px;
 			padding: 10px 10px 10px 10px;
-
+			border: 1px solid #f2f2f2;
+			border-radius: 3px;
+			max-width:  375px;
 		}
 
-			.postList li h2{
-				display: -webkit-box;
-		        -webkit-line-clamp: 3;
-		        -webkit-box-orient: vertical;
-		        overflow: hidden;
-		        z-index:  10;
-		        color: #fff;
+			#search-input:focus{
+				outline: 1px solid #d8d8d8;
 			}
 
-			.postList li p {
-				display: -webkit-box;
-		        -webkit-line-clamp: 3;
-		        -webkit-box-orient: vertical;
+			@media(min-width:768px){
+				#search-input{
+					margin: auto !important;
+
+				}
+			}
+
+			/* Map */
+
+			.MapFilter{
+
+			}
+
+			#map-filter-container{
+				display: block;
+				width: 100%;
+				margin: auto;
+				max-width:  375px;
+			}
+
+				.box{
+					width: 20%;
+					height: 70px;
+				}
+
+				.box:hover{
+					cursor: pointer;
+				}
+
+				.box-label{
+					line-height: 66px;
+				}
+
+			#reset-btn{
+				text-align:center;
+				padding:5px;
+				font-size: 14px;
+				display: block;
 			}
 
 
-		@media(min-width:600px){
-			.sidebar{
-				padding: 0px 10px 20px 20px;
-				display: inline-block;
-				position: absolute;
-				width:290px !important;
-				top:  0;
-				bottom: 0;
-				left: 0;
-				overflow: hidden;
-				height: 100%;
-				margin-top: 70px;
-			}
 
-			.postListContainer{
-				position: fixed;
-				top: 0;
-				left:  290px;
-				margin-top: 65px;
-				width: auto;
-				overflow: auto;
-				height:100vh;
-			}
+/*=============================
+PostList*/
 
-			#logo-text-container{
-				display: inline-block;
-			}
+.postList {
+  margin:auto;
+  display: flex;
+	padding: 0px;
+	flex-wrap:  wrap;
+	padding-bottom: 80px;
+}
+		.postInfo:hover{
+			background-color: rgba(0,0,0,.3)
+		}
 
-			body{
-				height:100vh;
-				overflow:hidden !important;
-			}
+		.postList  li{
+			width: 100%;
+			min-width: 200px;
+		}
+
+	.postImage{
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		height: 200px;
+		width: auto;
+	}
+
+	.postInfo {
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0,0,0,.5);
+		z-index:  -1;
+		padding: 10px 10px 10px 10px;
+
+	}
+
+		.postList li h2{
+			display: -webkit-box;
+	        -webkit-line-clamp: 3;
+	        -webkit-box-orient: vertical;
+	        overflow: hidden;
+	        z-index:  10;
+	        color: #fff;
+		}
+
+		.postList li p {
+			display: -webkit-box;
+	        -webkit-line-clamp: 3;
+	        -webkit-box-orient: vertical;
 		}
 
 
-		@media(min-width: 720px){
-			body{
-				height:80vh;
-				overflow:hidden !important;
-			}
-
-			.postListContainer{
-				position: fixed;
-				top: 0;
-				left:  290px;
-				overflow: auto;
-				width: auto;
-				height: 100vh;
-			}
-
-
-				.postList li{
+		@media(min-width: 600px){
+			.postList li{
 					/* width: 50% !important; */
 					display: inline;
 					width: 50%;
+				}
+
+				#sign-up-btn{
+					padding: 2px 10px 2px 10px !important;
+					margin:  1px 10px 0px 20px;
+
+				}
+
+		}
+
+		@media(min-width: 768px){
+			.postListContainer{
+				margin-top: 10px;
+			}
+
+			.postList li{
+					/* width: 50% !important; */
+					display: inline;
+					width: 33%;
 				}
 
 					.postInfo a{
@@ -209,9 +301,81 @@ Single Source Page
 		}
 
 		@media(min-width: 950px){
+				body{
+					height:100vh;
+					overflow:hidden !important;
+				}
+
+					h2{font-size: 17px;}
+					p{font-size: 14px;}
+
+				#logo-container{
+					float: left;
+				}
+
+				#menubar-container{
+					height:50px;
+					width: 100% ;
+					padding:0px 0px 0px 0px;
+					border-bottom:  1px solid #f2f2f2;
+					overflow: hidden;
+				}
+
+					#menubar-links-container{
+						max-width: 45%;
+						display: inline-block;
+						height: 47px !important;
+						margin-left: 25px;
+						padding:12px 20px 15px 20px;
+					}
+
+						#menubar-links-container a{
+							padding:2px 20px 15px 20px;
+						}
+
+					#toggle-filter-btn{
+						float: right;
+						margin: 9px 15px 0px 0px;
+						width: 10%;
+						min-width: 100px;
+						text-align: center;
+					}
+
 			.postList li{
 				width: 33%;
 			}
+
+			.postListContainer{
+				margin-top: 60px;
+				overflow: auto;
+				height:100vh;
+			}
+
+			.sidebar{
+				padding: 0px 10px 20px 20px;
+				display: inline-block;
+				position: absolute;
+				width:290px !important;
+				top:  0;
+				bottom: 0;
+				left: 0;
+				overflow: scroll;
+				margin-top: 60px;
+			}
+
+			#reset-btn{
+				font-size: 10px;
+			}
+
+			.box{
+					width: 20%;
+					height: 50px;
+			}
+				.box-label{
+					line-height: 50px;
+					font-size: 10px;
+				}
+
 
 			.iframeContainer{
 					width: 950px !important;
@@ -230,45 +394,35 @@ Single Source Page
 			}
 		}
 
-		/*=============================
-		Search
-		*/
-
-		#search-input{
-			width: 250px !important;
-			max-width: 300px;
-			margin: auto;
-			display: block;
-			height: 50px;
-			padding: 10px 10px 10px 10px;
-			border: 1px solid #f2f2f2;
-			border-radius: 3px;
+		@media(min-width: 1600px){
+			.postList li{
+				width: 16%;
+			}
 		}
 
-			#search-input:focus{
-				outline: 1px solid #d8d8d8;
-			}
 
-			@media(min-width:768px){
-				#search-input{
-					margin: auto !important;
 
-				}
-			}
 
-		/*=============================
-		Map
-		*/
 
-		.MapFilter{
-			display: block;
-			max-width: 250px;
-			margin: auto;
-		}
 
-			.box:hover{
-				cursor: pointer;
-			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*==============================
 Sources*/
@@ -308,6 +462,18 @@ Sources*/
 		width: 100%;
 		height: 80vh;
 	}
+
+
+/*=============================
+Add Source Form
+*/
+
+#addSource input, textarea{
+	display: block;
+	margin: 20px 20px 20px 20px;
+	width: 300px;
+}
+
 
 
 

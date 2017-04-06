@@ -69,7 +69,10 @@ class PostList extends Component {
 			)
 		})
 		return (
-			<div className="postListContainer">
+			<div style={
+				this.props.sidebarIsOpen && window.innerWidth > 949 ? styles.postList.container.sidebarOpen : styles.postList.container.sidebarHidden}
+					 className="postListContainer"
+			>
 				<ul className="postList">
 						{postList}
 				</ul>

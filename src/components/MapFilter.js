@@ -89,7 +89,7 @@ class MapFilter extends Component {
 			}) //end map
 
 		return (
-			<div>
+			<div id="map-filter-container">
 				<div
 					style={styles.MapFilter}
 					onMouseEnter={this.handleBoxMouseEnter}
@@ -98,8 +98,8 @@ class MapFilter extends Component {
 					{grid}
 				</div>
 				<div
-						style={styles.MapFilter.resetButton}
 						className="hoverText"
+						id="reset-btn"
 						onClick={this.handleFilterReset}
 					>
 					Reset Filter

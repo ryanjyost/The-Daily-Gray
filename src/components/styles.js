@@ -1,85 +1,98 @@
 export default {
 
+	//==============================
+	sidebar:{
+		hidden: {
+			display: 'none'
+		}
+	},
 
+	//==============================
+	postList: {
+		container: {
+			sidebarHidden: {
+				width: '100%',
+				marginTop: 10,
+			},
+
+			sidebarOpen: {
+				position: 'fixed',
+				top: 0,
+				left:  290,
+				width: 'auto',
+			}
+		}
+	},
 	//==============================
 	MapFilter: {
 		display: 'block',
-		width: 250,
 		margin: 'auto',
 		overflow: 'hidden',
 
 		resetButton:{
-			textAlign:'center',
-			padding:5,
-			fontSize: 10,
+
 		}
 	},
 
-			box: {
-				width: 50,
-				height: 50,
-				display: 'inline-block',
-				borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
-				borderWidth: 1,
-				borderStyle: 'solid',
-				zIndex: 1,
-				position: 'relative',
+	box: {
+		display: 'inline-block',
+		borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
+		borderWidth: 1,
+		borderStyle: 'solid',
+		zIndex: 1,
+		position: 'relative',
 
-				hover: {
-					borderColor:'#848484',
-				},
+		hover: {
+			borderColor:'#848484',
+		},
 
-				//opacity based on vertical position in map
-				y1: {opacity: .8},
-				y2: {opacity: .5},
-				y3: {opacity: .2},
-				y4: {opacity: 1, backgroundColor: '#fafafa'},
+		//opacity based on vertical position in map
+		y1: {opacity: .8},
+		y2: {opacity: .5},
+		y3: {opacity: .2},
+		y4: {opacity: 1, backgroundColor: '#fafafa'},
 
-				//set colors based on horizontal position in map
-				x1: {backgroundColor: "#A9D0F5"},
-				x2: {backgroundColor: "#E0ECF8"},
-				x3: {backgroundColor: "#f2f2f2"},
-				x4: {backgroundColor: "#F8E0E6"},
-				x5: {backgroundColor: "#F5A9BC"},
+		//set colors based on horizontal position in map
+		x1: {backgroundColor: "#A9D0F5"},
+		x2: {backgroundColor: "#E0ECF8"},
+		x3: {backgroundColor: "#f2f2f2"},
+		x4: {backgroundColor: "#F8E0E6"},
+		x5: {backgroundColor: "#F5A9BC"},
 
-				//fake news
-				x0: {backgroundColor: "#848484"},
-				y0: {width:'100%', height: 40},
+		//fake news
+		x0: {backgroundColor: "#848484"},
+		y0: {width:'100%', height: 40},
 
-				label: {
-					textAlign:'center',
-					verticalAlign: 'middle',
-					width:'100%',
-					display:'inline-block',
-					zIndex: 1000,
-					height: '100%',
-					lineHeight: '46px',
-					fontSize: 10,
+		label: {
+			textAlign:'center',
+			verticalAlign: 'middle',
+			width:'100%',
+			display:'inline-block',
+			zIndex: 1000,
+			height: '100%',
 
-					top: {
-						lineHeight:'46px',
-						fontSize: 10
-					},
+			top: {
+			},
 
-					fakeNews: {
-						fontSize: 12,
-						lineHeight: '40px',
-						textAlign:'center',
-						width:'100%',
-						display:'inline-block',
-						color:'#f2f2f2',
-
-					},
-				},
+			fakeNews: {
+				fontSize: 12,
+				lineHeight: '40px',
+				textAlign:'center',
+				width:'100%',
+				display:'inline-block',
+				color:'#f2f2f2',
 
 			},
+		},
+
+	},
 
 
 //==============================
 	mainView:{
 		container: {
 			margin: 'auto',
-			width:'100%'
+			width:'100%',
 		}
 	},
 
@@ -161,12 +174,10 @@ export default {
 	//==============================
 	HelperText: {
 		container: {
-			width:'100%',
-			maxWidth:250,
 			margin:'auto',
-			height:180,
-			padding:'10px 10px 20px 10px',
+			height:200,
 			marginBottom:10,
+			marginTop: 2,
 			borderRadius:3,
 		},
 
@@ -179,25 +190,21 @@ export default {
 		},
 
 		header: {
-			fontSize:15,
 			fontWeight:'900',
 		},
 
 		description:{
 		},
 
-		fakeNewsText:{
-			color: '#585858'
-		},
-
-		factText: {
-			color: '#585858'
+		blackText: {
+			color: '#585858',
+			backgroundColor: '#fff',
 		},
 
 		x1: {backgroundColor: "#A9D0F5"},
-		x2: {backgroundColor: "#E0ECF8"},
+		x2: {backgroundColor: "#B8DDFF"},
 		x3: {backgroundColor: "#f2f2f2"},
-		x4: {backgroundColor: "#F8E0E6"},
+		x4: {backgroundColor: "#FFBCCD"},
 		x5: {backgroundColor: "#F5A9BC"},
 	},
 
@@ -214,16 +221,31 @@ export default {
 		},
 
 			linksContainer:{
-				display:'inline-block',
-				padding: '5px 10px 10px 20px',
-				verticalAlign: 'top',
-				height:35,
+
 			},
+
+				toggleFilterButton: {
+					show: {
+						backgroundColor: '#F5A9BC',
+						color: '#fff',
+						padding: '5px 15px',
+
+					},
+
+					hide: {
+					backgroundColor: '#fff',
+					borderColor: '#F5A9BC',
+					borderWidth: 1,
+					borderStyle: 'solid',
+					color: '#F5A9BC',
+					padding: '5px 10px',
+
+					},
+				},
 
 				link:{
 					display:'inline-block',
 					float:'none',
-					padding:'2px 20px 0px 20px',
 					color:'#585858',
 					fontWeight: '900',
 					cursor: 'pointer',
@@ -233,9 +255,7 @@ export default {
 
 	logo: {
 		cont: {
-			height:30,
-			display:'inline-block',
-			marginBottom:40,
+
 
 		},
 
@@ -244,9 +264,7 @@ export default {
 			},
 
 		image: {
-			display: 'inline-block',
-			float:'left',
-			width:34,
+
 		},
 
 		textContainer:{

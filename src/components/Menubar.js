@@ -11,6 +11,7 @@ class Menubar extends Component {
     super()
     this.handleTopicClick = this.handleTopicClick.bind(this);
     this.resetTopic = this.resetTopic.bind(this);
+    this.handleFilterToggleClick = this.handleFilterToggleClick.bind(this);
     this.state = {
       topicList: []
     }
@@ -48,6 +49,10 @@ class Menubar extends Component {
     this.props.updateTopic('')
   }
 
+  handleFilterToggleClick(){
+    this.props.toggleFilter()
+  }
+
 
   render(){
 
@@ -64,16 +69,25 @@ class Menubar extends Component {
     })
 
 		return (
-			<div style={styles.menubar.container}>
+			<div id="menubar-container">
         <Logo/>
-        <div style={styles.menubar.linksContainer}>
 
+        <span
+          id="toggle-filter-btn"
+          style={this.props.sidebarIsOpen ? styles.menubar.toggleFilterButton.hide : styles.menubar.toggleFilterButton.show }
+          onClick={this.handleFilterToggleClick}
+        >
+          {this.props.sidebarIsOpen ? 'X' : 'Filter'}
+        </span>
+
+        <div id="menubar-links-container">
           <a
-            style={styles.menubar.link}
+            id="sign-up-btn"
             href={'/auth/signUp'}
             onClick={this.resetTopic}>
-              Sign In / Up
+              Get started
           </a>
+
 
           <Link
             style={styles.menubar.link}
@@ -81,9 +95,8 @@ class Menubar extends Component {
             onClick={this.resetTopic}>
               Recent
           </Link>
+
           {topicList}
-
-
         </div>
 
 			</div>

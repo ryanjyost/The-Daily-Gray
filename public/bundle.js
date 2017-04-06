@@ -24875,6 +24875,8 @@
 			_this.handleBoxClick = _this.handleBoxClick.bind(_this);
 			_this.handleFilterReset = _this.handleFilterReset.bind(_this);
 			_this.handleHideHelperText = _this.handleHideHelperText.bind(_this);
+			_this.handleFilterToggle = _this.handleFilterToggle.bind(_this);
+			_this.updateWindowWidth = _this.updateWindowWidth.bind(_this);
 			_this.state = {
 				postList: [],
 				searchInput: '',
@@ -24884,15 +24886,41 @@
 					hover: false, // n for no, y for yes
 					currentHoveredBox: [],
 					selectedBoxes: []
-				}
+				},
+				sidebarIsOpen: true,
+				windowWidth: window.innerWidth
 			};
 			return _this;
 		}
 	
+		//==================================
+		// Handle window resizing
+	
+	
 		_createClass(MainView, [{
+			key: 'updateWindowWidth',
+			value: function updateWindowWidth() {
+				this.setState({
+					windowWidth: window.innerWidth
+				});
+			}
+		}, {
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				this.updateWindowWidth();
+			}
+		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				window.removeEventListener("resize", this.updateWindowWidth);
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var _this2 = this;
+	
+				//check for window width change
+				window.addEventListener("resize", this.updateWindowWidth);
 	
 				//get recent posts
 				_superagent2.default.get('/api/post').query(null).set('Accept', 'application/json').end(function (err, response) {
@@ -24902,7 +24930,6 @@
 					}
 	
 					var results = response.body.results.reverse();
-					console.log(results);
 	
 					_this2.setState({
 						postList: results
@@ -24941,6 +24968,16 @@
 				});
 	
 				this.setState(newState);
+			}
+	
+			//==================================
+			// Menubar handlers
+	
+		}, {
+			key: 'handleFilterToggle',
+			value: function handleFilterToggle() {
+				var oldSidebarIsOpen = this.state.sidebarIsOpen;
+				this.setState({ sidebarIsOpen: !oldSidebarIsOpen });
 			}
 	
 			//==================================
@@ -25063,8 +25100,12 @@
 				return _react2.default.createElement(
 					'div',
 					{ style: _styles2.default.mainView.container },
-					_react2.default.createElement(_Menubar2.default, { updateTopic: this.handleTopicChange }),
-					_react2.default.createElement(_Sidebar2.default, {
+					_react2.default.createElement(_Menubar2.default, {
+						updateTopic: this.handleTopicChange,
+						sidebarIsOpen: this.state.sidebarIsOpen,
+						toggleFilter: this.handleFilterToggle
+					}),
+					this.state.sidebarIsOpen && _react2.default.createElement(_Sidebar2.default, {
 						showHelperText: this.state.showHelperText,
 						mapState: this.state.map,
 						hideHelperText: this.handleHideHelperText,
@@ -25081,7 +25122,8 @@
 						postList: this.state.postList,
 						searchInput: this.state.searchInput,
 						currentHoveredBox: this.state.map.currentHoveredBox,
-						selectedBoxes: this.state.map.selectedBoxes
+						selectedBoxes: this.state.map.selectedBoxes,
+						sidebarIsOpen: this.state.sidebarIsOpen
 					})
 				);
 			}
@@ -25104,22 +25146,38 @@
 	exports.default = {
 	
 		//==============================
-		MapFilter: {
-			display: 'block',
-			width: 250,
-			margin: 'auto',
-			overflow: 'hidden',
-	
-			resetButton: {
-				textAlign: 'center',
-				padding: 5,
-				fontSize: 10
+		sidebar: {
+			hidden: {
+				display: 'none'
 			}
 		},
 	
+		//==============================
+		postList: {
+			container: {
+				sidebarHidden: {
+					width: '100%',
+					marginTop: 10
+				},
+	
+				sidebarOpen: {
+					position: 'fixed',
+					top: 0,
+					left: 290,
+					width: 'auto'
+				}
+			}
+		},
+		//==============================
+		MapFilter: {
+			display: 'block',
+			margin: 'auto',
+			overflow: 'hidden',
+	
+			resetButton: {}
+		},
+	
 		box: {
-			width: 50,
-			height: 50,
 			display: 'inline-block',
 			borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
 			borderWidth: 1,
@@ -25155,13 +25213,8 @@
 				display: 'inline-block',
 				zIndex: 1000,
 				height: '100%',
-				lineHeight: '46px',
-				fontSize: 10,
 	
-				top: {
-					lineHeight: '46px',
-					fontSize: 10
-				},
+				top: {},
 	
 				fakeNews: {
 					fontSize: 12,
@@ -25260,12 +25313,10 @@
 		//==============================
 		HelperText: {
 			container: {
-				width: '100%',
-				maxWidth: 250,
 				margin: 'auto',
-				height: 180,
-				padding: '10px 10px 20px 10px',
+				height: 200,
 				marginBottom: 10,
+				marginTop: 2,
 				borderRadius: 3
 			},
 	
@@ -25278,24 +25329,20 @@
 			},
 	
 			header: {
-				fontSize: 15,
 				fontWeight: '900'
 			},
 	
 			description: {},
 	
-			fakeNewsText: {
-				color: '#585858'
-			},
-	
-			factText: {
-				color: '#585858'
+			blackText: {
+				color: '#585858',
+				backgroundColor: '#fff'
 			},
 	
 			x1: { backgroundColor: "#A9D0F5" },
-			x2: { backgroundColor: "#E0ECF8" },
+			x2: { backgroundColor: "#B8DDFF" },
 			x3: { backgroundColor: "#f2f2f2" },
-			x4: { backgroundColor: "#F8E0E6" },
+			x4: { backgroundColor: "#FFBCCD" },
 			x5: { backgroundColor: "#F5A9BC" }
 		},
 	
@@ -25311,17 +25358,30 @@
 				borderBottomWidth: '1px'
 			},
 	
-			linksContainer: {
-				display: 'inline-block',
-				padding: '5px 10px 10px 20px',
-				verticalAlign: 'top',
-				height: 35
+			linksContainer: {},
+	
+			toggleFilterButton: {
+				show: {
+					backgroundColor: '#F5A9BC',
+					color: '#fff',
+					padding: '5px 15px'
+	
+				},
+	
+				hide: {
+					backgroundColor: '#fff',
+					borderColor: '#F5A9BC',
+					borderWidth: 1,
+					borderStyle: 'solid',
+					color: '#F5A9BC',
+					padding: '5px 10px'
+	
+				}
 			},
 	
 			link: {
 				display: 'inline-block',
 				float: 'none',
-				padding: '2px 20px 0px 20px',
 				color: '#585858',
 				fontWeight: '900',
 				cursor: 'pointer',
@@ -25330,20 +25390,11 @@
 		},
 	
 		logo: {
-			cont: {
-				height: 30,
-				display: 'inline-block',
-				marginBottom: 40
-	
-			},
+			cont: {},
 	
 			link: {},
 	
-			image: {
-				display: 'inline-block',
-				float: 'left',
-				width: 34
-			},
+			image: {},
 	
 			textContainer: {
 				margin: '0px 2px 0px 6px',
@@ -27651,7 +27702,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'div',
-					{ className: 'sidebar' },
+					{ style: _styles2.default.sidebar.container, className: 'sidebar' },
 					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
 						mapState: this.props.mapState,
 						hideHelperText: this.handleHideHelperText
@@ -27815,7 +27866,7 @@
 	
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ id: 'map-filter-container' },
 					_react2.default.createElement(
 						'div',
 						{
@@ -27828,8 +27879,8 @@
 					_react2.default.createElement(
 						'div',
 						{
-							style: _styles2.default.MapFilter.resetButton,
 							className: 'hoverText',
+							id: 'reset-btn',
 							onClick: this.handleFilterReset
 						},
 						'Reset Filter'
@@ -27951,7 +28002,7 @@
 					},
 					_react2.default.createElement(
 						'span',
-						{ style: this.props.boxLabelStyle },
+						{ className: 'box-label', style: this.props.boxLabelStyle },
 						label
 					)
 				);
@@ -28086,22 +28137,32 @@
 	
 				var yDescriptions = ['Clearly incorrect, misleading or incomplete information. This is why you have trust issues when consuming news on the internet.', 'Big "if" statements and minimally supported theories,', 'Personal or ideological take on a subject,', 'Thoughtful, informed commentary on a topic', ['', 'Traditonal reporting and journalism, providing nothing but the facts and context.', 'Cold, hard information. The best example of this would be Wikipedia, primary sources, timelines, etc.', 'Numbers, data, studies, graphics, etc. There should a direct connection between the source and the numbers they present.', 'Q&A meant to better understand the subject.', 'Absolutely everything else that doesn\'t apply to the other categories.']];
 	
-				var xDescriptions = ['', 'a strong left/liberal/Democrat leaning. Little or no consideration for the other side.', 'a slight left/liberal/Democrat leaning, but mutiple viewpoints are considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left/right mold.', 'a slight right/conservative/Republican leaning, but mutiple viewpoints are considered.', 'a strong right/conservative/Republican leaning. Little or no consideration for the other side.'];
+				var xDescriptions = ['', 'a strong left, liberal or Democrat leaning. Little or no consideration for the other side.', 'a slight left, liberal or Democrat leaning. Mutiple viewpoints are considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left / right mold.', 'a slight right, conservative, or Republican leaning. Mutiple viewpoints are considered.', 'a strong right, conservative, or Republican leaning. Little or no consideration for the other side.'];
 	
 				//set rating label
-				var header = 'Thanks for using the alpha version of Media Bias Map',
-				    description = 'We want to make it easier to read about politics from a variety sources and perspectives.',
+				var header = "";
+				if (window.innerWidth > 768) {
+					header = _react2.default.createElement('span', null);
+				} else {
+					header = _react2.default.createElement('span', null);
+				}
+	
+				var description = '',
 				    helperTextStyle = {};
 	
 				if (currentHoveredBox.length > 0) {
 					if (x == 0) {
 						header = 'FAKE NEWS';
 						description = yDescriptions[0];
-						helperTextStyle = _styles2.default.HelperText.fakeNews;
+						helperTextStyle = _styles2.default.HelperText.blackText;
 					} else if (y == 4) {
 						header = yHeaders[4][x];
 						description = yDescriptions[4][x];
-						helperTextStyle = _styles2.default.HelperText.factText;
+						helperTextStyle = _styles2.default.HelperText.blackText;
+					} else if (x == 3 && y < 4) {
+						header = xHeaders[x] + ' | ' + yHeaders[y];
+						description = yDescriptions[y] + ' with  ' + xDescriptions[x];
+						helperTextStyle = _styles2.default.HelperText.blackText;
 					} else {
 						header = xHeaders[x] + ' | ' + yHeaders[y];
 						description = yDescriptions[y] + ' with  ' + xDescriptions[x];
@@ -28111,22 +28172,21 @@
 	
 				return _react2.default.createElement(
 					'div',
-					{ style: Object.assign({}, _styles2.default.HelperText.container, helperTextStyle) },
-					_react2.default.createElement(
-						'span',
-						{ onClick: this.handleHideClick, style: _styles2.default.HelperText.close },
-						'hide'
-					),
+					{ style: Object.assign({}, _styles2.default.HelperText.container, helperTextStyle), id: 'helper-text-container' },
 					_react2.default.createElement(
 						'h2',
 						{ style: _styles2.default.HelperText.header },
 						header
 					),
-					_react2.default.createElement('hr', null),
 					_react2.default.createElement(
 						'p',
 						{ style: _styles2.default.HelperText.description },
 						description
+					),
+					_react2.default.createElement(
+						'span',
+						{ onClick: this.handleHideClick, style: _styles2.default.HelperText.close },
+						'hide'
 					)
 				);
 			}
@@ -28262,7 +28322,9 @@
 				});
 				return _react2.default.createElement(
 					'div',
-					{ className: 'postListContainer' },
+					{ style: this.props.sidebarIsOpen && window.innerWidth > 949 ? _styles2.default.postList.container.sidebarOpen : _styles2.default.postList.container.sidebarHidden,
+						className: 'postListContainer'
+					},
 					_react2.default.createElement(
 						'ul',
 						{ className: 'postList' },
@@ -28438,6 +28500,7 @@
 	
 	    _this.handleTopicClick = _this.handleTopicClick.bind(_this);
 	    _this.resetTopic = _this.resetTopic.bind(_this);
+	    _this.handleFilterToggleClick = _this.handleFilterToggleClick.bind(_this);
 	    _this.state = {
 	      topicList: []
 	    };
@@ -28477,6 +28540,11 @@
 	      this.props.updateTopic('');
 	    }
 	  }, {
+	    key: 'handleFilterToggleClick',
+	    value: function handleFilterToggleClick() {
+	      this.props.toggleFilter();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
@@ -28495,18 +28563,27 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _styles2.default.menubar.container },
+	        { id: 'menubar-container' },
 	        _react2.default.createElement(_Logo2.default, null),
 	        _react2.default.createElement(
+	          'span',
+	          {
+	            id: 'toggle-filter-btn',
+	            style: this.props.sidebarIsOpen ? _styles2.default.menubar.toggleFilterButton.hide : _styles2.default.menubar.toggleFilterButton.show,
+	            onClick: this.handleFilterToggleClick
+	          },
+	          this.props.sidebarIsOpen ? 'X' : 'Filter'
+	        ),
+	        _react2.default.createElement(
 	          'div',
-	          { style: _styles2.default.menubar.linksContainer },
+	          { id: 'menubar-links-container' },
 	          _react2.default.createElement(
 	            'a',
 	            {
-	              style: _styles2.default.menubar.link,
+	              id: 'sign-up-btn',
 	              href: '/auth/signUp',
 	              onClick: this.resetTopic },
-	            'Sign In / Up'
+	            'Get started'
 	          ),
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
@@ -28569,11 +28646,11 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'a',
-					{ href: '/', style: _styles2.default.logo.cont },
-					_react2.default.createElement('img', { style: _styles2.default.logo.image, src: '../images/favicon.ico' }),
+					{ href: '/', id: 'logo-container' },
+					_react2.default.createElement('img', { id: 'logo-image', src: '../images/favicon.ico' }),
 					_react2.default.createElement(
 						'div',
-						{ id: 'logo-text-container', style: _styles2.default.logo.textContainer },
+						{ id: 'logo-text-container' },
 						_react2.default.createElement(
 							'div',
 							{ style: _styles2.default.logo.title },

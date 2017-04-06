@@ -46,7 +46,7 @@ class Box extends Component {
 				onMouseEnter={this.handleMouseEnter}
 				onClick={this.handleClick}
 			>
-				<span style={this.props.boxLabelStyle}>{label}</span>
+				<span className="box-label" style={this.props.boxLabelStyle}>{label}</span>
 			</div>
 		)
 	}

@@ -43,7 +43,7 @@ class Sidebar extends Component {
 	render(){
 		return (
 
-				<div className="sidebar">
+				<div style={styles.sidebar.container} className="sidebar">
 					{this.props.showHelperText &&
 						<HelperText
 							mapState={this.props.mapState}
