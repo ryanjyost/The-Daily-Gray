@@ -95,14 +95,7 @@
 						_react2.default.createElement(
 							'div',
 							{ id: 'main-cont' },
-							_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/sources', component: _SourceView2.default }),
-							_react2.default.createElement(
-								_reactRouterDom.Route,
-								{ exact: true, path: '/', component: _MainView2.default },
-								_react2.default.createElement(_reactRouterDom.Route, {
-									path: '/'
-								})
-							)
+							_react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _MainView2.default })
 						)
 					)
 				);
@@ -24883,11 +24876,11 @@
 				showHelperText: true,
 				currentTopic: '',
 				map: {
-					hover: false, // n for no, y for yes
+					hover: false,
 					currentHoveredBox: [],
 					selectedBoxes: []
 				},
-				sidebarIsOpen: true,
+				sidebarIsOpen: false,
 				windowWidth: window.innerWidth
 			};
 			return _this;
@@ -25056,7 +25049,6 @@
 				}
 	
 				if (alreadySelected) {
-					//alert('ryan')
 					var newMapState = (0, _immutabilityHelper2.default)(oldMapState, {
 						selectedBoxes: { $splice: [[index, 1]] }
 					});
@@ -25143,7 +25135,12 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = {
+	
+	var _sidebar$postList$pos;
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	exports.default = (_sidebar$postList$pos = {
 	
 		//==============================
 		sidebar: {
@@ -25157,17 +25154,25 @@
 			container: {
 				sidebarHidden: {
 					width: '100%',
-					marginTop: 10
+					marginTop: 0,
+					paddingTop: 10
 				},
 	
 				sidebarOpen: {
 					position: 'fixed',
 					top: 0,
 					left: 290,
-					width: 'auto'
+					width: 'auto',
+					paddingTop: 10
 				}
 			}
 		},
+	
+		//==============================
+		post: {
+			default: {}
+		},
+	
 		//==============================
 		MapFilter: {
 			display: 'block',
@@ -25213,8 +25218,12 @@
 				display: 'inline-block',
 				zIndex: 1000,
 				height: '100%',
+				fontSize: 26,
 	
-				top: {},
+				top: {
+					fontSize: 10,
+					textAlign: 'center'
+				},
 	
 				fakeNews: {
 					fontSize: 12,
@@ -25223,8 +25232,17 @@
 					width: '100%',
 					display: 'inline-block',
 					color: '#f2f2f2'
-	
 				}
+			},
+	
+			labelTop: {
+				fontSize: 10,
+				textAlign: 'center',
+				verticalAlign: 'middle',
+				width: '100%',
+				display: 'inline-block',
+				zIndex: 1000,
+				height: '100%'
 			}
 	
 		},
@@ -25235,204 +25253,200 @@
 				margin: 'auto',
 				width: '100%'
 			}
-		},
-	
-		//==============================
-		post: {
-			padding: '14px 20px 5px 20px',
-			width: '100%',
-			margin: 0,
-	
-			container: {
-				listStyleType: 'none',
-				background: '#ffffff',
-				margin: '0px 0px 0px 0px',
-				borderStyle: 'solid',
-				borderWidth: 3,
-				borderRadius: 3,
-				borderColor: '#fff'
-			},
-	
-			image: {
-				width: '100%',
-				height: 'auto'
-	
-			},
-	
-			title: {
-				color: '#fff',
-				paddingTop: 60
-			},
-	
-			//set colors based on horizontal position in map
-			x1: { color: "#A9D0F5" },
-			x2: { color: "#E0ECF8" },
-			x3: { color: "#f2f2f2" },
-			x4: { color: "#F8E0E6" },
-			x5: { color: "#F5A9BC" },
-	
-			//special stylings
-			fakeNewsText: {
-				color: '#000',
-				backgroundColor: 'rgba(255,255,255,.7)',
-				padding: '5px 5px 4px 5px',
-				textAlign: 'center'
-	
-			},
-	
-			factText: {
-				color: '#fff'
-			},
-	
-			description: {
-				margin: '2px 0px 2px 0px',
-				color: '#fff'
-			},
-	
-			source: {
-				fontStyle: 'italic',
-				textOverflow: 'ellipsis',
-				overflow: 'hidden',
-				width: '100%',
-				height: '1.2em',
-				fontSize: 12,
-				padding: '0px 10px 0px 0px',
-				color: '#fafafa',
-				marginTop: 5
-			},
-	
-			ratingLabel: {
-				textAlign: 'right',
-				fontSize: 12,
-				display: 'inline-block',
-				width: '100%',
-				fontWeight: '900'
-			}
-		},
-	
-		//==============================
-		HelperText: {
-			container: {
-				margin: 'auto',
-				height: 200,
-				marginBottom: 10,
-				marginTop: 2,
-				borderRadius: 3
-			},
-	
-			close: {
-				fontSize: 8,
-				textAlign: 'right',
-				display: 'block',
-				cursor: 'pointer',
-				paddingBottom: 3
-			},
-	
-			header: {
-				fontWeight: '900'
-			},
-	
-			description: {},
-	
-			blackText: {
-				color: '#585858',
-				backgroundColor: '#fff'
-			},
-	
-			x1: { backgroundColor: "#A9D0F5" },
-			x2: { backgroundColor: "#B8DDFF" },
-			x3: { backgroundColor: "#f2f2f2" },
-			x4: { backgroundColor: "#FFBCCD" },
-			x5: { backgroundColor: "#F5A9BC" }
-		},
-	
-		//==============================
-		menubar: {
-			container: {
-				height: 55,
-				backgroundColor: '#ffffff',
-				width: '100%',
-				padding: '11px 0px 0px 20px',
-				borderBottomStyle: 'solid',
-				borderBottomColor: '#f2f2f2',
-				borderBottomWidth: '1px'
-			},
-	
-			linksContainer: {},
-	
-			toggleFilterButton: {
-				show: {
-					backgroundColor: '#F5A9BC',
-					color: '#fff',
-					padding: '5px 15px'
-	
-				},
-	
-				hide: {
-					backgroundColor: '#fff',
-					borderColor: '#F5A9BC',
-					borderWidth: 1,
-					borderStyle: 'solid',
-					color: '#F5A9BC',
-					padding: '5px 10px'
-	
-				}
-			},
-	
-			link: {
-				display: 'inline-block',
-				float: 'none',
-				color: '#585858',
-				fontWeight: '900',
-				cursor: 'pointer',
-				fontSize: 16
-			}
-		},
-	
-		logo: {
-			cont: {},
-	
-			link: {},
-	
-			image: {},
-	
-			textContainer: {
-				margin: '0px 2px 0px 6px',
-				width: 200
-			},
-	
-			title: {
-				margin: '0px 2px 0px 2px',
-				color: '#585858',
-				fontSize: 14
-			},
-			tagline: {
-				margin: '0px 2px 2px 2px',
-				color: '#a4a4a4',
-				fontSize: 10
-			}
-		},
-	
-		//==============================
-	
-		sourceView: {
-			container: {
-				margin: 'auto',
-				width: '100%'
-			}
-		},
-	
-		sourceMenu: {
-	
-			item: {
-				listStyleType: 'none',
-				display: 'inline-block ',
-				margin: '0px 5px 0px 5px'
-			}
-	
 		}
 	
-	};
+	}, _defineProperty(_sidebar$postList$pos, 'post', {
+		padding: '14px 20px 5px 20px',
+		width: '100%',
+		margin: 0,
+	
+		container: {
+			listStyleType: 'none',
+			background: '#ffffff',
+			margin: '0px 0px 0px 0px',
+			borderStyle: 'solid',
+			borderWidth: 3,
+			borderRadius: 3,
+			borderColor: '#fff'
+		},
+	
+		postTitleAndDescContainer: {
+			display: 'table-cell',
+			verticalAlign: 'bottom',
+			height: 250
+	
+		},
+	
+		image: {
+			width: '100%',
+			height: 'auto'
+	
+		},
+	
+		title: {
+			color: '#fff'
+	
+		},
+	
+		//set colors based on horizontal position in map
+		x1: { color: "#A9D0F5" },
+		x2: { color: "#E0ECF8" },
+		x3: { color: "#f2f2f2" },
+		x4: { color: "#F8E0E6" },
+		x5: { color: "#F5A9BC" },
+	
+		//special stylings
+		fakeNewsText: {
+			color: '#000',
+			backgroundColor: 'rgba(255,255,255,.7)',
+			padding: '5px 5px 4px 5px',
+			textAlign: 'center'
+	
+		},
+	
+		factText: {
+			color: '#fff'
+		},
+	
+		description: {
+			margin: '2px 0px 2px 0px',
+			color: '#fff'
+		},
+	
+		source: {
+			fontStyle: 'italic',
+			textOverflow: 'ellipsis',
+			overflow: 'hidden',
+			width: '100%',
+			height: '1.2em',
+			fontSize: 12,
+			padding: '0px 10px 0px 0px',
+			color: '#fafafa',
+			marginTop: 5
+		},
+	
+		ratingLabel: {
+			textAlign: 'right',
+			fontSize: 12,
+			display: 'inline-block',
+			width: '100%',
+			fontWeight: '900'
+		}
+	}), _defineProperty(_sidebar$postList$pos, 'HelperText', {
+		container: {
+			margin: 'auto',
+			height: 200,
+			marginBottom: 10,
+			marginTop: 2,
+			borderRadius: 3
+		},
+	
+		close: {
+			fontSize: 8,
+			textAlign: 'center',
+			display: 'block',
+			cursor: 'pointer',
+			paddingBottom: 3,
+			color: '#a4a4a4',
+			marginTop: 20
+		},
+	
+		defaultHeader: {
+			fontWeight: '100',
+			color: '#585858',
+			fontSize: 20,
+			lineHeight: '1.2em',
+			textAlign: 'center',
+			display: 'block',
+			backgroundColor: '#fff',
+			padding: 10,
+			margin: '5px 0px 0px 0px',
+			borderRadius: 25,
+			borderStyle: 'solid',
+			borderColor: '#585858',
+			borderWidth: 2
+		},
+	
+		description: {},
+	
+		blackText: {
+			color: '#585858',
+			backgroundColor: '#fff'
+		},
+	
+		x1: { backgroundColor: "#A9D0F5" },
+		x2: { backgroundColor: "#B8DDFF" },
+		x3: { backgroundColor: "#f2f2f2" },
+		x4: { backgroundColor: "#FFBCCD" },
+		x5: { backgroundColor: "#F5A9BC" }
+	}), _defineProperty(_sidebar$postList$pos, 'menubar', {
+		container: {},
+	
+		linksContainer: {},
+	
+		toggleFilterButton: {
+			show: {
+				backgroundColor: '#F5A9BC',
+				color: '#fff',
+				padding: '5px 15px'
+	
+			},
+	
+			hide: {
+				backgroundColor: '#fff',
+				borderColor: '#F5A9BC',
+				borderWidth: 1,
+				borderStyle: 'solid',
+				color: '#F5A9BC',
+				padding: '5px 10px'
+	
+			}
+		},
+	
+		link: {
+			display: 'inline-block',
+			float: 'none',
+			color: '#585858',
+			fontWeight: '900',
+			cursor: 'pointer',
+			fontSize: 16
+		}
+	}), _defineProperty(_sidebar$postList$pos, 'logo', {
+		cont: {},
+	
+		link: {},
+	
+		image: {},
+	
+		textContainer: {
+			margin: '0px 2px 0px 6px',
+			width: 200
+		},
+	
+		title: {
+			margin: '0px 2px 0px 2px',
+			color: '#585858',
+			fontSize: 14
+		},
+		tagline: {
+			margin: '0px 2px 2px 2px',
+			color: '#a4a4a4',
+			fontSize: 10
+		}
+	}), _defineProperty(_sidebar$postList$pos, 'sourceView', {
+		container: {
+			margin: 'auto',
+			width: '100%'
+		}
+	}), _defineProperty(_sidebar$postList$pos, 'sourceMenu', {
+	
+		item: {
+			listStyleType: 'none',
+			display: 'inline-block ',
+			margin: '0px 5px 0px 5px'
+		}
+	
+	}), _sidebar$postList$pos);
 
 /***/ },
 /* 217 */
@@ -27703,10 +27717,6 @@
 				return _react2.default.createElement(
 					'div',
 					{ style: _styles2.default.sidebar.container, className: 'sidebar' },
-					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
-						mapState: this.props.mapState,
-						hideHelperText: this.handleHideHelperText
-					}),
 					_react2.default.createElement(_Search2.default, {
 						updateSearch: this.handleSearchChange,
 						searchInput: this.props.searchInput
@@ -27718,7 +27728,11 @@
 						resetFilter: this.handleFilterReset,
 						currentHoveredBox: this.props.currentHoveredBox,
 						selectedBoxes: this.props.selectedBoxes
-					})
+					}),
+					this.props.showHelperText && window.innerWidth > 949 ? _react2.default.createElement(_HelperText2.default, {
+						mapState: this.props.mapState,
+						hideHelperText: this.handleHideHelperText
+					}) : null
 				);
 			}
 		}]);
@@ -27839,6 +27853,7 @@
 					//styling for top row
 					if (y == 4) {
 						xStyle = _styles2.default.box.label.top;
+						boxLabelStyle = _styles2.default.box.topLabel;
 					}
 	
 					//fake news label
@@ -27974,7 +27989,7 @@
 						var coordinate = _step.value;
 	
 						if (this.props.x == coordinate[0] && this.props.y == coordinate[1]) {
-							label = 'x';
+							label = '*';
 						}
 					}
 				} catch (err) {
@@ -28097,6 +28112,8 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _reactRouterDom = __webpack_require__(178);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28137,15 +28154,15 @@
 	
 				var yDescriptions = ['Clearly incorrect, misleading or incomplete information. This is why you have trust issues when consuming news on the internet.', 'Big "if" statements and minimally supported theories,', 'Personal or ideological take on a subject,', 'Thoughtful, informed commentary on a topic', ['', 'Traditonal reporting and journalism, providing nothing but the facts and context.', 'Cold, hard information. The best example of this would be Wikipedia, primary sources, timelines, etc.', 'Numbers, data, studies, graphics, etc. There should a direct connection between the source and the numbers they present.', 'Q&A meant to better understand the subject.', 'Absolutely everything else that doesn\'t apply to the other categories.']];
 	
-				var xDescriptions = ['', 'a strong left, liberal or Democrat leaning. Little or no consideration for the other side.', 'a slight left, liberal or Democrat leaning. Mutiple viewpoints are considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left / right mold.', 'a slight right, conservative, or Republican leaning. Mutiple viewpoints are considered.', 'a strong right, conservative, or Republican leaning. Little or no consideration for the other side.'];
+				var xDescriptions = ['', 'a strong left, liberal or Democrat leaning. Little or no consideration for the other side.', 'a slight left, liberal or Democrat leaning. Mutiple viewpoints considered.', 'no particular political bias, or a viewpoint that doesn\'t fit the left / right mold.', 'a slight right, conservative, or Republican leaning. Mutiple viewpoints considered.', 'a strong right, conservative, or Republican leaning. Little or no consideration for the other side.'];
 	
 				//set rating label
 				var header = "";
-				if (window.innerWidth > 768) {
-					header = _react2.default.createElement('span', null);
-				} else {
-					header = _react2.default.createElement('span', null);
-				}
+				header = _react2.default.createElement(
+					_reactRouterDom.Link,
+					{ to: '/how-it-works', style: _styles2.default.HelperText.defaultHeader },
+					'How it works'
+				);
 	
 				var description = '',
 				    helperTextStyle = {};
@@ -28183,7 +28200,7 @@
 						{ style: _styles2.default.HelperText.description },
 						description
 					),
-					_react2.default.createElement(
+					!this.props.mapState.hover && _react2.default.createElement(
 						'span',
 						{ onClick: this.handleHideClick, style: _styles2.default.HelperText.close },
 						'hide'
@@ -28307,6 +28324,7 @@
 				}(postArray, searchInput, selectedBoxes);
 	
 				var postList = filteredPostArray.map(function (post, i) {
+	
 					return _react2.default.createElement(
 						'li',
 						{ style: _styles2.default.post.container },
@@ -28415,7 +28433,7 @@
 	
 				return _react2.default.createElement(
 					'a',
-					{ href: this.props.url, target: '_blank' },
+					{ href: this.props.url },
 					_react2.default.createElement(
 						'div',
 						{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
@@ -28428,14 +28446,18 @@
 								label
 							),
 							_react2.default.createElement(
-								'h2',
-								{ style: _styles2.default.post.title },
-								this.props.title
-							),
-							_react2.default.createElement(
-								'h6',
-								{ className: 'postSource', style: _styles2.default.post.source },
-								this.props.source
+								'div',
+								{ style: _styles2.default.post.postTitleAndDescContainer },
+								_react2.default.createElement(
+									'h2',
+									{ style: _styles2.default.post.title },
+									this.props.title
+								),
+								_react2.default.createElement(
+									'h6',
+									{ className: 'postSource', style: _styles2.default.post.source },
+									this.props.source
+								)
 							)
 						)
 					)
@@ -28658,7 +28680,7 @@
 						),
 						_react2.default.createElement(
 							'div',
-							{ style: _styles2.default.logo.tagline },
+							{ className: 'lato-light', style: _styles2.default.logo.tagline },
 							' A travel guide to online politics.'
 						)
 					)
@@ -28789,7 +28811,7 @@
 	
 				return _react2.default.createElement(
 					'div',
-					{ style: _styles2.default.sources.container },
+					{ style: _styles2.default.sourceView.container },
 					_react2.default.createElement(_Menubar2.default, null),
 					_react2.default.createElement(
 						_reactSlick2.default,

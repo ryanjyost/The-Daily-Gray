@@ -35,7 +35,7 @@ class Box extends Component {
 		//label for selected box
 		for(let coordinate of this.props.selectedBoxes){
 			if(this.props.x == coordinate[0] && this.props.y == coordinate[1]){
-				label = 'x'
+				label = '*'
 			}
 		}
 

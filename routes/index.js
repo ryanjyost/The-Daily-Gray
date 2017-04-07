@@ -5,7 +5,7 @@ const express = require('express'),
 //homepage
 router.route('/')
   .get((req, res)=> {
-      res.sendFile(_dirname + '/public/index.html')
+      res.sendFile(__dirname + '/public/index.html')
   });
 
 //============================

@@ -42,12 +42,14 @@ class Post extends Component {
 
 		return (
 
-				<a href={this.props.url} target="_blank" >
+				<a href={this.props.url} >
 					<div className="postImage" style={{backgroundImage: 'url(' + (this.props.imageURL) +')'}}>
 						<div className="postInfo">
 							<h6 style={Object.assign({}, styles.post.ratingLabel, postTextColor)}>{label}</h6>
-							<h2 style={styles.post.title}>{this.props.title}</h2>
-							<h6 className="postSource" style={styles.post.source}>{this.props.source}</h6>
+							<div style={styles.post.postTitleAndDescContainer}>
+								<h2 style={styles.post.title}>{this.props.title}</h2>
+								<h6 className="postSource" style={styles.post.source}>{this.props.source}</h6>
+							</div>
 						</div>
 					</div>
 				</a>

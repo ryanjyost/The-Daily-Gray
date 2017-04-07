@@ -12,7 +12,8 @@ export default {
 		container: {
 			sidebarHidden: {
 				width: '100%',
-				marginTop: 10,
+				marginTop: 0,
+				paddingTop: 10,
 			},
 
 			sidebarOpen: {
@@ -20,9 +21,18 @@ export default {
 				top: 0,
 				left:  290,
 				width: 'auto',
+				paddingTop: 10,
 			}
 		}
 	},
+
+	//==============================
+	post:{
+		default: {
+
+		},
+	},
+
 	//==============================
 	MapFilter: {
 		display: 'block',
@@ -70,8 +80,12 @@ export default {
 			display:'inline-block',
 			zIndex: 1000,
 			height: '100%',
+			fontSize: 26,
+
 
 			top: {
+				fontSize:10,
+				textAlign:'center',
 			},
 
 			fakeNews: {
@@ -81,9 +95,19 @@ export default {
 				width:'100%',
 				display:'inline-block',
 				color:'#f2f2f2',
-
 			},
 		},
+
+		labelTop: {
+				fontSize: 10,
+				textAlign:'center',
+				verticalAlign: 'middle',
+				width:'100%',
+				display:'inline-block',
+				zIndex: 1000,
+				height: '100%',
+			},
+
 
 	},
 
@@ -114,6 +138,13 @@ export default {
 			borderColor:'#fff',
 		},
 
+		postTitleAndDescContainer: {
+			display: 'table-cell',
+			verticalAlign: 'bottom',
+			height: 250,
+
+		},
+
 		image: {
 			width:'100%',
 			height:'auto',
@@ -122,7 +153,7 @@ export default {
 
 		title: {
 			color:'#fff',
-			paddingTop: 60,
+
 		},
 
 		//set colors based on horizontal position in map
@@ -183,14 +214,28 @@ export default {
 
 		close: {
 			fontSize: 8,
-			textAlign:'right',
+			textAlign:'center',
 			display:'block',
 			cursor:'pointer',
-			paddingBottom:3
+			paddingBottom:3,
+			color: '#a4a4a4',
+			marginTop: 20,
 		},
 
-		header: {
-			fontWeight:'900',
+		defaultHeader: {
+			fontWeight:'100',
+			color:'#585858',
+			fontSize:20,
+			lineHeight: '1.2em',
+			textAlign:'center',
+			display:'block',
+			backgroundColor: '#fff',
+			padding:10,
+			margin: '5px 0px 0px 0px',
+			borderRadius: 25,
+			borderStyle: 'solid',
+			borderColor: '#585858',
+			borderWidth: 2
 		},
 
 		description:{
@@ -211,13 +256,7 @@ export default {
 	//==============================
 	menubar: {
 		container:{
-			height:55,
-			backgroundColor: '#ffffff',
-			width:'100%',
-			padding:'11px 0px 0px 20px',
-			borderBottomStyle:'solid',
-			borderBottomColor: '#f2f2f2',
-			borderBottomWidth:'1px',
+
 		},
 
 			linksContainer:{

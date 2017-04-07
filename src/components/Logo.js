@@ -9,7 +9,7 @@ class Logo extends Component {
 						<img id="logo-image" src="../images/favicon.ico"/>
 						<div id="logo-text-container" >
 							<div style={styles.logo.title} >Media Bias Map</div>
-							<div style={styles.logo.tagline}> A travel guide to online politics.</div>
+							<div className="lato-light" style={styles.logo.tagline}> A travel guide to online politics.</div>
 						</div>
 
 				</a>

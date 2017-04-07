@@ -44,12 +44,6 @@ class Sidebar extends Component {
 		return (
 
 				<div style={styles.sidebar.container} className="sidebar">
-					{this.props.showHelperText &&
-						<HelperText
-							mapState={this.props.mapState}
-							hideHelperText={this.handleHideHelperText}
-						/>
-					}
 
 					<Search
 						updateSearch={this.handleSearchChange}
@@ -63,6 +57,15 @@ class Sidebar extends Component {
 						currentHoveredBox={this.props.currentHoveredBox}
 						selectedBoxes={this.props.selectedBoxes}
 					/>
+
+					{this.props.showHelperText && window.innerWidth > 949 ?
+						<HelperText
+							mapState={this.props.mapState}
+							hideHelperText={this.handleHideHelperText}
+						/>
+						: null
+					}
+
 				</div>
 
 

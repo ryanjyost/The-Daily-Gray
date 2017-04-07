@@ -47,13 +47,13 @@ app.use(function(err, req, res, next) {
 });
 
 app.get((req, res)=> {
-    res.sendFile(__dirname + '/public/index.html')
+  res.sendFile(__dirname + '/public/index.html')
 });
 
 //=================================
-// catch 404 and forward to error handler
+// catch all, keeping in React BrowserRouter
 app.get('*', function(req, res, next) {
-  res.render('pages/index')
+  res.sendFile(__dirname + '/public/index.html') || res.render('pages/index');
 });
 
 

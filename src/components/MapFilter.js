@@ -60,6 +60,7 @@ class MapFilter extends Component {
 						//styling for top row
 						if(y == 4){
 							xStyle = styles.box.label.top
+							boxLabelStyle = styles.box.topLabel
 						}
 
 						//fake news label

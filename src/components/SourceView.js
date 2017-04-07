@@ -66,7 +66,7 @@ class SourceView extends Component {
 
 
 		return (
-			<div style= {styles.sources.container}>
+			<div style= {styles.sourceView.container}>
 				<Menubar/>
 				<Slider {...sliderSettings} style={styles.sourceMenu.slider}>
 					<Source name="test"/>

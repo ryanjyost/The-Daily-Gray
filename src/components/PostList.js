@@ -55,6 +55,7 @@ class PostList extends Component {
 		})(postArray, searchInput, selectedBoxes);
 
 		const postList = filteredPostArray.map((post, i) => {
+
 			return(
 				<li style={styles.post.container}>
 					<Post

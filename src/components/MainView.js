@@ -26,11 +26,11 @@ class MainView extends Component {
 			showHelperText: true,
 			currentTopic: '',
 			map: {
-				hover: false, // n for no, y for yes
+				hover: false,
 				currentHoveredBox: [],
 				selectedBoxes: []
 			},
-			sidebarIsOpen: true,
+			sidebarIsOpen: false,
 			windowWidth: window.innerWidth,
 		}
 	}
@@ -166,7 +166,6 @@ class MainView extends Component {
 		}
 
 		if(alreadySelected){
-			//alert('ryan')
 			const newMapState = update(oldMapState, {
 				selectedBoxes: {$splice: [[index, 1]]}
 			});

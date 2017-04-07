@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './styles.js'
+import {Link} from 'react-router-dom'
 
 
 class HelperText extends Component {
@@ -41,25 +42,20 @@ class HelperText extends Component {
 		]
 
 		const xDescriptions = ['',
-
 			'a strong left, liberal or Democrat leaning. Little or no consideration for the other side.',
-			'a slight left, liberal or Democrat leaning. Mutiple viewpoints are considered.',
+			'a slight left, liberal or Democrat leaning. Mutiple viewpoints considered.',
 			'no particular political bias, or a viewpoint that doesn\'t fit the left / right mold.',
-			'a slight right, conservative, or Republican leaning. Mutiple viewpoints are considered.',
+			'a slight right, conservative, or Republican leaning. Mutiple viewpoints considered.',
 			'a strong right, conservative, or Republican leaning. Little or no consideration for the other side.',
 
 		]
 
 		//set rating label
 		let header = "";
-		if (window.innerWidth > 768) {
-			header = <span>
-									</span>
-		} else {
-			header = <span>
-									</span>
+			header = <Link to={'/how-it-works'} style={styles.HelperText.defaultHeader}>
+									How it works
+							</Link>
 
-		}
 
 				let description = 	'',
 				helperTextStyle = {};
@@ -87,12 +83,11 @@ class HelperText extends Component {
 		return (
 			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)} id="helper-text-container">
 
-
 				<h2 style={styles.HelperText.header}>{header}</h2>
 				<p style={styles.HelperText.description}>{description}</p>
 
-				<span onClick={this.handleHideClick}style={styles.HelperText.close}>hide</span>
-
+				{!this.props.mapState.hover &&
+					<span onClick={this.handleHideClick} style={styles.HelperText.close}>hide</span>}
 
 			</div>
 		)

@@ -88,7 +88,6 @@ class Menubar extends Component {
               Get started
           </a>
 
-
           <Link
             style={styles.menubar.link}
             to={'/'}
