@@ -22,7 +22,7 @@ body {
 
 
 	h2{
-		font-size:20px;
+		font-size:24px;
 		font-weight: 900;
 		margin: 0px 0px 4px 0px;
 		font-family: 'Lato', sans-serif;
@@ -299,7 +299,7 @@ PostList*/
 
 		@media(min-width: 950px){
 			.postList li{
-					width: 33%;
+					width: 33.33%;
 				}
 
 		}
@@ -321,17 +321,16 @@ PostList*/
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+	@media(min-width: 600px){
+				#menubar-links-container{
+						display: inline-block;
+						height: 47px !important;
+						margin-left: 25px;
+						padding:12px 20px 15px 40px;
+						overflow-x: hidden;
+						overflow-y: hidden;
+					}
+		}
 
 
 
@@ -339,6 +338,16 @@ PostList*/
 			.postListContainer{
 				margin-top: 10px;
 			}
+
+			#menubar-links-container{
+						display: inline-block;
+						height: 47px !important;
+						margin-left: 25px;
+						padding:12px 20px 15px 20px !important;
+						overflow-x: hidden;
+						overflow-y: hidden;
+					}
+
 
 					.postInfo a{
 						color: #fff;
@@ -356,7 +365,7 @@ PostList*/
 					overflow:hidden !important;
 				}
 
-					h2{font-size: 17px;}
+					h2{font-size: 22px;}
 					p{font-size: 14px;}
 
 				#logo-container{
@@ -371,15 +380,17 @@ PostList*/
 					overflow: hidden;
 				}
 
-					#menubar-links-container{
+				#menubar-links-container{
 						max-width: 60%;
 						display: inline-block;
 						height: 47px !important;
 						margin-left: 25px;
-						padding:12px 20px 15px 20px;
+						padding:12px 20px 15px 0px !important;
 						overflow-x: hidden;
 						overflow-y: hidden;
 					}
+
+
 
 						#menubar-links-container a{
 							padding:2px 20px 15px 20px;
@@ -428,15 +439,6 @@ PostList*/
 					width: 950px !important;
 				}
 		}
-
-		@media(min-width: 1100px){
-		}
-
-
-
-
-
-
 
 
 
@@ -507,6 +509,9 @@ Add Source Form
 	width: 300px;
 }
 
+
+/*=============================
+Sign Up*/
 
 
 

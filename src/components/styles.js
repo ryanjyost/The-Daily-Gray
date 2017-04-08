@@ -187,7 +187,7 @@ export default {
 			overflow:'hidden',
 			width:'100%',
 			height:'1.2em',
-			fontSize: 12,
+			fontSize: 15,
 			padding:'0px 10px 0px 0px',
 			color:'#fafafa',
 			marginTop: 5,

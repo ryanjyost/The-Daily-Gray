@@ -25319,7 +25319,7 @@
 			overflow: 'hidden',
 			width: '100%',
 			height: '1.2em',
-			fontSize: 12,
+			fontSize: 15,
 			padding: '0px 10px 0px 0px',
 			color: '#fafafa',
 			marginTop: 5
@@ -27989,7 +27989,7 @@
 						var coordinate = _step.value;
 	
 						if (this.props.x == coordinate[0] && this.props.y == coordinate[1]) {
-							label = '*';
+							label = '-';
 						}
 					}
 				} catch (err) {
@@ -28603,7 +28603,7 @@
 	            'a',
 	            {
 	              id: 'sign-up-btn',
-	              href: '/auth/signUp',
+	              href: '/auth/google',
 	              onClick: this.resetTopic },
 	            'Get started'
 	          ),

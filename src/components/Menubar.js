@@ -83,7 +83,7 @@ class Menubar extends Component {
         <div id="menubar-links-container">
           <a
             id="sign-up-btn"
-            href={'/auth/signUp'}
+            href={'/auth/google'}
             onClick={this.resetTopic}>
               Get started
           </a>
