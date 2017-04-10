@@ -54,7 +54,7 @@ class Box extends Component {
 
 		return (
 			<div
-				className='box'
+				className='mapBox'
 				style={this.props.boxStyle}
 				onMouseEnter={this.handleMouseEnter}
 				onClick={this.handleClick}

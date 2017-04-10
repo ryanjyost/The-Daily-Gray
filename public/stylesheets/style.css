@@ -278,12 +278,12 @@ Sidebar
 				max-width:  375px;
 			}
 
-				.box{
+				.mapBox{
 					width: 20%;
 					height: 70px;
 				}
 
-				.box:hover{
+				.mapBox:hover{
 					cursor: pointer;
 				}
 
@@ -518,7 +518,7 @@ PostList*/
 				font-size: 10px;
 			}
 
-			.box{
+			.mapBox{
 					width: 20%;
 					height: 50px;
 			}

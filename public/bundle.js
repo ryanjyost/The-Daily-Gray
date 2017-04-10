@@ -28066,7 +28066,7 @@
 				return _react2.default.createElement(
 					'div',
 					{
-						className: 'box',
+						className: 'mapBox',
 						style: this.props.boxStyle,
 						onMouseEnter: this.handleMouseEnter,
 						onClick: this.handleClick
