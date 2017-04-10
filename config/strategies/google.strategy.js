@@ -6,7 +6,7 @@ module.exports = function(app) {
   passport.use(new GoogleStrategy({
   clientID: '52253389001-8ur1dufn11hd3n0gef5qlfqmb8ibrag2.apps.googleusercontent.com',
   clientSecret: 'IjPhH_gva44wiPtUKdsMB2Zg',
-  callbackURL: 'http://localhost:3000/auth/google/callback'},
+  callbackURL: 'https://media-bias-map.herokuapp.com/auth/google/callback'},
   function(req, accessToken, refreshToken, profile, done){
     var user = {};
     var query = {'google.id': profile.id}
