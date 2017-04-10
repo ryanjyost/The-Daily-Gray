@@ -58,12 +58,11 @@ class Sidebar extends Component {
 						selectedBoxes={this.props.selectedBoxes}
 					/>
 
-					{this.props.showHelperText && window.innerWidth > 949 ?
+					{this.props.showHelperText &&
 						<HelperText
 							mapState={this.props.mapState}
 							hideHelperText={this.handleHideHelperText}
 						/>
-						: null
 					}
 
 					<div id="sidebar-link-menu">

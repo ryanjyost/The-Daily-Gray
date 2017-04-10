@@ -27749,10 +27749,10 @@
 						currentHoveredBox: this.props.currentHoveredBox,
 						selectedBoxes: this.props.selectedBoxes
 					}),
-					this.props.showHelperText && window.innerWidth > 949 ? _react2.default.createElement(_HelperText2.default, {
+					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
 						mapState: this.props.mapState,
 						hideHelperText: this.handleHideHelperText
-					}) : null,
+					}),
 					_react2.default.createElement(
 						'div',
 						{ id: 'sidebar-link-menu' },

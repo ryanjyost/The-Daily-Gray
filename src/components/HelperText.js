@@ -82,13 +82,11 @@ class HelperText extends Component {
 
 		return (
 			<div style={Object.assign({},styles.HelperText.container, helperTextStyle)} id="helper-text-container">
-
 				<h2 style={styles.HelperText.header}>{header}</h2>
 				<p style={styles.HelperText.description}>{description}</p>
 
 				{!this.props.mapState.hover &&
 					<span onClick={this.handleHideClick} style={styles.HelperText.close}>hide</span>}
-
 			</div>
 		)
 	}
