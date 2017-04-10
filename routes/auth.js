@@ -3,18 +3,19 @@ const express = require('express'),
       passport = require('passport');
 
 //sign up
-authRouter.route('/signUp')
+authRouter.route('/super-secret-signup')
   .get((req, res) => {
     res.render('pages/signUp');
   })
 
-  .post((req, res) => {
-    console.log(req.body)
+authRouter.route('/sign-up-success')
+  .get((req, res) => {
+    res.render('pages/signUpSuccess');
   })
 
 authRouter.route('/google/callback')
   .get(passport.authenticate('google', {
-    successRedirect: '/users/',
+    successRedirect: '/auth/sign-up-success/',
     failure: '/error/'
   }));
 

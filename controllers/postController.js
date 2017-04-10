@@ -30,6 +30,18 @@ module.exports = {
 				url = params.url,
 				topic = params.topic
 
+		Post.findOne({url: url}, (err, post) => {
+			if(err) {
+				console.log(err)
+				return false
+			}
+
+			//if the post already exists
+			if(post){
+				console.log('ALREADY EXISTS!!!')
+			}
+		})
+
 		og(url, function(err, meta){
 	        // if(err){
 	        // 	res.send('Sorry, there was an error adding this to Media Bias Map!')

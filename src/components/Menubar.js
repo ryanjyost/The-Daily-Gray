@@ -59,7 +59,7 @@ class Menubar extends Component {
     const topicList = this.state.topicList.map((topic, i) => {
       return (
         <Link
-          style={styles.menubar.link}
+          style={this.props.currentTopic == topic.name ? styles.menubar.link.active : styles.menubar.link}
           to={'/'}
           onClick={this.handleTopicClick}
         >
@@ -81,12 +81,12 @@ class Menubar extends Component {
         </span>
 
         <div id="menubar-links-container">
-          <a
+          {/* <a
             id="sign-up-btn"
             href={'/auth/google'}
             onClick={this.resetTopic}>
               Get started
-          </a>
+          </a> */}
 
           <Link
             style={styles.menubar.link}

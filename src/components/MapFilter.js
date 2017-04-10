@@ -93,6 +93,7 @@ class MapFilter extends Component {
 			<div id="map-filter-container">
 				<div
 					style={styles.MapFilter}
+					id="map-filter"
 					onMouseEnter={this.handleBoxMouseEnter}
 					onMouseLeave={this.handleMapLeave}
 				>

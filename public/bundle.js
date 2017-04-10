@@ -24880,7 +24880,7 @@
 					currentHoveredBox: [],
 					selectedBoxes: []
 				},
-				sidebarIsOpen: false,
+				sidebarIsOpen: true,
 				windowWidth: window.innerWidth
 			};
 			return _this;
@@ -25094,6 +25094,7 @@
 					{ style: _styles2.default.mainView.container },
 					_react2.default.createElement(_Menubar2.default, {
 						updateTopic: this.handleTopicChange,
+						currentTopic: this.state.currentTopic,
 						sidebarIsOpen: this.state.sidebarIsOpen,
 						toggleFilter: this.handleFilterToggle
 					}),
@@ -25136,7 +25137,7 @@
 		value: true
 	});
 	
-	var _sidebar$postList$pos;
+	var _link, _sidebar$postList$pos;
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
@@ -25219,6 +25220,18 @@
 				zIndex: 1000,
 				height: '100%',
 				fontSize: 26,
+	
+				left: {
+					fontSize: 12,
+					color: '#fff',
+					fontWeight: '400'
+				},
+	
+				right: {
+					fontSize: 12,
+					color: '#fff',
+					fontWeight: '400'
+				},
 	
 				top: {
 					fontSize: 10,
@@ -25355,15 +25368,15 @@
 			fontWeight: '100',
 			color: '#585858',
 			fontSize: 20,
-			lineHeight: '1.2em',
+			lineHeight: '1.3em',
 			textAlign: 'center',
 			display: 'block',
 			backgroundColor: '#fff',
-			padding: 10,
+			padding: '5px 10px 7px 10px',
 			margin: '5px 0px 0px 0px',
 			borderRadius: 25,
 			borderStyle: 'solid',
-			borderColor: '#585858',
+			borderColor: '#f2f2f2',
 			borderWidth: 2
 		},
 	
@@ -25403,14 +25416,21 @@
 			}
 		},
 	
-		link: {
+		link: (_link = {
 			display: 'inline-block',
 			float: 'none',
 			color: '#585858',
 			fontWeight: '900',
 			cursor: 'pointer',
 			fontSize: 16
-		}
+		}, _defineProperty(_link, 'fontWeight', '400'), _defineProperty(_link, 'active', {
+			display: 'inline-block',
+			float: 'none',
+			color: '#585858',
+			fontWeight: '900',
+			cursor: 'pointer',
+			fontSize: 16
+		}), _link)
 	}), _defineProperty(_sidebar$postList$pos, 'logo', {
 		cont: {},
 	
@@ -27732,7 +27752,26 @@
 					this.props.showHelperText && window.innerWidth > 949 ? _react2.default.createElement(_HelperText2.default, {
 						mapState: this.props.mapState,
 						hideHelperText: this.handleHideHelperText
-					}) : null
+					}) : null,
+					_react2.default.createElement(
+						'div',
+						{ id: 'sidebar-link-menu' },
+						_react2.default.createElement(
+							'a',
+							{ href: '/terms-of-use' },
+							'Terms of Use'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '/privacy-policy' },
+							'Privacy Policy'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '/contact-us' },
+							'Get in Touch'
+						)
+					)
 				);
 			}
 		}]);
@@ -27886,6 +27925,7 @@
 						'div',
 						{
 							style: _styles2.default.MapFilter,
+							id: 'map-filter',
 							onMouseEnter: this.handleBoxMouseEnter,
 							onMouseLeave: this.handleMapLeave
 						},
@@ -27924,6 +27964,10 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -27968,7 +28012,8 @@
 			key: 'render',
 			value: function render() {
 				//conditional labelling
-				var label = '';
+				var label = '',
+				    moreLabelStyle = {};
 	
 				if (this.props.y == 4) {
 					var topRowLabels = ['', 'News', 'Facts', 'Stats', 'Interview', 'Other'];
@@ -27977,6 +28022,16 @@
 	
 				if (this.props.y == 0) {
 					label = 'FAKE NEWS';
+				}
+	
+				if (this.props.x == 1 && this.props.y == 1) {
+					label = 'Left';
+					moreLabelStyle = _styles2.default.box.label.left;
+				}
+	
+				if (this.props.x == 5 && this.props.y == 1) {
+					label = 'Right';
+					moreLabelStyle = _styles2.default.box.label.right;
 				}
 	
 				//label for selected box
@@ -27990,6 +28045,7 @@
 	
 						if (this.props.x == coordinate[0] && this.props.y == coordinate[1]) {
 							label = '-';
+							moreLabelStyle = { backgroundColor: '#fff', color: "#000" };
 						}
 					}
 				} catch (err) {
@@ -28017,7 +28073,7 @@
 					},
 					_react2.default.createElement(
 						'span',
-						{ className: 'box-label', style: this.props.boxLabelStyle },
+						{ className: 'box-label', style: Object.assign({}, this.props.boxLabelStyle, moreLabelStyle) },
 						label
 					)
 				);
@@ -28159,8 +28215,8 @@
 				//set rating label
 				var header = "";
 				header = _react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/how-it-works', style: _styles2.default.HelperText.defaultHeader },
+					'a',
+					{ href: '/how-it-works', style: _styles2.default.HelperText.defaultHeader },
 					'How it works'
 				);
 	
@@ -28575,7 +28631,7 @@
 	        return _react2.default.createElement(
 	          _reactRouterDom.Link,
 	          {
-	            style: _styles2.default.menubar.link,
+	            style: _this3.props.currentTopic == topic.name ? _styles2.default.menubar.link.active : _styles2.default.menubar.link,
 	            to: '/',
 	            onClick: _this3.handleTopicClick
 	          },
@@ -28599,14 +28655,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'menubar-links-container' },
-	          _react2.default.createElement(
-	            'a',
-	            {
-	              id: 'sign-up-btn',
-	              href: '/auth/google',
-	              onClick: this.resetTopic },
-	            'Get started'
-	          ),
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
 	            {

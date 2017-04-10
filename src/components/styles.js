@@ -41,7 +41,7 @@ export default {
 
 		resetButton:{
 
-		}
+		},
 	},
 
 	box: {
@@ -81,6 +81,18 @@ export default {
 			zIndex: 1000,
 			height: '100%',
 			fontSize: 26,
+
+			left: {
+				fontSize:12,
+				color:'#fff',
+				fontWeight: '400',
+			},
+
+			right: {
+				fontSize:12,
+				color:'#fff',
+				fontWeight: '400',
+			},
 
 
 			top: {
@@ -226,15 +238,15 @@ export default {
 			fontWeight:'100',
 			color:'#585858',
 			fontSize:20,
-			lineHeight: '1.2em',
+			lineHeight: '1.3em',
 			textAlign:'center',
 			display:'block',
 			backgroundColor: '#fff',
-			padding:10,
+			padding:'5px 10px 7px 10px',
 			margin: '5px 0px 0px 0px',
 			borderRadius: 25,
 			borderStyle: 'solid',
-			borderColor: '#585858',
+			borderColor: '#f2f2f2',
 			borderWidth: 2
 		},
 
@@ -289,6 +301,16 @@ export default {
 					fontWeight: '900',
 					cursor: 'pointer',
 					fontSize:16,
+					fontWeight: '400',
+
+					active: {
+						display:'inline-block',
+						float:'none',
+						color:'#585858',
+						fontWeight: '900',
+						cursor: 'pointer',
+						fontSize:16,
+					},
 				},
 	},
 

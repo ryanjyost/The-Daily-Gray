@@ -66,6 +66,12 @@ class Sidebar extends Component {
 						: null
 					}
 
+					<div id="sidebar-link-menu">
+						<a href="/terms-of-use">Terms of Use</a>
+						<a href="/privacy-policy">Privacy Policy</a>
+						<a href="/contact-us">Get in Touch</a>
+					</div>
+
 				</div>
 
 

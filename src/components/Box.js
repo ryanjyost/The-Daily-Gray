@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './styles.js'
 
 class Box extends Component {
 	constructor(props){
@@ -21,7 +22,8 @@ class Box extends Component {
 
 	render(){
 		//conditional labelling
-		let label = '';
+		let label = '',
+				moreLabelStyle={};
 
 		if(this.props.y == 4){
 			const topRowLabels = ['','News', 'Facts', 'Stats', 'Interview', 'Other' ]
@@ -32,10 +34,21 @@ class Box extends Component {
 			label = 'FAKE NEWS'
 		}
 
+		if(this.props.x == 1 && this.props.y == 1){
+			label = 'Left'
+			moreLabelStyle= styles.box.label.left
+		}
+
+		if(this.props.x == 5 && this.props.y == 1){
+			label = 'Right'
+			moreLabelStyle= styles.box.label.right
+		}
+
 		//label for selected box
 		for(let coordinate of this.props.selectedBoxes){
 			if(this.props.x == coordinate[0] && this.props.y == coordinate[1]){
 				label = '-'
+				moreLabelStyle = {backgroundColor: '#fff', color:"#000"}
 			}
 		}
 
@@ -46,7 +59,7 @@ class Box extends Component {
 				onMouseEnter={this.handleMouseEnter}
 				onClick={this.handleClick}
 			>
-				<span className="box-label" style={this.props.boxLabelStyle}>{label}</span>
+				<span className="box-label" style={Object.assign({}, this.props.boxLabelStyle, moreLabelStyle)}>{label}</span>
 			</div>
 		)
 	}

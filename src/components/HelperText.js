@@ -52,9 +52,9 @@ class HelperText extends Component {
 
 		//set rating label
 		let header = "";
-			header = <Link to={'/how-it-works'} style={styles.HelperText.defaultHeader}>
+			header = <a href='/how-it-works' style={styles.HelperText.defaultHeader}>
 									How it works
-							</Link>
+							</a>
 
 
 				let description = 	'',

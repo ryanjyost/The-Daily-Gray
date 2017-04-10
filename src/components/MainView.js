@@ -30,7 +30,7 @@ class MainView extends Component {
 				currentHoveredBox: [],
 				selectedBoxes: []
 			},
-			sidebarIsOpen: false,
+			sidebarIsOpen: true,
 			windowWidth: window.innerWidth,
 		}
 	}
@@ -206,6 +206,7 @@ class MainView extends Component {
 				<div style= {styles.mainView.container}>
 					<Menubar
 						updateTopic={this.handleTopicChange}
+						currentTopic={this.state.currentTopic}
 						sidebarIsOpen={this.state.sidebarIsOpen}
 						toggleFilter={this.handleFilterToggle}
 					/>

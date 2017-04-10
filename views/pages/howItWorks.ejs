@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <% include ../partials/head.ejs %>
+  </head>
+  <body>
+  <div id="main-cont-with-background">
+      <div id="how-it-works-container">
+
+        <h3 id="sign-up-header">How It Works</h3>
+
+
+          <!-- Rating System -->
+          <div class="section">
+            <div id="map-preview">
+              <% include ../partials/map.ejs %>
+            </div>
+
+            <!-- X axis -->
+            <h4><strong>On the X axis</strong>, you have the standard left-right political spectrum. </h4>
+
+            <ul class="axis-list">
+              <li id="left">
+                <h2>Left</h2>
+                <h4>A strong left, liberal or Democrat leaning. Little or no consideration for the other side.</h4>
+              </li>
+              <li id="left-center">
+                <h2>Left-Center</h2>
+                <h4>A slight left, liberal or Democrat leaning. Mutiple viewpoints considered.</h4>
+              </li>
+              <li id="center">
+                <h2>Center</h2>
+                <h4>No particular political bias, or a viewpoint that doesn't fit the left / right mold.</h4>
+              </li>
+              <li id="right-center">
+                <h2>Right-Center</h2>
+                <h4>A slight right, conservative, or Republican leaning. Mutiple viewpoints considered.</h4>
+              </li>
+              <li id="right">
+                <h2>Right</h2>
+                <h4>A strong right, conservative, or Republican leaning. Little or no consideration for the other side.</h4>
+              </li>
+            </ul>
+
+            <!-- Y axis -->
+            <br><br>
+            <h4><strong>On the Y axis</strong>, you have a subjectivity spectrum -  most objective at the top, to most personally biased at the bottom.</h4>
+
+            <ul class="axis-list">
+              <li class="top-row-desc">
+                <h2>News</h2>
+                <h4>Traditonal reporting and journalism, providing nothing but the facts and context.</h4>
+              </li>
+              <li class="top-row-desc">
+                <h2>Facts</h2>
+                <h4>Cold, hard information. The best example of this would be Wikipedia, primary sources, timelines, etc.</h4>
+              </li>
+              <li class="top-row-desc">
+                <h2>Stats</h2>
+                <h4>Numbers, data, studies, graphics, etc. There should a direct connection between the source and the numbers they present.</h4>
+              </li>
+              <li class="top-row-desc">
+                <h2>Interview</h2>
+                <h4>Q&A meant to better understand the subject.</h4>
+              </li>
+              <li class="top-row-desc">
+                <h2>Other</h2>
+                <h4>Absolutely everything else that doesn't apply to the other categories. Example would be raw video or audio.</h4>
+              </li>
+
+              <li id="analysis">
+                <h2>Analysis</h2>
+                <h4>Thoughtful, informed commentary or reflection on a topic.</h4>
+              </li>
+              <li id="opinion">
+                <h2>Opinion</h2>
+                <h4>Personal or ideological take on a subject.</h4>
+              </li>
+              <li id="speculation">
+                <h2>Speculation</h2>
+                <h4>Big "if" statements and minimally supported theories.</h4>
+              </li>
+              <li id="fake-news">
+                <h2>Fake News</h2>
+                <h4>Clearly incorrect, misleading or incomplete information. This is why you have trust issues when consuming news on the internet.</h4>
+              </li>
+            </ul>
+
+          </div>
+
+        </h4>
+
+        <a id="home-from-signup-success" href="/">Go to the homepage</a>
+     </div>
+  </div>
+
+  </div><!-- main cont -->
+  </body>
+</html>
