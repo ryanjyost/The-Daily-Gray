@@ -10,7 +10,22 @@ module.exports = {
 				return
 			}
 
-			callback(null, posts);
+			//most recent
+			posts.sort((a, b) => {
+				return a.created_at < b.created_at ? 1 : -1;
+			})
+
+			//get 50 most recent posts
+			let selectedPosts = posts.slice(0, 50)
+
+			//randomize
+			randomPosts = selectedPosts.sort((a,b) => {
+				console.log(0.5-Math.random())
+				return (0.5 - Math.random());
+			})
+
+
+			callback(null, randomPosts);
 		})
 	},
 

@@ -70,11 +70,6 @@ class MainView extends Component {
 
 				let results = response.body.results;
 
-				//most recent
-				results.sort((a, b) => {
-					return a.created_at < b.created_at ? 1 : -1;
-				})
-
 				this.setState({
 					postList: results
 				})
@@ -95,7 +90,7 @@ class MainView extends Component {
 
 		superagent
 			.get('/api/post')
-			.query(null)
+			.query(queryTopic)
 			.set('Accept', 'application/json')
 			.end((err, response) => {
 				if(err){
@@ -104,11 +99,6 @@ class MainView extends Component {
 				}
 
 				let results = response.body.results;
-
-				//most recent
-				results.sort((a, b) => {
-					return a.created_at < b.created_at ? 1 : -1;
-				})
 
 				this.setState({
 					postList: results

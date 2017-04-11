@@ -22,13 +22,11 @@ apiRouter.get('/:resource', function(req, res, next){
 				message: err
 			})
 
-			return
 		}
-
 
 		res.json({
 			confirmation: 'resource',
-			results: results.slice(0, 30)
+			results: results
 		})
 	})
 })
