@@ -24922,7 +24922,12 @@
 						return;
 					}
 	
-					var results = response.body.results.reverse();
+					var results = response.body.results;
+	
+					//most recent
+					results.sort(function (a, b) {
+						return a.created_at < b.created_at ? 1 : -1;
+					});
 	
 					_this2.setState({
 						postList: results
@@ -24952,8 +24957,12 @@
 						return;
 					}
 	
-					var results = response.body.results.reverse();
-					console.log(results);
+					var results = response.body.results;
+	
+					//most recent
+					results.sort(function (a, b) {
+						return a.created_at < b.created_at ? 1 : -1;
+					});
 	
 					_this3.setState({
 						postList: results

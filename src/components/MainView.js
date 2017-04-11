@@ -68,7 +68,12 @@ class MainView extends Component {
 					return
 				}
 
-				let results = response.body.results.reverse();
+				let results = response.body.results;
+
+				//most recent
+				results.sort((a, b) => {
+					return a.created_at < b.created_at ? 1 : -1;
+				})
 
 				this.setState({
 					postList: results
@@ -98,8 +103,12 @@ class MainView extends Component {
 					return
 				}
 
-				let results = response.body.results.reverse();
-				console.log(results)
+				let results = response.body.results;
+
+				//most recent
+				results.sort((a, b) => {
+					return a.created_at < b.created_at ? 1 : -1;
+				})
 
 				this.setState({
 					postList: results
