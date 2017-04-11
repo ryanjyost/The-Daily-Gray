@@ -24949,9 +24949,9 @@
 					currentTopic: { $set: topic }
 				});
 	
-				var query = topic.length > 0 ? { 'topic': topic } : null;
+				var queryTopic = topic.length > 0 ? { 'topic': topic } : null;
 	
-				_superagent2.default.get('/api/post').query(query).set('Accept', 'application/json').end(function (err, response) {
+				_superagent2.default.get('/api/post').query(null).set('Accept', 'application/json').end(function (err, response) {
 					if (err) {
 						console.log(err);
 						return;

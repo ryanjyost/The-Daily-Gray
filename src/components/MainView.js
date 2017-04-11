@@ -91,11 +91,11 @@ class MainView extends Component {
 			currentTopic: {$set: topic},
 		});
 
-		let query = topic.length > 0 ? {'topic': topic} : null;
+		let queryTopic = topic.length > 0 ? {'topic': topic} : null;
 
 		superagent
 			.get('/api/post')
-			.query(query)
+			.query(null)
 			.set('Accept', 'application/json')
 			.end((err, response) => {
 				if(err){

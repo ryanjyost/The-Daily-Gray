@@ -25,9 +25,10 @@ apiRouter.get('/:resource', function(req, res, next){
 			return
 		}
 
+
 		res.json({
 			confirmation: 'resource',
-			results: results
+			results: results.slice(0, 30)
 		})
 	})
 })
