@@ -36,7 +36,7 @@ module.exports = {
 					// 	return (0.5 - Math.random());
 					// })
 
-					callback(null, randomPosts);
+					callback(null, selectedPosts);
 				//}
 		})
 	},
