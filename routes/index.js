@@ -44,6 +44,13 @@ router.route('/how-it-works')
      res.render('pages/howItWorks');
   });
 
+//=================================
+//How the Chrome Extension Works
+router.route('/how-the-chrome-extension-works')
+  .get((req, res)=> {
+     res.render('pages/howExtensionWorks');
+  });
+
 
 
 

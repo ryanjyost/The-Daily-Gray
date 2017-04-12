@@ -1,4 +1,5 @@
 var Post = require('../models/post.js');
+var Topic = require('../models/topic.js');
 var og = require('open-graph');
 
 module.exports = {
@@ -10,22 +11,33 @@ module.exports = {
 				return
 			}
 
-			//most recent
-			posts.sort((a, b) => {
-				return a.created_at < b.created_at ? 1 : -1;
-			})
+			// if(params.topic){
 
-			//get 50 most recent posts
-			let selectedPosts = posts.slice(0, 50)
+			// 	Topic.findOne({name:params.topic}, function(err, topic){
+			// 		let tags = topic.tags;
 
-			//randomize
-			randomPosts = selectedPosts.sort((a,b) => {
-				console.log(0.5-Math.random())
-				return (0.5 - Math.random());
-			})
+			// 		let filteredPostArray = posts.filter((post) => {
+			// 			return
+			// 		})
+			// 	})
 
+			// } else{
 
-			callback(null, randomPosts);
+					//most recent
+					posts.sort((a, b) => {
+						return a.created_at < b.created_at ? 1 : -1;
+					})
+
+					//get 100 most recent posts
+					let selectedPosts = posts.slice(0, 100)
+
+					//randomize
+					// randomPosts = selectedPosts.sort((a,b) => {
+					// 	return (0.5 - Math.random());
+					// })
+
+					callback(null, randomPosts);
+				//}
 		})
 	},
 
@@ -43,7 +55,8 @@ module.exports = {
 	create: function(params, callback){
 		var xy = params.xy,
 				url = params.url,
-				topic = params.topic
+				topic = params.topic,
+				userId = params.addedById;
 
 		Post.findOne({url: url}, (err, post) => {
 			if(err) {
@@ -73,7 +86,8 @@ module.exports = {
 	        	title: meta.title || '',
 	        	description: meta.description || '',
 	        	topic: topic || '',
-	        	imageURL: meta.image.url || ''
+	        	imageURL: meta.image.url || '',
+	        	addedById: userId || ''
 	        }
 
 	        console.log(postInfo)

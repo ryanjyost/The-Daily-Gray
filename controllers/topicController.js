@@ -26,7 +26,8 @@ module.exports = {
 
 	create: function(params, callback){
      let topicInfo = {
-     	name: params.name
+     	name: params.name,
+     	tags: [params.tag1, params.tag2, params.tag3],
      }
 
 
