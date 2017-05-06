@@ -30,7 +30,7 @@ class MainView extends Component {
 				currentHoveredBox: [],
 				selectedBoxes: []
 			},
-			sidebarIsOpen: true,
+			sidebarIsOpen: window.innerWidth < 768 ? false : true,
 			windowWidth: window.innerWidth,
 		}
 	}

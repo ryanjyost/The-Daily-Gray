@@ -402,7 +402,7 @@ PostList*/
 						height: 47px !important;
 						margin-left: 25px;
 						padding:12px 20px 15px 40px;
-						overflow-x: hidden;
+						overflow-x: scroll;
 						overflow-y: hidden;
 					}
 
@@ -436,7 +436,7 @@ PostList*/
 						height: 47px !important;
 						margin-left: 25px;
 						padding:12px 20px 15px 20px !important;
-						overflow-x: hidden;
+						overflow-x: scroll;
 						overflow-y: hidden;
 					}
 
@@ -478,7 +478,7 @@ PostList*/
 						height: 47px !important;
 						margin-left: 25px;
 						padding:12px 20px 15px 0px !important;
-						overflow-x: hidden;
+						overflow-x: scroll;
 						overflow-y: hidden;
 					}
 
