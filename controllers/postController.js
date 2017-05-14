@@ -71,9 +71,9 @@ module.exports = {
 		})
 
 		og(url, function(err, meta){
-	        // if(err){
-	        // 	res.send('Sorry, there was an error adding this to Media Bias Map!')
-	        // }
+	        if(err){
+	        	res.send('Sorry, there was an error adding this to Media Bias Map!')
+	        }
 
 	        console.log("---------START META---------------");
 	        console.log(meta);
