@@ -17,7 +17,7 @@ class Search extends Component {
 				<input
 					name="searchInput"
 					id="search-input"
-					placeholder={'Search...'}
+					placeholder={'Type here & click things to explore...'}
 					onChange = {this.handleChange}
 					value={this.searchInput}
 				/>

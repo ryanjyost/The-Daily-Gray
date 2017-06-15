@@ -58,17 +58,19 @@ class Sidebar extends Component {
 						selectedBoxes={this.props.selectedBoxes}
 					/>
 
-					{this.props.showHelperText &&
+					{this.props.showHelperText && window.innerWidth > 950 &&
 						<HelperText
 							mapState={this.props.mapState}
 							hideHelperText={this.handleHideHelperText}
 						/>
 					}
 
+
 					<div id="sidebar-link-menu">
 						<a href="/terms-of-use">Terms of Use</a>
 						<a href="/privacy-policy">Privacy Policy</a>
 						<a href="/contact-us">Get in Touch</a>
+						<a target="_blank" id="blog-link" href="https://medium.com/the-daily-gray">Blog</a>
 					</div>
 
 				</div>

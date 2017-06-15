@@ -24880,7 +24880,7 @@
 					currentHoveredBox: [],
 					selectedBoxes: []
 				},
-				sidebarIsOpen: window.innerWidth < 768 ? false : true,
+				sidebarIsOpen: window.innerWidth < 950 ? false : true,
 				windowWidth: window.innerWidth
 			};
 			return _this;
@@ -25445,12 +25445,12 @@
 		title: {
 			margin: '0px 2px 11px 2px',
 			color: '#585858',
-			fontSize: 23
+			fontSize: 20
 		},
 		tagline: {
-			margin: '0px 2px 2px 2px',
+			margin: '2px 2px 2px 2px',
 			color: '#a4a4a4',
-			fontSize: 10
+			fontSize: 12
 		}
 	}), _defineProperty(_sidebar$postList$pos, 'sourceView', {
 		container: {
@@ -27748,7 +27748,7 @@
 						currentHoveredBox: this.props.currentHoveredBox,
 						selectedBoxes: this.props.selectedBoxes
 					}),
-					this.props.showHelperText && _react2.default.createElement(_HelperText2.default, {
+					this.props.showHelperText && window.innerWidth > 950 && _react2.default.createElement(_HelperText2.default, {
 						mapState: this.props.mapState,
 						hideHelperText: this.handleHideHelperText
 					}),
@@ -27769,6 +27769,11 @@
 							'a',
 							{ href: '/contact-us' },
 							'Get in Touch'
+						),
+						_react2.default.createElement(
+							'a',
+							{ target: '_blank', id: 'blog-link', href: 'https://medium.com/the-daily-gray' },
+							'Blog'
 						)
 					)
 				);
@@ -28134,7 +28139,7 @@
 					_react2.default.createElement("input", {
 						name: "searchInput",
 						id: "search-input",
-						placeholder: 'Search...',
+						placeholder: 'Type here & click things to explore...',
 						onChange: this.handleChange,
 						value: this.searchInput
 					})

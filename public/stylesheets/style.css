@@ -237,8 +237,27 @@ Sidebar
 		}
 
 			#sidebar-link-menu{
-				display: none;
+				position: absolute;
+				bottom: 0;
+				display: block;
+				margin: 0px 0px 20px 0px;
+				margin: auto;
+				text-align: center;
+				width: 100%;
 			}
+
+						#sidebar-link-menu a{
+							padding: 20px 10px 10px 0px;
+							font-size: 12px;
+							color: #a4a4a4;
+							font-weight: 200;
+						}
+
+						#blog-link{
+							text-align: center !important;
+							width: 100%;
+							font-weight: 600 !important;
+						}
 
 	/* Search */
 
@@ -251,10 +270,15 @@ Sidebar
 			border: 1px solid #f2f2f2;
 			border-radius: 3px;
 			max-width:  375px;
+			text-align: center;
 		}
 
 			#search-input:focus{
 				outline: 1px solid #d8d8d8;
+			}
+
+			#search-input::placeholder{
+				color:  #a4a4a4;
 			}
 
 			/* Map */
@@ -276,6 +300,7 @@ Sidebar
 				width: 100%;
 				margin: auto;
 				max-width:  375px;
+				margin-bottom: 20px;
 			}
 
 				.mapBox{
@@ -405,23 +430,6 @@ PostList*/
 						overflow-x: scroll;
 						overflow-y: hidden;
 					}
-
-					#sidebar-link-menu{
-								position: absolute;
-								bottom: 0;
-								display: block;
-								margin: 0px 0px 20px 10px;
-								margin: auto;
-								text-align: right;
-								width: 90%;
-					}
-
-						#sidebar-link-menu a{
-							padding: 20px 10px 10px 0px;
-							font-size: 7px;
-							text-align: right;
-							color: #a4a4a4;
-						}
 		}
 
 
@@ -510,7 +518,6 @@ PostList*/
 				top:  0;
 				bottom: 0;
 				left: 0;
-				overflow: scroll;
 				margin-top: 63px;
 			}
 
@@ -528,6 +535,14 @@ PostList*/
 
 			.iframeContainer{
 					width: 950px !important;
+				}
+
+				#sidebar-link-menu{
+					text-align: left !important;
+				}
+
+				#sidebar-link-menu a{
+					line-height: 4;
 				}
 		}
 
