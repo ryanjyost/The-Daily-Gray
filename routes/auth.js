@@ -15,7 +15,7 @@ authRouter.route('/sign-up-success')
 
 authRouter.route('/google/callback')
   .get(passport.authenticate('google', {
-    successRedirect: 'http://www.mediabiasmap.com/auth/sign-up-success/',
+    successRedirect: 'http://localhost:3000/auth/sign-up-success/',
     failure: '/error/'
   }));
 

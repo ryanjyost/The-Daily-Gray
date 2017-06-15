@@ -334,9 +334,9 @@ export default {
 		},
 
 		title:{
-			margin:'0px 2px 0px 2px',
+			margin:'0px 2px 11px 2px',
 			color: '#585858',
-			fontSize: 14,
+			fontSize: 23,
 		},
 		tagline: {
 			margin:'0px 2px 2px 2px',

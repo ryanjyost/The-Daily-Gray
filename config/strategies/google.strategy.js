@@ -6,12 +6,12 @@ module.exports = function(app) {
   passport.use(new GoogleStrategy({
   clientID: '52253389001-8ur1dufn11hd3n0gef5qlfqmb8ibrag2.apps.googleusercontent.com',
   clientSecret: 'IjPhH_gva44wiPtUKdsMB2Zg',
-  callbackURL: 'https://media-bias-map.herokuapp.com/auth/google/callback'},
+  callbackURL: 'http://localhost:3000/auth/google/callback'},
   function(req, accessToken, refreshToken, profile, done){
     var user = {};
-    var query = {'google.id': profile.id}
+    // var query = {'google.id': profile.id}
 
-    User.findOne(query, (error, user) => {
+    User.findById(profile.id, (error, user) => {
       if(user){
         console.log('found')
         done(null, user)

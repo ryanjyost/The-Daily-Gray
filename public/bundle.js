@@ -25443,9 +25443,9 @@
 		},
 	
 		title: {
-			margin: '0px 2px 0px 2px',
+			margin: '0px 2px 11px 2px',
 			color: '#585858',
-			fontSize: 14
+			fontSize: 23
 		},
 		tagline: {
 			margin: '0px 2px 2px 2px',
@@ -28723,12 +28723,7 @@
 						_react2.default.createElement(
 							'div',
 							{ style: _styles2.default.logo.title },
-							'Media Bias Map'
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'lato-light', style: _styles2.default.logo.tagline },
-							' A travel guide to online politics.'
+							'The Daily Gray'
 						)
 					)
 				);
