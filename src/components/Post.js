@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './styles.js'
+import TimeAgo from 'react-timeago'
 
 
 class Post extends Component {
@@ -16,6 +17,7 @@ class Post extends Component {
 	}
 
 	render(){
+
 		var x = this.props.xy[0],
 				y = this.props.xy[1];
 
@@ -42,14 +44,20 @@ class Post extends Component {
 
 		return (
 
-				<a href={this.props.url} >
+				<a target="_blank" href={this.props.url} >
 					<div className="postImage" style={{backgroundImage: 'url(' + (this.props.imageURL) +')'}}>
 						<div className="postInfo">
+
 							<h6 style={Object.assign({}, styles.post.ratingLabel, postTextColor)}>{label}</h6>
+
 							<div style={styles.post.postTitleAndDescContainer}>
 								<h2 style={styles.post.title}>{this.props.title}</h2>
-								<h6 className="postSource" style={styles.post.source}>{this.props.source}</h6>
+								<h6 style={styles.post.source}>{this.props.source} </h6>
+								<h6 style={styles.post.date}><TimeAgo date={this.props.createdAt}/></h6>
 							</div>
+
+
+
 						</div>
 					</div>
 				</a>

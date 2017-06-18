@@ -3,6 +3,7 @@ import styles from './styles.js'
 import MapFilter from './MapFilter'
 import Search from './Search'
 import HelperText from './HelperText'
+import HelperTextButton from './HelperTextButton'
 
 
 class Sidebar extends Component {
@@ -58,11 +59,11 @@ class Sidebar extends Component {
 						selectedBoxes={this.props.selectedBoxes}
 					/>
 
-					{this.props.showHelperText && window.innerWidth > 950 &&
+					{this.props.showHelperText && window.innerWidth > 950 ?
 						<HelperText
 							mapState={this.props.mapState}
 							hideHelperText={this.handleHideHelperText}
-						/>
+						/> : <HelperTextButton/>
 					}
 
 

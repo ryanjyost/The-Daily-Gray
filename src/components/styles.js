@@ -197,7 +197,7 @@ export default {
 			fontStyle: 'italic',
 			textOverflow: 'ellipsis',
 			overflow:'hidden',
-			width:'100%',
+			width:'70%',
 			height:'1.2em',
 			fontSize: 15,
 			padding:'0px 10px 0px 0px',
@@ -205,13 +205,25 @@ export default {
 			marginTop: 5,
 		},
 
+		date:{
+			width:'30%',
+			textAlign:'right',
+			fontStyle: 'italic',
+			fontSize: 12,
+			color:'#f2f2f2',
+			textAlign:'right',
+
+		},
+
 		ratingLabel:{
 			textAlign:'right',
 			fontSize: 12,
 			display: 'inline-block',
 			width:'100%',
-			fontWeight: '900'
-		}
+			fontWeight: '900',
+		},
+
+
 	},
 
 	//==============================
@@ -236,6 +248,7 @@ export default {
 
 		defaultHeader: {
 			fontWeight:'100',
+			maxWidth: 350,
 			color:'#585858',
 			fontSize:20,
 			lineHeight: '1.3em',
@@ -243,7 +256,8 @@ export default {
 			display:'block',
 			backgroundColor: '#fff',
 			padding:'5px 10px 7px 10px',
-			margin: '5px 0px 0px 0px',
+			marginBottom: '15px',
+			margin:'auto',
 			borderRadius: 25,
 			borderStyle: 'solid',
 			borderColor: '#f2f2f2',

@@ -57,7 +57,7 @@ class PostList extends Component {
 		const postList = filteredPostArray.map((post, i) => {
 
 			return(
-				<li style={styles.post.container}>
+				<li key={i.toString()} style={styles.post.container}>
 					<Post
 						title={post.title}
 						description={post.description}
@@ -65,6 +65,7 @@ class PostList extends Component {
 						xy={post.xy}
 						source={post.source}
 						imageURL={post.imageURL}
+						createdAt={post.created_at}
 					/>
 				</li>
 			)

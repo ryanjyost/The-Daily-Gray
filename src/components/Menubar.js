@@ -40,7 +40,11 @@ class Menubar extends Component {
 
   handleTopicClick(e){
     e.preventDefault()
-    const topic = e.currentTarget.textContent
+    let topic = e.currentTarget.textContent
+
+    if(topic == 'Simply Interesting'){
+      topic = 'none'
+    }
 
     this.props.updateTopic(topic)
   }
@@ -59,6 +63,7 @@ class Menubar extends Component {
     const topicList = this.state.topicList.map((topic, i) => {
       return (
         <Link
+          key={i.toString()}
           style={this.props.currentTopic == topic.name ? styles.menubar.link.active : styles.menubar.link}
           to={'/'}
           onClick={this.handleTopicClick}
@@ -70,8 +75,10 @@ class Menubar extends Component {
 
 		return (
 			<div id="menubar-container">
+
         <Logo/>
 
+        {/* Toggle Button */}
         <span
           id="toggle-filter-btn"
           style={this.props.sidebarIsOpen ? styles.menubar.toggleFilterButton.hide : styles.menubar.toggleFilterButton.show }
@@ -79,6 +86,7 @@ class Menubar extends Component {
         >
           {this.props.sidebarIsOpen ? 'X' : 'Filter'}
         </span>
+
 
         <div id="menubar-links-container">
           {/* <a
@@ -92,10 +100,21 @@ class Menubar extends Component {
             style={styles.menubar.link}
             to={'/'}
             onClick={this.resetTopic}>
-              Recent
+              Latest
           </Link>
 
           {topicList}
+
+
+          <Link
+            style={styles.menubar.link}
+            to={'/'}
+            onClick={this.handleTopicClick}>
+              Simply Interesting
+          </Link>
+
+
+
         </div>
 
 			</div>
