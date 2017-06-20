@@ -154,7 +154,7 @@ export default {
 			display: 'table-cell',
 			verticalAlign: 'bottom',
 			height: 250,
-
+			width:'100%'
 		},
 
 		image: {

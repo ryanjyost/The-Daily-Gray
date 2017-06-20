@@ -72,25 +72,43 @@ module.exports = {
 
 		og(url, function(err, meta){
 	        if(err){
-	        	res.send('Sorry, there was an error adding this to Media Bias Map!')
+	        	res.send('Sorry, there was an error adding this The Daily Gray')
 	        }
 
-	        console.log("---------START META---------------");
-	        console.log(meta);
-	        console.log("-----------END META---------------");
+	        let title = meta.title,
+	        		imageURL = meta.image.url,
+	        		source = meta.site_name;
+
+	        //if multiple OG properties on page, use first in array
+	        if(Array.isArray(title)){
+	        	console.log('Title Array Length', title)
+	        	title = title[0];
+	        }
+
+	        if(Array.isArray(imageURL)){
+	        	console.log('Image Array Length', imageURL.length)
+	        	imageURL = imageURL[0];
+	        }
+
+	        if(Array.isArray(source)){
+	        	console.log('Source Array Length', source.length)
+	        	source = source[0];
+	        }
 
 	        let postInfo = {
 	        	xy: [Number(xy[1]), Number(xy[3])] || [5,5],
 	        	url: url || '',
-	        	source: meta.site_name || '',
-	        	title: meta.title || '',
+	        	source: source || '',
+	        	title: title || '',
 	        	description: meta.description || '',
 	        	topic: topic || '',
-	        	imageURL: meta.image.url || '',
+	        	imageURL: imageURL || '',
 	        	addedById: userId || ''
 	        }
 
+	        console.log('=-=-=-=-=-=-=-=-=-=-=-=-')
 	        console.log(postInfo)
+	        console.log('=-=-=-=-=-=-=-=-=-=-=-=-')
 
 	    Post.create(postInfo, function(err, post){
 				if(err){
