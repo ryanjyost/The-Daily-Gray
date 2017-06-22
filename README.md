@@ -1,6 +1,6 @@
-# The Daily Gary
+# The Daily Grya
 A web application that offers a better way to consume political news and opinions.
 
 (Original name was "Media Bias Map")
 
-http://www.mediabiasmap.com/
+http://www.thedailygray.com/
