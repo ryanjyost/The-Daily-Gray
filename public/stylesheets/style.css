@@ -336,6 +336,25 @@ Welcome Banner*/
 	max-width: 800px;
 }
 
+/*=============================
+Loading
+*/
+
+#loader-container{
+	width: 100px;
+  height: 100px;
+  background-color: #A9D0F5  ;
+	background-image: -webkit-linear-gradient(-45deg, #A9D0F5 50%, #F5A9BC 50%);
+	z-index: -1;
+	padding: 20px;
+	display: block;
+	margin: auto;
+	margin-top:  20vh;
+}
+
+#loader{
+
+}
 
 /*=============================
 PostList*/
@@ -603,7 +622,7 @@ Add Source Form
 
 
 /*=============================
-Sign Up*/
+Utility Pages*/
 
 #main-cont-with-background {
     width: 100%;

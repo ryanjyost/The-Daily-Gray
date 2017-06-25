@@ -8,7 +8,7 @@ class PostList extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			loading: true
+			loading: false
 		}
 	}
 
@@ -73,6 +73,11 @@ class PostList extends Component {
 			)
 		})
 
+		//render loading
+		if(this.state.loading){
+			return <Loading/>
+		}
+
 		//render post list
 		return (
 			<div style={
@@ -80,7 +85,7 @@ class PostList extends Component {
 					 className="postListContainer"
 			>
 				<ul className="postList">
-						{this.state.loading ? <Loading/>  : postList}
+						{postList}
 				</ul>
 			</div>
 		)
