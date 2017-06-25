@@ -5,15 +5,16 @@ import TimeAgo from 'react-timeago'
 
 class Post extends Component {
 	constructor(props){
-		super(props)
-		this.handleImageError = this.handleImageError.bind(this);
+		super(props);
+		this.onLoad = this.onLoad.bind(this);
 		this.state = {
-			imageError: false,
+			imageDidLoad: false,
 		}
 	}
 
-	handleImageError(){
-		this.setState({imageError: true})
+	onLoad(){
+		console.log('skoosh');
+		this.setState({imageDidLoad: true});
 	}
 
 	render(){
@@ -43,24 +44,29 @@ class Post extends Component {
 		}
 
 		return (
+			<div>
+          <img
+            className="hidden"
+            src={this.props.url}
+            onLoad={this.onLoad}
+          />
 
-				<a target="_blank" href={this.props.url} >
-					<div className="postImage" style={{backgroundImage: 'url(' + (this.props.imageURL) +')'}}>
-						<div className="postInfo">
-
-							<h6 style={Object.assign({}, styles.post.ratingLabel, postTextColor)}>{label}</h6>
-
-							<div style={styles.post.postTitleAndDescContainer}>
-								<h2 style={styles.post.title}>{this.props.title}</h2>
-								<h6 style={styles.post.source}>{this.props.source} </h6>
-								<h6 style={styles.post.date}><TimeAgo date={this.props.createdAt}/></h6>
+				{
+					<a target="_blank" href={this.props.url} >
+						<div className="postImage" style={{backgroundImage: 'url(' + (this.props.imageURL) +')'}}>
+							<div className="postInfo">
+								<h6 style={Object.assign({}, styles.post.ratingLabel, postTextColor)}>{label}</h6>
+								<div style={styles.post.postTitleAndDescContainer}>
+									<h2 style={styles.post.title}>{this.props.title}</h2>
+									<h6 style={styles.post.source}>{this.props.source} </h6>
+									<h6 style={styles.post.date}><TimeAgo date={this.props.createdAt}/></h6>
+								</div>
 							</div>
-
-
-
 						</div>
-					</div>
-				</a>
+					</a>
+				}
+
+			</div>
 		)
 	}
 }

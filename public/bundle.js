@@ -28377,6 +28377,10 @@
 	
 	var _Loading2 = _interopRequireDefault(_Loading);
 	
+	var _immutabilityHelper = __webpack_require__(225);
+	
+	var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+	
 	var _styles = __webpack_require__(216);
 	
 	var _styles2 = _interopRequireDefault(_styles);
@@ -28397,13 +28401,34 @@
 	
 			var _this = _possibleConstructorReturn(this, (PostList.__proto__ || Object.getPrototypeOf(PostList)).call(this, props));
 	
+			_this.onImageLoad = _this.onImageLoad.bind(_this);
 			_this.state = {
-				loading: false
+				loading: true,
+				loadedPosts: []
 			};
 			return _this;
 		}
 	
 		_createClass(PostList, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var numberOfPosts = this.props.postList.length;
+	
+				setTimeout(function () {
+					this.setState({ loading: false });
+				}.bind(this), 2000);
+			}
+		}, {
+			key: 'onImageLoad',
+			value: function onImageLoad(post) {
+				// thanks Andrew Wong & Hackernoon
+				// this.setState(({ loadedPosts }) => {
+				//     return { loadedPosts: loadedPosts.concat(post) }
+				//   })
+	
+				console.log(post);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var currentHoveredBox = this.props.currentHoveredBox,
@@ -28490,9 +28515,7 @@
 				//render post list
 				return _react2.default.createElement(
 					'div',
-					{ style: this.props.sidebarIsOpen && window.innerWidth > 949 ? _styles2.default.postList.container.sidebarOpen : _styles2.default.postList.container.sidebarHidden,
-						className: 'postListContainer'
-					},
+					{ style: this.props.sidebarIsOpen && window.innerWidth > 949 ? _styles2.default.postList.container.sidebarOpen : _styles2.default.postList.container.sidebarHidden, className: 'postListContainer' },
 					_react2.default.createElement(
 						'ul',
 						{ className: 'postList' },
@@ -28547,17 +28570,18 @@
 	
 			var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 	
-			_this.handleImageError = _this.handleImageError.bind(_this);
+			_this.onLoad = _this.onLoad.bind(_this);
 			_this.state = {
-				imageError: false
+				imageDidLoad: false
 			};
 			return _this;
 		}
 	
 		_createClass(Post, [{
-			key: 'handleImageError',
-			value: function handleImageError() {
-				this.setState({ imageError: true });
+			key: 'onLoad',
+			value: function onLoad() {
+				console.log('skoosh');
+				this.setState({ imageDidLoad: true });
 			}
 		}, {
 			key: 'render',
@@ -28587,37 +28611,46 @@
 				}
 	
 				return _react2.default.createElement(
-					'a',
-					{ target: '_blank', href: this.props.url },
+					'div',
+					null,
+					_react2.default.createElement('img', {
+						className: 'hidden',
+						src: this.props.url,
+						onLoad: this.onLoad
+					}),
 					_react2.default.createElement(
-						'div',
-						{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
+						'a',
+						{ target: '_blank', href: this.props.url },
 						_react2.default.createElement(
 							'div',
-							{ className: 'postInfo' },
-							_react2.default.createElement(
-								'h6',
-								{ style: Object.assign({}, _styles2.default.post.ratingLabel, postTextColor) },
-								label
-							),
+							{ className: 'postImage', style: { backgroundImage: 'url(' + this.props.imageURL + ')' } },
 							_react2.default.createElement(
 								'div',
-								{ style: _styles2.default.post.postTitleAndDescContainer },
-								_react2.default.createElement(
-									'h2',
-									{ style: _styles2.default.post.title },
-									this.props.title
-								),
+								{ className: 'postInfo' },
 								_react2.default.createElement(
 									'h6',
-									{ style: _styles2.default.post.source },
-									this.props.source,
-									' '
+									{ style: Object.assign({}, _styles2.default.post.ratingLabel, postTextColor) },
+									label
 								),
 								_react2.default.createElement(
-									'h6',
-									{ style: _styles2.default.post.date },
-									_react2.default.createElement(_reactTimeago2.default, { date: this.props.createdAt })
+									'div',
+									{ style: _styles2.default.post.postTitleAndDescContainer },
+									_react2.default.createElement(
+										'h2',
+										{ style: _styles2.default.post.title },
+										this.props.title
+									),
+									_react2.default.createElement(
+										'h6',
+										{ style: _styles2.default.post.source },
+										this.props.source,
+										' '
+									),
+									_react2.default.createElement(
+										'h6',
+										{ style: _styles2.default.post.date },
+										_react2.default.createElement(_reactTimeago2.default, { date: this.props.createdAt })
+									)
 								)
 							)
 						)

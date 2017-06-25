@@ -66,6 +66,10 @@ body {
 		margin: 10px 0px 5px 0px;
 	}
 
+	.hidden{
+		display: none !important;
+	}
+
 
 
 
@@ -78,7 +82,6 @@ Main divs
 	#scrollable-body{
 
 	}
-
 
 	#main-cont{
 		margin: auto;
@@ -349,7 +352,7 @@ Loading
 	padding: 20px;
 	display: block;
 	margin: auto;
-	margin-top:  20vh;
+	margin-top:  25vh;
 }
 
 #loader{

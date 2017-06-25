@@ -2,15 +2,36 @@ import React, { Component } from 'react'
 import Post from './Post'
 import Menubar from './Menubar'
 import Loading from './Loading'
+import update from 'immutability-helper'
 import styles from './styles.js'
 
 class PostList extends Component {
 	constructor(props){
-		super(props)
+		super(props);
+		this.onImageLoad = this.onImageLoad.bind(this);
 		this.state = {
-			loading: false
+			loading: true,
+			loadedPosts: []
 		}
 	}
+
+	componentDidMount(){
+		const numberOfPosts = this.props.postList.length;
+
+		setTimeout(function() {
+			this.setState({loading:false});
+		}.bind(this), 2000)
+	}
+
+	onImageLoad(post){ // thanks Andrew Wong & Hackernoon
+		// this.setState(({ loadedPosts }) => {
+  //     return { loadedPosts: loadedPosts.concat(post) }
+  //   })
+
+  console.log(post);
+
+	}
+
 
 	render(){
 		const currentHoveredBox = this.props.currentHoveredBox,
@@ -80,13 +101,13 @@ class PostList extends Component {
 
 		//render post list
 		return (
-			<div style={
-				this.props.sidebarIsOpen && window.innerWidth > 949 ? styles.postList.container.sidebarOpen : styles.postList.container.sidebarHidden}
-					 className="postListContainer"
-			>
+
+			<div style={this.props.sidebarIsOpen && window.innerWidth > 949 ? styles.postList.container.sidebarOpen : styles.postList.container.sidebarHidden} className="postListContainer">
+
 				<ul className="postList">
 						{postList}
 				</ul>
+
 			</div>
 		)
 	}
