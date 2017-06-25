@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import Post from './Post'
 import Menubar from './Menubar'
+import Loading from './Loading'
 import styles from './styles.js'
 
 class PostList extends Component {
 	constructor(props){
 		super(props)
+		this.state = {
+			loading: true
+		}
 	}
 
 	render(){
@@ -33,7 +37,6 @@ class PostList extends Component {
 				})
 
 			} else{
-
 				if(currentHoveredBox.length != 0){
 					return filteredPostArray = postArray.filter((post) => {
 					 return currentHoveredBox[0] == Number(post.xy[0]) &&
@@ -55,7 +58,6 @@ class PostList extends Component {
 		})(postArray, searchInput, selectedBoxes);
 
 		const postList = filteredPostArray.map((post, i) => {
-
 			return(
 				<li key={i.toString()} style={styles.post.container}>
 					<Post
@@ -70,13 +72,15 @@ class PostList extends Component {
 				</li>
 			)
 		})
+
+		//render post list
 		return (
 			<div style={
 				this.props.sidebarIsOpen && window.innerWidth > 949 ? styles.postList.container.sidebarOpen : styles.postList.container.sidebarHidden}
 					 className="postListContainer"
 			>
 				<ul className="postList">
-						{postList}
+						{this.state.loading ? <Loading/>  : postList}
 				</ul>
 			</div>
 		)

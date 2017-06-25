@@ -28373,6 +28373,10 @@
 	
 	var _Menubar2 = _interopRequireDefault(_Menubar);
 	
+	var _Loading = __webpack_require__(263);
+	
+	var _Loading2 = _interopRequireDefault(_Loading);
+	
 	var _styles = __webpack_require__(216);
 	
 	var _styles2 = _interopRequireDefault(_styles);
@@ -28391,7 +28395,12 @@
 		function PostList(props) {
 			_classCallCheck(this, PostList);
 	
-			return _possibleConstructorReturn(this, (PostList.__proto__ || Object.getPrototypeOf(PostList)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (PostList.__proto__ || Object.getPrototypeOf(PostList)).call(this, props));
+	
+			_this.state = {
+				loading: true
+			};
+			return _this;
 		}
 	
 		_createClass(PostList, [{
@@ -28441,7 +28450,6 @@
 							return false;
 						});
 					} else {
-	
 						if (currentHoveredBox.length != 0) {
 							return filteredPostArray = postArray.filter(function (post) {
 								return currentHoveredBox[0] == Number(post.xy[0]) && currentHoveredBox[1] == Number(post.xy[1]) && (post['title'].toLowerCase().search(searchInput) > -1 || post['description'].toLowerCase().search(searchInput) > -1);
@@ -28459,7 +28467,6 @@
 				}(postArray, searchInput, selectedBoxes);
 	
 				var postList = filteredPostArray.map(function (post, i) {
-	
 					return _react2.default.createElement(
 						'li',
 						{ key: i.toString(), style: _styles2.default.post.container },
@@ -28474,6 +28481,8 @@
 						})
 					);
 				});
+	
+				//render post list
 				return _react2.default.createElement(
 					'div',
 					{ style: this.props.sidebarIsOpen && window.innerWidth > 949 ? _styles2.default.postList.container.sidebarOpen : _styles2.default.postList.container.sidebarHidden,
@@ -28482,7 +28491,7 @@
 					_react2.default.createElement(
 						'ul',
 						{ className: 'postList' },
-						postList
+						this.state.loading ? _react2.default.createElement(_Loading2.default, null) : postList
 					)
 				);
 			}
@@ -31595,6 +31604,59 @@
 	    each : each
 	};
 
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = __webpack_require__(216);
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Loading = function (_Component) {
+		_inherits(Loading, _Component);
+	
+		function Loading() {
+			_classCallCheck(this, Loading);
+	
+			return _possibleConstructorReturn(this, (Loading.__proto__ || Object.getPrototypeOf(Loading)).apply(this, arguments));
+		}
+	
+		_createClass(Loading, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'h1',
+					null,
+					'LOADING'
+				);
+			}
+		}]);
+	
+		return Loading;
+	}(_react.Component);
+	
+	exports.default = Loading;
 
 /***/ }
 /******/ ]);
