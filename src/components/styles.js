@@ -247,7 +247,7 @@ export default {
 		},
 
 		defaultHeader: {
-			fontWeight:'100',
+			fontWeight:'400',
 			maxWidth: 350,
 			color:'#585858',
 			fontSize:20,
@@ -260,7 +260,7 @@ export default {
 			margin:'auto',
 			borderRadius: 25,
 			borderStyle: 'solid',
-			borderColor: '#f2f2f2',
+			borderColor: '#a4a4a4',
 			borderWidth: 2
 		},
 

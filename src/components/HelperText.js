@@ -53,7 +53,7 @@ class HelperText extends Component {
 		//set rating label
 		let header = "";
 			header = <a href='/how-it-works' style={styles.HelperText.defaultHeader}>
-									How it works
+									Why We Exist
 							</a>
 
 

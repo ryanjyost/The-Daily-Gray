@@ -29,12 +29,7 @@ module.exports = {
 					})
 
 					//get 100 most recent posts
-					let selectedPosts = posts.slice(0, 500)
-
-					//randomize
-					// randomPosts = selectedPosts.sort((a,b) => {
-					// 	return (0.5 - Math.random());
-					// })
+					let selectedPosts = posts.slice(0, 100)
 
 					callback(null, selectedPosts);
 				//}

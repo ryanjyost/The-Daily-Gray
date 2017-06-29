@@ -9,7 +9,7 @@ class HelperTextButton extends Component {
 	render(){
 
 		let header = <a href='/how-it-works' style={styles.HelperText.defaultHeader}>
-										How it works
+										Why We Exist
 								</a>
 
 		return (
