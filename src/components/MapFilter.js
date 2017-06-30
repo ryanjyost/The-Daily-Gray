@@ -52,6 +52,7 @@ class MapFilter extends Component {
 				let x = coordinate[0],
 						y = coordinate[1],
 						boxStyle = styles.box,
+						boxBorder = styles.box.boxBorder,
 						yStyle = styles.box['y'+y],
 						xStyle = styles.box['x'+x],
 						hoverStyle = {},
@@ -59,8 +60,9 @@ class MapFilter extends Component {
 
 						//styling for top row
 						if(y == 4){
-							xStyle = styles.box.label.top
-							boxLabelStyle = styles.box.topLabel
+							xStyle = styles.box.label.top;
+							boxLabelStyle = styles.box.topLabel;
+							boxBorder = styles.box.topRowBoxBorder
 						}
 
 						//fake news label
@@ -81,7 +83,7 @@ class MapFilter extends Component {
 								x={x}
 								y={y}
 								selectedBoxes={this.props.selectedBoxes}
-								boxStyle={Object.assign({}, boxStyle, yStyle, xStyle, hoverStyle)}
+								boxStyle={Object.assign({}, boxStyle, yStyle, xStyle, boxBorder, hoverStyle)}
 								boxLabelStyle = {boxLabelStyle}
 								handleMouseEnter={this.handleBoxMouseEnter}
 								handleClick={this.handleBoxClick}

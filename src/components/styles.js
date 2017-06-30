@@ -46,21 +46,33 @@ export default {
 
 	box: {
 		display: 'inline-block',
-		borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
-		borderWidth: 1,
-		borderStyle: 'solid',
 		zIndex: 1,
 		position: 'relative',
 
+		boxBorder: {
+			borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
+			borderWidth: 1,
+			borderStyle: 'solid',
+		},
+
 		hover: {
 			borderColor:'#848484',
+		},
+
+		topRowBoxBorder: {
+			borderColor: '#f2f2f2 #f2f2f2 #585858 #f2f2f2',
+			borderWidth: 1,
+			borderStyle: 'solid',
 		},
 
 		//opacity based on vertical position in map
 		y1: {opacity: .8},
 		y2: {opacity: .5},
 		y3: {opacity: .2},
-		y4: {opacity: 1, backgroundColor: '#fafafa'},
+		y4: {
+					opacity: 1,
+					backgroundColor: '#fafafa',
+				},
 
 		//set colors based on horizontal position in map
 		x1: {backgroundColor: "#A9D0F5"},

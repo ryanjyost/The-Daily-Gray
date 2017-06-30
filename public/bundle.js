@@ -25184,21 +25184,33 @@
 	
 		box: {
 			display: 'inline-block',
-			borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
-			borderWidth: 1,
-			borderStyle: 'solid',
 			zIndex: 1,
 			position: 'relative',
 	
+			boxBorder: {
+				borderColor: '#e6e6e6 #f2f2f2 #e6e6e6 #f2f2f2',
+				borderWidth: 1,
+				borderStyle: 'solid'
+			},
+	
 			hover: {
 				borderColor: '#848484'
+			},
+	
+			topRowBoxBorder: {
+				borderColor: '#f2f2f2 #f2f2f2 #585858 #f2f2f2',
+				borderWidth: 1,
+				borderStyle: 'solid'
 			},
 	
 			//opacity based on vertical position in map
 			y1: { opacity: .8 },
 			y2: { opacity: .5 },
 			y3: { opacity: .2 },
-			y4: { opacity: 1, backgroundColor: '#fafafa' },
+			y4: {
+				opacity: 1,
+				backgroundColor: '#fafafa'
+			},
 	
 			//set colors based on horizontal position in map
 			x1: { backgroundColor: "#A9D0F5" },
@@ -27903,6 +27915,7 @@
 					var x = coordinate[0],
 					    y = coordinate[1],
 					    boxStyle = _styles2.default.box,
+					    boxBorder = _styles2.default.box.boxBorder,
 					    yStyle = _styles2.default.box['y' + y],
 					    xStyle = _styles2.default.box['x' + x],
 					    hoverStyle = {},
@@ -27912,6 +27925,7 @@
 					if (y == 4) {
 						xStyle = _styles2.default.box.label.top;
 						boxLabelStyle = _styles2.default.box.topLabel;
+						boxBorder = _styles2.default.box.topRowBoxBorder;
 					}
 	
 					//fake news label
@@ -27930,7 +27944,7 @@
 						x: x,
 						y: y,
 						selectedBoxes: _this2.props.selectedBoxes,
-						boxStyle: Object.assign({}, boxStyle, yStyle, xStyle, hoverStyle),
+						boxStyle: Object.assign({}, boxStyle, yStyle, xStyle, boxBorder, hoverStyle),
 						boxLabelStyle: boxLabelStyle,
 						handleMouseEnter: _this2.handleBoxMouseEnter,
 						handleClick: _this2.handleBoxClick
