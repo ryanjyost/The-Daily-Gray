@@ -28,7 +28,7 @@ class MainView extends Component {
 			map: {
 				hover: false,
 				currentHoveredBox: [],
-				selectedBoxes: []
+				selectedBoxes: [[1,4], [2,4], [3, 3], [3, 2], [2, 2], [4, 2]]
 			},
 			sidebarIsOpen: window.innerWidth < 950 ? false : true,
 			windowWidth: window.innerWidth,

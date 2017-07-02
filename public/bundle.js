@@ -24878,7 +24878,7 @@
 				map: {
 					hover: false,
 					currentHoveredBox: [],
-					selectedBoxes: []
+					selectedBoxes: [[1, 4], [2, 4], [3, 3], [3, 2], [2, 2], [4, 2]]
 				},
 				sidebarIsOpen: window.innerWidth < 950 ? false : true,
 				windowWidth: window.innerWidth
@@ -25197,8 +25197,25 @@
 				borderColor: '#848484'
 			},
 	
+			selected: {
+				display: 'inline-block',
+				zIndex: 100000,
+				position: 'relative',
+				backgroundColor: '#fff',
+	
+				top: {
+					selected: {
+						backgroundColor: '#a4a4a4'
+					}
+				},
+	
+				checkmark: {
+					marginBottom: 5
+				}
+			},
+	
 			topRowBoxBorder: {
-				borderColor: '#f2f2f2 #f2f2f2 #585858 #f2f2f2',
+				borderColor: '#f2f2f2 #f2f2f2 #a4a4a4 #f2f2f2',
 				borderWidth: 1,
 				borderStyle: 'solid'
 			},
@@ -25230,7 +25247,6 @@
 				display: 'inline-block',
 				zIndex: 1000,
 				height: '100%',
-				fontSize: 26,
 	
 				left: {
 					fontSize: 12,
@@ -25246,7 +25262,15 @@
 	
 				top: {
 					fontSize: 10,
-					textAlign: 'center'
+					textAlign: 'center',
+	
+					selected: {
+						textAlign: 'center',
+						width: '100%',
+						display: 'inline-block',
+						textDecoration: 'underline',
+						backgroundColor: '#fff'
+					}
 				},
 	
 				fakeNews: {
@@ -25255,7 +25279,11 @@
 					textAlign: 'center',
 					width: '100%',
 					display: 'inline-block',
-					color: '#f2f2f2'
+					color: '#f2f2f2',
+	
+					selected: {
+						textDecoration: 'underline'
+					}
 				}
 			},
 	
@@ -28046,7 +28074,8 @@
 			value: function render() {
 				//conditional labelling
 				var label = '',
-				    moreLabelStyle = {};
+				    moreLabelStyle = {},
+				    boxStyle = this.props.boxStyle;
 	
 				if (this.props.y == 4) {
 					var topRowLabels = ['', 'News', 'Facts', 'Stats', 'Interview', 'Other'];
@@ -28077,8 +28106,16 @@
 						var coordinate = _step.value;
 	
 						if (this.props.x == coordinate[0] && this.props.y == coordinate[1]) {
-							label = '-';
-							moreLabelStyle = { backgroundColor: '#fff', color: "#000" };
+							if (this.props.y == 4) {
+								moreLabelStyle = _styles2.default.box.label.top.selected;
+								boxStyle = Object.assign({}, _styles2.default.box, _styles2.default.box.selected.top, _styles2.default.box.boxBorder);
+							} else if (this.props.y == 0) {
+								moreLabelStyle = Object.assign({}, _styles2.default.box.label.fakeNews.selected, _styles2.default.box.label.fakeNews);
+							} else {
+								label = _react2.default.createElement('img', { style: _styles2.default.box.selected.checkmark, width: '60%', height: '60%', src: 'images/checkmark.png' });
+								boxStyle = Object.assign({}, _styles2.default.box.selected, _styles2.default.box.boxBorder);
+								moreLabelStyle = {};
+							}
 						}
 					}
 				} catch (err) {
@@ -28100,7 +28137,7 @@
 					'div',
 					{
 						className: 'mapBox',
-						style: this.props.boxStyle,
+						style: boxStyle,
 						onMouseEnter: this.handleMouseEnter,
 						onClick: this.handleClick
 					},

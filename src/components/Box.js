@@ -23,7 +23,8 @@ class Box extends Component {
 	render(){
 		//conditional labelling
 		let label = '',
-				moreLabelStyle={};
+				moreLabelStyle={},
+				boxStyle=this.props.boxStyle;
 
 		if(this.props.y == 4){
 			const topRowLabels = ['','News', 'Facts', 'Stats', 'Interview', 'Other' ]
@@ -47,15 +48,24 @@ class Box extends Component {
 		//label for selected box
 		for(let coordinate of this.props.selectedBoxes){
 			if(this.props.x == coordinate[0] && this.props.y == coordinate[1]){
-				label = '-'
-				moreLabelStyle = {backgroundColor: '#fff', color:"#000"}
+				if(this.props.y == 4){
+					moreLabelStyle= styles.box.label.top.selected;
+					boxStyle= Object.assign({}, styles.box, styles.box.selected.top, styles.box.boxBorder);
+				} else if(this.props.y == 0){
+					moreLabelStyle= Object.assign({}, styles.box.label.fakeNews.selected, styles.box.label.fakeNews);
+				} else {
+					label = <img style={styles.box.selected.checkmark} width="60%" height="60%" src="images/checkmark.png"></img>;
+					boxStyle= Object.assign({}, styles.box.selected, styles.box.boxBorder);
+					moreLabelStyle = {};
+				}
+
 			}
 		}
 
 		return (
 			<div
 				className='mapBox'
-				style={this.props.boxStyle}
+				style={boxStyle}
 				onMouseEnter={this.handleMouseEnter}
 				onClick={this.handleClick}
 			>

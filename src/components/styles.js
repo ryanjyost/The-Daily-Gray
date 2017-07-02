@@ -59,8 +59,25 @@ export default {
 			borderColor:'#848484',
 		},
 
+		selected:{
+			display: 'inline-block',
+			zIndex: 100000,
+			position: 'relative',
+			backgroundColor: '#fff',
+
+			top:{
+				selected: {
+					backgroundColor: '#a4a4a4',
+				}
+			},
+
+			checkmark: {
+				marginBottom: 5,
+			},
+		},
+
 		topRowBoxBorder: {
-			borderColor: '#f2f2f2 #f2f2f2 #585858 #f2f2f2',
+			borderColor: '#f2f2f2 #f2f2f2 #a4a4a4 #f2f2f2',
 			borderWidth: 1,
 			borderStyle: 'solid',
 		},
@@ -92,7 +109,6 @@ export default {
 			display:'inline-block',
 			zIndex: 1000,
 			height: '100%',
-			fontSize: 26,
 
 			left: {
 				fontSize:12,
@@ -110,6 +126,14 @@ export default {
 			top: {
 				fontSize:10,
 				textAlign:'center',
+
+				selected: {
+					textAlign:'center',
+					width:'100%',
+					display:'inline-block',
+					textDecoration: 'underline',
+					backgroundColor: '#fff',
+				},
 			},
 
 			fakeNews: {
@@ -119,6 +143,10 @@ export default {
 				width:'100%',
 				display:'inline-block',
 				color:'#f2f2f2',
+
+				selected: {
+					textDecoration: 'underline',
+				}
 			},
 		},
 

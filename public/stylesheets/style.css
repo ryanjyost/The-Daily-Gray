@@ -320,6 +320,14 @@ Sidebar
 
 				.box-label{
 					line-height: 66px;
+					font-size: 15px;
+				}
+
+				@media(min-width: 950px){
+					.box-label{
+						line-height: 66px;
+						font-size: 10px;
+					}
 				}
 
 			#reset-btn{
