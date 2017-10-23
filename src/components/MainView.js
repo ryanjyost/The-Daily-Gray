@@ -1,243 +1,241 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import styles from './styles.js'
-import superagent from 'superagent'
-import update from 'immutability-helper'
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import styles from "./styles.js";
+import superagent from "superagent";
+import update from "immutability-helper";
 
-import Sidebar from './Sidebar'
-import PostList from './PostList'
-import Menubar from './Menubar'
+import Sidebar from "./Sidebar";
+import PostList from "./PostList";
+import Menubar from "./Menubar";
 
 class MainView extends Component {
-	constructor(){
-		super()
-		this.handleTopicChange = this.handleTopicChange.bind(this);
-		this.handleSearchChange = this.handleSearchChange.bind(this);
-		this.handleBoxHover= this.handleBoxHover.bind(this);
-		this.handleMapLeave= this.handleMapLeave.bind(this);
-		this.handleBoxClick= this.handleBoxClick.bind(this);
-		this.handleFilterReset= this.handleFilterReset.bind(this);
-		this.handleHideHelperText= this.handleHideHelperText.bind(this);
-		this.handleFilterToggle= this.handleFilterToggle.bind(this);
-		this.updateWindowWidth= this.updateWindowWidth.bind(this);
-		this.state = {
-			postList: [],
-			searchInput: '',
-			showHelperText: true,
-			currentTopic: '',
-			map: {
-				hover: false,
-				currentHoveredBox: [],
-				selectedBoxes: [[1,4], [2,4], [3, 3], [3, 2], [2, 2], [4, 2]]
-			},
-			sidebarIsOpen: window.innerWidth < 950 ? false : true,
-			windowWidth: window.innerWidth,
-		}
-	}
+  constructor() {
+    super();
+    this.handleTopicChange = this.handleTopicChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleBoxHover = this.handleBoxHover.bind(this);
+    this.handleMapLeave = this.handleMapLeave.bind(this);
+    this.handleBoxClick = this.handleBoxClick.bind(this);
+    this.handleFilterReset = this.handleFilterReset.bind(this);
+    this.handleHideHelperText = this.handleHideHelperText.bind(this);
+    this.handleFilterToggle = this.handleFilterToggle.bind(this);
+    this.updateWindowWidth = this.updateWindowWidth.bind(this);
+    this.state = {
+      postList: [],
+      searchInput: "",
+      showHelperText: true,
+      currentTopic: "",
+      map: {
+        hover: false,
+        currentHoveredBox: [],
+        selectedBoxes: [[1, 4], [2, 4], [3, 3], [3, 2], [2, 2], [4, 2]]
+      },
+      sidebarIsOpen: window.innerWidth < 950 ? false : true,
+      windowWidth: window.innerWidth
+    };
+  }
 
-	//==================================
-	// Handle window resizing
-	updateWindowWidth(){
-		this.setState({
-			windowWidth: window.innerWidth
-		})
-	}
+  //==================================
+  // Handle window resizing
+  updateWindowWidth() {
+    this.setState({
+      windowWidth: window.innerWidth
+    });
+  }
 
-	componentWillMount(){
-		this.updateWindowWidth()
-	}
+  componentWillMount() {
+    this.updateWindowWidth();
+  }
 
-	componentWillUnmount(){
-		window.removeEventListener("resize", this.updateWindowWidth);
-	}
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateWindowWidth);
+  }
 
+  componentDidMount() {
+    //check for window width change
+    window.addEventListener("resize", this.updateWindowWidth);
 
-	componentDidMount(){
+    //get recent posts
+    superagent
+      .get("/api/post")
+      .query(null)
+      .set("Accept", "application/json")
+      .end((err, response) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
 
-		//check for window width change
-		window.addEventListener("resize", this.updateWindowWidth)
+        let results = response.body.results;
 
-		//get recent posts
-		superagent
-			.get('/api/post')
-			.query(null)
-			.set('Accept', 'application/json')
-			.end((err, response) => {
-				if(err){
-					console.log(err)
-					return
-				}
+        this.setState({
+          postList: results
+        });
+      });
+  }
 
-				let results = response.body.results;
+  //==================================
+  // Topic handlers
+  handleTopicChange(topic) {
+    const oldState = this.state;
 
-				this.setState({
-					postList: results
-				})
+    const newState = update(oldState, {
+      currentTopic: { $set: topic }
+    });
 
-			})
-	}
+    let queryTopic = topic.length > 0 ? { topic: topic } : null;
 
-	//==================================
-	// Topic handlers
-	handleTopicChange(topic){
-		const oldState = this.state;
+    superagent
+      .get("/api/post")
+      .query(queryTopic)
+      .set("Accept", "application/json")
+      .end((err, response) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
 
-		const newState = update(oldState, {
-			currentTopic: {$set: topic},
-		});
+        let results = response.body.results;
 
-		let queryTopic = topic.length > 0 ? {'topic': topic} : null;
+        this.setState({
+          postList: results
+        });
+      });
 
-		superagent
-			.get('/api/post')
-			.query(queryTopic)
-			.set('Accept', 'application/json')
-			.end((err, response) => {
-				if(err){
-					console.log(err)
-					return
-				}
+    this.setState(newState);
+  }
 
-				let results = response.body.results;
+  //==================================
+  // Menubar handlers
+  handleFilterToggle() {
+    const oldSidebarIsOpen = this.state.sidebarIsOpen;
+    this.setState({ sidebarIsOpen: !oldSidebarIsOpen });
+  }
 
-				this.setState({
-					postList: results
-				})
+  //==================================
+  // Map Filter handlers
+  handleBoxHover(hoverBoolean, coordinateArray) {
+    const oldMapState = this.state.map;
+    const newMapState = update(oldMapState, {
+      hover: { $set: hoverBoolean },
+      currentHoveredBox: { $set: coordinateArray }
+    });
 
-			})
+    this.setState({
+      map: newMapState
+    });
+  }
 
-		this.setState(newState)
-	}
+  handleSearchChange(searchInput) {
+    let newSearchInput = Object.assign("", this.state.searchInput);
+    newSearchInput = searchInput;
 
-	//==================================
-	// Menubar handlers
-	handleFilterToggle(){
-		const oldSidebarIsOpen = this.state.sidebarIsOpen;
-		this.setState({sidebarIsOpen: !oldSidebarIsOpen })
-	}
+    this.setState({ searchInput: newSearchInput });
+  }
 
-	//==================================
-	// Map Filter handlers
-	handleBoxHover(hoverBoolean, coordinateArray){
-		const oldMapState = this.state.map;
-		const newMapState = update(oldMapState, {
-			hover: {$set: hoverBoolean},
-			currentHoveredBox: {$set: coordinateArray}
-		});
+  handleMapLeave(hoverBoolean) {
+    const oldMapState = this.state.map;
+    const newMapState = update(oldMapState, {
+      hover: { $set: hoverBoolean },
+      currentHoveredBox: { $set: [] }
+    });
 
-		this.setState({
-			map: newMapState
-		})
-	}
+    this.setState({
+      map: newMapState
+    });
+  }
 
-	handleSearchChange(searchInput){
-		let newSearchInput = Object.assign('', this.state.searchInput)
-		newSearchInput = searchInput;
+  handleBoxClick(coordinateArray) {
+    const oldMapState = this.state.map,
+      oldSelectedBoxes = this.state.map.selectedBoxes;
 
-		this.setState({searchInput: newSearchInput})
-	}
+    let alreadySelected = false,
+      newSelectedBoxes = Object.assign([], oldSelectedBoxes),
+      index = null;
 
-	handleMapLeave(hoverBoolean){
-		const oldMapState = this.state.map;
-		const newMapState = update(oldMapState, {
-			hover: {$set: hoverBoolean},
-			currentHoveredBox: {$set: []}
-		});
+    for (let coordinates of oldSelectedBoxes) {
+      if (
+        coordinates[0] == coordinateArray[0] &&
+        coordinates[1] == coordinateArray[1]
+      ) {
+        alreadySelected = true;
+        index = newSelectedBoxes.indexOf(coordinates);
+      }
+    }
 
-		this.setState({
-			map: newMapState
-		})
-	}
+    if (alreadySelected) {
+      const newMapState = update(oldMapState, {
+        selectedBoxes: { $splice: [[index, 1]] }
+      });
 
-	handleBoxClick(coordinateArray){
-		const oldMapState = this.state.map,
-					oldSelectedBoxes = this.state.map.selectedBoxes;
+      this.setState({
+        map: newMapState
+      });
+    } else {
+      // add coordinates to selected boxes
+      const newMapState = update(oldMapState, {
+        selectedBoxes: { $push: [coordinateArray] }
+      });
 
-		let alreadySelected = false,
-				newSelectedBoxes = Object.assign([], oldSelectedBoxes),
-				index = null;
+      this.setState({
+        map: newMapState
+      });
+    }
+  }
 
-		for(let coordinates of oldSelectedBoxes){
-			if(coordinates[0] == coordinateArray[0] && coordinates[1] == coordinateArray[1]){
-				alreadySelected = true;
-				index = newSelectedBoxes.indexOf(coordinates)
-			}
-		}
+  handleFilterReset() {
+    const oldState = this.state;
 
-		if(alreadySelected){
-			const newMapState = update(oldMapState, {
-				selectedBoxes: {$splice: [[index, 1]]}
-			});
+    const newState = update(oldState, {
+      searchInput: { $set: "" },
+      map: {
+        selectedBoxes: { $set: [] }
+      }
+    });
 
-			this.setState({
-				map: newMapState
-			})
-		} else{ // add coordinates to selected boxes
-			const newMapState = update(oldMapState, {
-				selectedBoxes: {$push: [coordinateArray]}
-			});
+    this.setState(newState);
+  }
 
-			this.setState({
-				map: newMapState
-			})
-		}
-	}
+  handleHideHelperText() {
+    this.setState({ showHelperText: false });
+  }
 
-	handleFilterReset(){
-		const oldState = this.state;
+  render() {
+    return (
+      <div style={styles.mainView.container}>
+        <Menubar
+          updateTopic={this.handleTopicChange}
+          currentTopic={this.state.currentTopic}
+          sidebarIsOpen={this.state.sidebarIsOpen}
+          toggleFilter={this.handleFilterToggle}
+        />
 
-		const newState = update(oldState, {
-			searchInput: {$set: ''},
-			map:{
-				selectedBoxes: {$set: []},
-			}
-		});
+        {this.state.sidebarIsOpen && (
+          <Sidebar
+            showHelperText={this.state.showHelperText}
+            mapState={this.state.map}
+            hideHelperText={this.handleHideHelperText}
+            updateSearch={this.handleSearchChange}
+            searchInput={this.state.searchInput}
+            updateCurrentHoveredBox={this.handleBoxHover}
+            updateMapHover={this.handleMapLeave}
+            updateSelectedBoxes={this.handleBoxClick}
+            resetFilter={this.handleFilterReset}
+            currentHoveredBox={this.state.map.currentHoveredBox}
+            selectedBoxes={this.state.map.selectedBoxes}
+          />
+        )}
 
-		this.setState(newState)
-	}
-
-	handleHideHelperText(){
-		this.setState({showHelperText: false})
-	}
-
-	render(){
-		return (
-				<div style= {styles.mainView.container}>
-					<Menubar
-						updateTopic={this.handleTopicChange}
-						currentTopic={this.state.currentTopic}
-						sidebarIsOpen={this.state.sidebarIsOpen}
-						toggleFilter={this.handleFilterToggle}
-					/>
-
-						{this.state.sidebarIsOpen &&
-							<Sidebar
-								showHelperText={this.state.showHelperText}
-								mapState={this.state.map}
-								hideHelperText={this.handleHideHelperText}
-								updateSearch={this.handleSearchChange}
-								searchInput = {this.state.searchInput}
-								updateCurrentHoveredBox={this.handleBoxHover}
-								updateMapHover={this.handleMapLeave}
-								updateSelectedBoxes={this.handleBoxClick}
-								resetFilter={this.handleFilterReset}
-								currentHoveredBox={this.state.map.currentHoveredBox}
-								selectedBoxes={this.state.map.selectedBoxes}
-							/>
-						}
-
-						<PostList
-							postList={this.state.postList}
-							searchInput={this.state.searchInput}
-							currentHoveredBox={this.state.map.currentHoveredBox}
-							selectedBoxes={this.state.map.selectedBoxes}
-							sidebarIsOpen={this.state.sidebarIsOpen}
-						/>
-
-				</div>
-
-		)
-	}
+        <PostList
+          postList={this.state.postList}
+          searchInput={this.state.searchInput}
+          currentHoveredBox={this.state.map.currentHoveredBox}
+          selectedBoxes={this.state.map.selectedBoxes}
+          sidebarIsOpen={this.state.sidebarIsOpen}
+        />
+      </div>
+    );
+  }
 }
 
-export default MainView
+export default MainView;
