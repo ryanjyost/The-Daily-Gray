@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Screenshot = require("../models/screenshot.js");
+const Batch = require("../models/batch.js");
 
 router.get("/", (req, res) => {
   const params = {};
-  Screenshot.find(params, (err, screenshots) => {
-    res.json({ screenshots });
+  Batch.find(params, (err, batches) => {
+    res.status(200).send({ batches });
   });
 });
 

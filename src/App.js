@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, IndexRoute } from "react-router-dom";
 
 import MainView from "./components/MainView";
-import Sites from "./components/Sites";
+//import Sites from "./components/Sites";
 
 class App extends Component {
   render() {
@@ -11,8 +11,8 @@ class App extends Component {
       <div id="App">
         <Router>
           <div id="main-cont">
-            <Route path="/media-bis-map-beta" component={MainView} />
-            <Route exact={true} path="/" component={Sites} />
+            <Route path="/" component={MainView} />
+            {/*<Route exact={true} path="/" component={Sites} /> */}
           </div>
         </Router>
       </div>

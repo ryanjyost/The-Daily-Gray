@@ -8,7 +8,8 @@ router.use("/api", require("./api"));
 router.use("/admin", require("./admin"));
 router.use("/auth", require("./auth"));
 router.use("/users", require("./users"));
-router.use("/screenshots", require("./screenshots"));
+router.use("/records", require("./records"));
+router.use("/batches", require("./batches"));
 
 // router.get("/sites", (req, res) => {
 //   webshot("cnn.com", "/screenshots/cnn.png", err => {

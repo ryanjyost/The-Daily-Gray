@@ -10,27 +10,16 @@ const passport = require("passport");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cron = require("node-cron");
+const cors = require("cors");
 const saveScreenshots = require("./saveScreenshots");
 const sites = require("./sites");
 
 var app = express();
 
-//======================================
-//save images
-var task = cron.schedule(
-  "* * * * *",
-  function() {
-    saveScreenshots(sites);
-  },
-  false
-);
-
-task.start();
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 8000);
 
 //======================================
 //middleware
@@ -40,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(cors());
 
 //session
 app.use(session({ secret: "skoosh" }));
@@ -75,7 +65,7 @@ app.get("*", function(req, res, next) {
 //Listen on port
 app.listen(app.get("port"), error => {
   if (error) console.error(error);
-  console.log("app is listening on 3000");
+  console.log(`app is listening on ${app.get("port")}`);
 });
 
 module.exports = app;

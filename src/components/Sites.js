@@ -5,14 +5,14 @@ export default class Sites extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      screenshots: []
+      records: []
     };
   }
 
   componentDidMount() {
     //get recent posts
     superagent
-      .get("/screenshots")
+      .get("/records")
       .query(null)
       .set("Accept", "application/json")
       .end((err, response) => {
@@ -30,7 +30,7 @@ export default class Sites extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ overflow: "auto", height: "100vh" }}>
         <h1>test</h1>
         {this.state.screenshots.map(screenshot => {
           return <img src={screenshot.url} width="500" height="400" />;
