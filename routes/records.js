@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Record = require("../models/record.js");
+const Batch = require("../models/batch.js");
 
 router.get("/", (req, res) => {
   //res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
-  console.log(req);
 
   const params = {};
   Record.find(params, (err, records) => {
@@ -14,11 +14,11 @@ router.get("/", (req, res) => {
 
 router.get("/batch/:batchId", (req, res) => {
   //res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
-  console.log(req.params);
-
-  const params = { batch: Number(req.params.batchId) };
-  Record.find(params, (err, records) => {
-    res.status(200).send({ records });
+  Batch.findOne({}, {}, { sort: { created_at: -1 } }, function(err, batch) {
+    const params = { batch: Number(batch.id) };
+    Record.find(params, (err, records) => {
+      res.status(200).send({ records });
+    });
   });
 });
 
