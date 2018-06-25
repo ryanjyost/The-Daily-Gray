@@ -12,14 +12,35 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/batch/:batchId", (req, res) => {
+router.get("/get_recent", (req, res) => {
   //res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
-  Batch.findOne({}, {}, { sort: { created_at: -1 } }, function(err, batch) {
-    const params = { batch: Number(batch.id) };
-    Record.find(params, (err, records) => {
-      res.status(200).send({ records });
-    });
-  });
+  Batch.findOne(
+    { "records.1": { $exists: true } }, //make sure there's records in the batch
+    {},
+    { sort: { created_at: -1 } },
+    function(err, batch) {
+      const params = { batch: Number(batch.id) };
+      Record.find(params, (err, records) => {
+        res.status(200).send({ records });
+      });
+    }
+  );
+});
+
+router.get("/get_recent_links", (req, res) => {
+  //res.writeHead(200, { "Access-Control-Allow-Origin": "*" });
+  Batch.findOne(
+    { "records.1": { $exists: true } },
+    {},
+    { sort: { created_at: -1 } },
+    function(err, batch) {
+      const params = { batch: Number(batch.id) };
+      Record.find(params, (err, records) => {
+        let hash = {};
+        res.status(200).send({ records, batch });
+      });
+    }
+  );
 });
 
 module.exports = router;
